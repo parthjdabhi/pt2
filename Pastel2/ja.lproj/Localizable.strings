@@ -1,0 +1,29 @@
+/* 
+  Localizable.strings
+  Pastel2
+
+  Created by SSC on 2014/05/27.
+  Copyright (c) 2014年 SSC. All rights reserved.
+*/
+
+"None" = "なし";
+"Camera is not available." = "カメラを利用できません。";
+
+"RESOLUTION" = "サイズ";
+"SMALL" = "小";
+"MEDIUM" = "中";
+"MAX" = "最大";
+"CAMERA ROLL" = "カメラロールへ保存";
+"TWITTER" = "Twitter";
+"INSTAGRAM" = "Instagram";
+"FACEBOOK" = "Facebook";
+"OTHER APPS" = "他のアプリへ送る";
+
+"share_on_twitter" = "Twitterの友達にPastelを紹介すると7種類のエフェクトを追加できます";
+"Tweet" = "ツイートする";
+"No Thanks" = "いらない";
+"Thank you!" = "追加しました";
+
+"Error" = "エラー";
+"no_access_to_your_photos" = "写真およびビデオへのアクセス権がありません。iPhoneの「設定」から、「プライバシー」→「写真」→「Pastel」をオンにしてください。";
+"no_access_due_to_parental_controls" = "写真およびビデオへのアクセス権がありません。ペアレンタルコントロールによりブロックされている可能性があります。";
