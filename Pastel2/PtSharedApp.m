@@ -43,9 +43,10 @@ static PtSharedApp* sharedPtSharedApp = nil;
     return self;
 }
 
-#pragma mark lock
+#pragma mark settings
 
-+ (BOOL)didUnlockExtraEffects
+//// エフェクトのアンロック
+- (BOOL)didUnlockExtraEffects
 {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     BOOL f = [ud boolForKey:@"unlocked"];
@@ -55,14 +56,85 @@ static PtSharedApp* sharedPtSharedApp = nil;
     return NO;
 }
 
-+ (void)unlockExtraEffects
+- (void)setDidUnlockExtraEffects:(BOOL)didUnlockExtraEffects
 {
-    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    [ud setBool:YES forKey:@"unlocked"];
-    [ud synchronize];
-    
+    if (didUnlockExtraEffects) {
+        NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+        [ud setBool:YES forKey:@"unlocked"];
+        [ud synchronize];
+    }
 }
 
+//// 起動時にカメラモード
 
+- (BOOL)startInCameraMode
+{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSInteger f = [ud integerForKey:@"startInCameraMode"];
+    if (f == 2) {
+        return YES;
+    }else if(f == 1){
+        return NO;
+    }
+    //// デフォルト
+    self.startInCameraMode = YES;
+    return YES;
+}
+
+- (void)setStartInCameraMode:(BOOL)startInCameraMode
+{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSInteger flag = (startInCameraMode) ? 2 : 1;
+    [ud setInteger:flag forKey:@"startInCameraMode"];
+    [ud synchronize];
+}
+
+//// 撮影してすぐ共有
+
+- (BOOL)shootAndShare
+{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSInteger f = [ud integerForKey:@"shootAndShare"];
+    if (f == 2) {
+        return YES;
+    }else if(f == 1){
+        return NO;
+    }
+    //// デフォルト
+    self.shootAndShare = YES;
+    return YES;
+}
+
+- (void)setShootAndShare:(BOOL)shootAndShare
+{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSInteger flag = (shootAndShare) ? 2 : 1;
+    [ud setInteger:flag forKey:@"shootAndShare"];
+    [ud synchronize];
+}
+
+//// iPhoneのデフォルトのカメラを使う
+
+- (BOOL)useDefaultCameraApp
+{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSInteger f = [ud integerForKey:@"useDefaultCameraApp"];
+    if (f == 2) {
+        return YES;
+    }else if(f == 1){
+        return NO;
+    }
+    //// デフォルト
+    self.startInCameraMode = NO;
+    return NO;
+}
+
+- (void)setUseDefaultCameraApp:(BOOL)useDefaultCameraApp
+{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSInteger flag = (useDefaultCameraApp) ? 2 : 1;
+    [ud setInteger:flag forKey:@"useDefaultCameraApp"];
+    [ud synchronize];
+}
 
 @end

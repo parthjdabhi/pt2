@@ -558,7 +558,6 @@ return nil;
 /////////////////////////////////////////////////////////////////////////////////
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection
 {
-    LOG(@"Captured.");
     if (_currentCapturedNumber < _allCaptureNumber) {
         @autoreleasepool {
             AVCaptureDevice* device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];

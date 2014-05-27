@@ -20,6 +20,9 @@
 #import "LmCmViewManagerTools.h"
 #import "LmCmViewCropBlackRect.h"
 
+#import "GPUImage.h"
+#import "VnAdjustmentLayerGradientMap.h"
+
 @interface LmCmViewController : UIViewController <CameraManagerDelegate, UIGestureRecognizerDelegate, LmCmViewManagerZoomDelegate, LmCmViewManagerPreviewDelegate, LmCmViewManagerToolsDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 {
      float initialVolume;

@@ -219,6 +219,35 @@
     
     __block LmCmViewController* _self = self;
     
+    
+    
+    
+    @autoreleasepool {
+        GPUImagePicture* pic = [[GPUImagePicture alloc] initWithImage:asset.image];
+        VnAdjustmentLayerGradientMap* gradientMap = [[VnAdjustmentLayerGradientMap alloc] init];
+        [gradientMap addColorRed:149.0f Green:23.0f Blue:112.0f Opacity:100.0f Location:0 Midpoint:50];
+        [gradientMap addColorRed:234.0f Green:201.0f Blue:175.0f Opacity:100.0f Location:3829 Midpoint:50];
+        [gradientMap addColorRed:234.0f Green:201.0f Blue:175.0f Opacity:100.0f Location:4096 Midpoint:50];
+        gradientMap.blendingMode = VnBlendingModeMultiply;
+        gradientMap.topLayerOpacity = 0.3;
+        [pic addTarget:gradientMap];
+        [pic processImage];
+        asset.image = [gradientMap imageFromCurrentlyProcessedOutput];
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    /*
+     
+     
+     */
+    
     [self.assetLibrary writeImageToSavedPhotosAlbum:asset.image.CGImage orientation:ALAssetOrientationUp completionBlock:^(NSURL *assetURL, NSError *error) {
         if (error) {
             LOG(@"%@", error);

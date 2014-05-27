@@ -10,10 +10,11 @@
 
 @interface PtSharedApp : NSObject
 
+@property (nonatomic, assign) BOOL didUnlockExtraEffects;
+@property (nonatomic, assign) BOOL startInCameraMode;
+@property (nonatomic, assign) BOOL shootAndShare;
+@property (nonatomic, assign) BOOL useDefaultCameraApp;
+
 + (PtSharedApp*)instance;
-
-
-+ (BOOL)didUnlockExtraEffects;
-+ (void)unlockExtraEffects;
 
 @end
