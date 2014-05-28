@@ -6,9 +6,9 @@
 //  Copyright (c) 2013年 SSC. All rights reserved.
 //
 
-#import "GPUImageFilter.h"
+#import "VnImageFilter.h"
 
-@interface VnAdjustmentLayerPhotoFilter : GPUImageFilter
+@interface VnAdjustmentLayerPhotoFilter : VnImageFilter
 {
     GLuint colorUniform;
     GLuint densityUniform;

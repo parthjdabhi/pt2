@@ -121,7 +121,8 @@ NSString *const kGPUImageColorBalanceFragmentShaderString = SHADER_STRING
  
  void main()
  {
-     lowp vec4 textureColor = texture2D(inputImageTexture, textureCoordinate);
+     mediump vec4 textureColor = texture2D(inputImageTexture, textureCoordinate);
+     mediump vec4 rs;
      
      // Alternative way:
      //lowp vec3 lightness = RGBToL(textureColor.rgb);
@@ -143,10 +144,11 @@ NSString *const kGPUImageColorBalanceFragmentShaderString = SHADER_STRING
          lowp vec3 newHSL = RGBToHSL(newColor);
          lowp float oldLum = RGBToL(textureColor.rgb);
          textureColor.rgb = HSLToRGB(vec3(newHSL.x, newHSL.y, oldLum));
-         gl_FragColor = textureColor;
+         rs = textureColor;
      } else {
-         gl_FragColor = vec4(newColor.rgb, textureColor.w);
+         rs = vec4(newColor.rgb, textureColor.w);
      }
+     gl_FragColor = blendWithBlendingMode(pixel, vec4(rs.r, rs.g, rs.b, topLayerOpacity), blendingMode);
  }
  );
 

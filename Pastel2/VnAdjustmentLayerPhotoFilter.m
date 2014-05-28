@@ -93,6 +93,7 @@ NSString *const kVnAdjustmentLayerPhotoFilterFragmentShaderString = SHADER_STRIN
  void main()
  {
      mediump vec4 pixel = texture2D(inputImageTexture, textureCoordinate);
+     mediump vec4 rs;
      
      //// Reverse
      mediump vec3 rcolor = 1.0 - color;
@@ -114,9 +115,9 @@ NSString *const kVnAdjustmentLayerPhotoFilterFragmentShaderString = SHADER_STRIN
          
      }
      
-     pixel.rgb = rcolor * density + pixel.rgb * (1.0 - density);
+     rs.rgb = rcolor * density + pixel.rgb * (1.0 - density);
      
-     gl_FragColor = pixel;
+     gl_FragColor = blendWithBlendingMode(pixel, vec4(rs.r, rs.g, rs.b, topLayerOpacity), blendingMode);
  }
  );
 

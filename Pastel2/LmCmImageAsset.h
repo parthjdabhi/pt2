@@ -12,8 +12,10 @@
 
 @property (nonatomic, assign) UIDeviceOrientation orientation;
 @property (nonatomic, assign) float zoom;
+@property (nonatomic, assign) CGSize originalSize;
 @property (nonatomic, assign) LmCmViewCropSize cropSize;
 @property (nonatomic, strong) UIImage* image;
+@property (nonatomic, strong) NSMutableArray* splitImages;
 @property (nonatomic, assign) BOOL frontCamera;
 
 @end

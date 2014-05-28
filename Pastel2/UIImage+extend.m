@@ -377,4 +377,73 @@
     CGImageRelease(cgimg);
     return img;
 }
+
++ (NSMutableArray*)splitImageIn4Parts:(UIImage *)image
+{
+    float padding = 10.0f;
+    float cropWidth = floor(image.size.width / 2.0f);
+    float cropHeight = floor(image.size.height / 2.0f);
+    float restWidth = image.size.width - (cropWidth - padding);
+    float restHeight = image.size.height - (cropHeight - padding);
+    
+    NSMutableArray* array = [NSMutableArray array];
+    
+    //// 1
+    @autoreleasepool {
+        UIImage* piece = [image croppedImage:CGRectMake(0.0f, 0.0f, cropWidth + padding, cropHeight + padding)];
+        [array addObject:piece];
+    }
+    //// 2
+    @autoreleasepool {
+        UIImage* piece = [image croppedImage:CGRectMake(cropWidth - padding, 0.0f, restWidth, cropHeight + padding)];
+        [array addObject:piece];
+    }
+    //// 3
+    @autoreleasepool {
+        UIImage* piece = [image croppedImage:CGRectMake(0.0f, cropHeight - padding, cropWidth + padding, restHeight)];
+        [array addObject:piece];
+    }
+    //// 4
+    @autoreleasepool {
+        UIImage* piece = [image croppedImage:CGRectMake(cropWidth - padding, cropHeight - padding, restWidth, restHeight)];
+        [array addObject:piece];
+    }
+    return  array;
+}
+
++ (UIImage *)mergeSplitImage:(NSMutableArray*)array WithSize:(CGSize)size
+{
+    float padding = 10.0f;
+    float cropWidth = floor(size.width / 2.0f);
+    float cropHeight = floor(size.height / 2.0f);
+    float restCropWidth = size.width - (cropWidth - padding);
+    float restCropHeight = size.height - (cropHeight - padding);
+    float restWidth = size.width - cropWidth;
+    float restHeight = size.height - cropHeight;
+    
+    UIGraphicsBeginImageContext(size);
+    
+    
+    //// 1
+    {
+        [[array objectAtIndex:0] drawAtPoint:CGPointMake(0.0f, 0.0f)];
+    }
+    //// 2
+    {
+        [[[array objectAtIndex:1] croppedImage:CGRectMake(padding, 0.0f, restWidth, cropHeight)] drawAtPoint:CGPointMake(cropWidth, 0.0f)];
+    }
+    //// 3
+    {
+        [[[array objectAtIndex:2] croppedImage:CGRectMake(0.0f, padding, cropWidth, restHeight)] drawAtPoint:CGPointMake(0.0f, cropHeight)];
+    }
+    //// 4
+    {
+        [[[array objectAtIndex:3] croppedImage:CGRectMake(padding, padding, restWidth, restHeight)] drawAtPoint:CGPointMake(cropWidth, cropHeight)];
+    }
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
+
 @end

@@ -30,4 +30,6 @@
      interpolationQuality:(CGInterpolationQuality)quality;
 - (CGAffineTransform)transformForOrientation:(CGSize)newSize;
 + (UIImage *)fixOrientationOfImage:(UIImage *)image;
++ (NSMutableArray*)splitImageIn4Parts:(UIImage *)image;
++ (UIImage *)mergeSplitImage:(NSMutableArray*)array WithSize:(CGSize)size;
 @end

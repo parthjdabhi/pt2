@@ -6,7 +6,7 @@
 //  Copyright (c) 2013年 SSC. All rights reserved.
 //
 
-#import "GPUImageFilter.h"
+#import "VnImageFilter.h"
 
 typedef NS_ENUM(NSInteger, GradientStyle){
     GradientStyleLinear = 1,
@@ -16,7 +16,7 @@ typedef NS_ENUM(NSInteger, GradientStyle){
 
 extern NSString *const kGPUImageGradientColorGeneratorFragmentShaderString;
 
-@interface VnAdjustmentLayerGradientColorFill : GPUImageFilter
+@interface VnAdjustmentLayerGradientColorFill : VnImageFilter
 {
     GLuint locationsUniform;
     GLuint colorsUniform;

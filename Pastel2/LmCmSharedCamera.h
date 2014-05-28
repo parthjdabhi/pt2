@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+@class LmCmImageAsset;
 
 typedef NS_ENUM(NSInteger, LmCmSharedCameraMode){
     LmCmSharedCameraModeNormal = 1,
@@ -71,6 +72,11 @@ typedef NS_ENUM(NSInteger, LmCmViewBarButtonFlashMode){
 + (float)maxZoomScaleSupported;
 
 + (UIImage*)cropImage:(UIImage*)image WithCropSize:(LmCmViewCropSize)cropSize;
+
++ (LmCmImageAsset*)fixRotationWithNoSoundImageAsset:(LmCmImageAsset*)asset;
++ (LmCmImageAsset*)applyZoomToAsset:(LmCmImageAsset*)asset;
++ (LmCmImageAsset*)cropAsset:(LmCmImageAsset*)asset;
++ (UIImage*)rotateImage:(UIImage*)img angle:(int)angle;
 
 #pragma mark settings
 

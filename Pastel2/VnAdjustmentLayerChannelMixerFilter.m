@@ -39,6 +39,7 @@ NSString *const kVnAdjustmentLayerChannelMixerFilterFragmentShaderString = SHADE
  {
      // Sample the input pixel
      mediump vec4 pixel   = texture2D(inputImageTexture, textureCoordinate);
+     mediump vec4 rs;
      mediump float r = pixel.r;
      mediump float g = pixel.g;
      mediump float b = pixel.b;
@@ -59,9 +60,9 @@ NSString *const kVnAdjustmentLayerChannelMixerFilterFragmentShaderString = SHADE
          lumi += greyConstant;
          lumi = max(min(lumi, 1.0), 0.0);
          
-         pixel.r = lumi;
-         pixel.g = lumi;
-         pixel.b = lumi;
+         rs.r = lumi;
+         rs.g = lumi;
+         rs.b = lumi;
          
      } else {
          _r = r * redRed + r + redConstant + g * redGreen + b * redBlue;
@@ -72,13 +73,13 @@ NSString *const kVnAdjustmentLayerChannelMixerFilterFragmentShaderString = SHADE
          g = max(0.0, min(1.0, _g));
          b = max(0.0, min(1.0, _b));
          
-         pixel.r = r;
-         pixel.g = g;
-         pixel.b = b;
+         rs.r = r;
+         rs.g = g;
+         rs.b = b;
      }
      
      // Save the result
-     gl_FragColor = pixel;
+     gl_FragColor = blendWithBlendingMode(pixel, vec4(rs.r, rs.g, rs.b, topLayerOpacity), blendingMode);
  }
  );
 

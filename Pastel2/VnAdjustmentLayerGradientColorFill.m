@@ -168,6 +168,7 @@ NSString *const kGPUImageGradientColorGeneratorFragmentShaderString = SHADER_STR
  void main()
  {
      mediump vec4 pixel   = texture2D(inputImageTexture, textureCoordinate);
+     mediump vec4 rs;
      
      mediump float m60 = 0.01665;
 
@@ -175,14 +176,15 @@ NSString *const kGPUImageGradientColorGeneratorFragmentShaderString = SHADER_STR
      mediump float y = textureCoordinate.y - offsetY;
 
      if(style == 1){
-         gl_FragColor = linear(x, y);
+         rs = linear(x, y);
      } else if(style == 2){
-         gl_FragColor = radial(x, y);
+         rs = radial(x, y);
      } else if(style == 3){
-         gl_FragColor = linear(x, y);
+         rs = linear(x, y);
      } else{
-         gl_FragColor = pixel;
+         rs = pixel;
      }
+     gl_FragColor = blendWithBlendingMode(pixel, vec4(rs.r, rs.g, rs.b, topLayerOpacity), blendingMode);
  }
  );
 

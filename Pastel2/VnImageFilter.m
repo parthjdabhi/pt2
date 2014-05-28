@@ -16,12 +16,12 @@ NSString* kVnImageFilterFragmentShaderString = SHADER_STRING
  uniform int blendingMode;
  uniform mediump float topLayerOpacity;
  
- mediump float luminocity(mediump vec3 c) {
+ mediump float luminosity(mediump vec3 c) {
      return dot(c, vec3(0.3, 0.59, 0.11));
  }
  
  mediump vec3 clipcolor(mediump vec3 c) {
-     mediump float l = luminocity(c);
+     mediump float l = luminosity(c);
      mediump float n = min(min(c.r, c.g), c.b);
      mediump float x = max(max(c.r, c.g), c.b);
      
@@ -40,7 +40,7 @@ NSString* kVnImageFilterFragmentShaderString = SHADER_STRING
  }
  
  mediump vec3 setlum(mediump vec3 c, mediump float l) {
-     mediump float d = l - luminocity(c);
+     mediump float d = l - luminosity(c);
      c = c + vec3(d);
      return clipcolor(c);
  }
@@ -134,7 +134,7 @@ NSString* kVnImageFilterFragmentShaderString = SHADER_STRING
  // Normal
  mediump vec4 blendNormal(const in mediump vec4 bottom, const in mediump vec4 top)
  {
-     return mediump vec4(1.0, 1.0, 1.0, 1.0);
+     return vec4(top.rgb * top.a + (1.0 - top.a) * bottom.rgb, 1.0);
  }
  // Darken
  mediump vec4 blendDarken(const in mediump vec4 bottom, const in mediump vec4 top)
@@ -306,7 +306,7 @@ NSString* kVnImageFilterFragmentShaderString = SHADER_STRING
  // Difference
  mediump vec4 blendDifference(const in mediump vec4 bottom, const in mediump vec4 top)
  {
-     mediump vec4 rs = vec4(overlay.rgb - bottom.rgb, 1.0);
+     mediump vec4 rs = vec4(top.rgb - bottom.rgb, 1.0);
      rs.rgb = rs.rgb * top.a + (1.0 - top.a) * bottom.rgb;
      return rs;
  }
@@ -334,12 +334,12 @@ NSString* kVnImageFilterFragmentShaderString = SHADER_STRING
  // Color
  mediump vec4 blendColor(const in mediump vec4 base, const in mediump vec4 overlay)
  {
-     return mediump vec4(base.rgb * (1.0 - overlay.a) + setlum(overlay.rgb, lum(base.rgb)) * overlay.a, 1.0);
+     return mediump vec4(base.rgb * (1.0 - overlay.a) + setlum(overlay.rgb, luminosity(base.rgb)) * overlay.a, 1.0);
  }
  // DarkerColor
  mediump vec4 blendDarkerColor(const in mediump vec4 base, const in mediump vec4 overlay)
  {
-     mediump vec4 rs = vec4(bottom.rgb, 1.0);
+     mediump vec4 rs = vec4(base.rgb, 1.0);
      if(overlay.r < base.r){
          rs.r = overlay.r;
      }
@@ -374,9 +374,9 @@ NSString* kVnImageFilterFragmentShaderString = SHADER_STRING
      rs.xyz = rgb2hsv(bottom.rgb);
      mediump vec3 overlayHsv = rgb2hsv(top.rgb);
      rs.x = overlayHsv.x;
-     rs.rgb = hsv2rgb(rs);
+     rs.rgb = hsv2rgb(rs.rgb);
      rs.rgb = rs.rgb * top.a + (1.0 - top.a) * bottom.rgb;
-     return mediump vec4(rs, 1.0);
+     return rs;
  }
  // Saturation
  mediump vec4 blendSaturation(const in mediump vec4 bottom, const in mediump vec4 top)
@@ -385,20 +385,20 @@ NSString* kVnImageFilterFragmentShaderString = SHADER_STRING
      rs.xyz = rgb2hsv(bottom.rgb);
      mediump vec3 overlayHsv = rgb2hsv(top.rgb);
      rs.y = overlayHsv.y;
-     rs.rgb = hsv2rgb(rs);
+     rs.rgb = hsv2rgb(rs.rgb);
      rs.rgb = rs.rgb * top.a + (1.0 - top.a) * bottom.rgb;
-     return mediump vec4(rs, 1.0);
+     return rs;
  }
  // Luminosity
  mediump vec4 blendLuminosity(const in mediump vec4 bottom, const in mediump vec4 top)
  {
-     return mediump vec4(1.0, 1.0, 1.0, 1.0);
+     mediump vec4 rs = vec4(1.0, 1.0, 1.0, 1.0);
      rs.xyz = rgb2hsv(bottom.rgb);
      mediump vec3 overlayHsv = rgb2hsv(top.rgb);
      rs.z = overlayHsv.z;
-     rs.rgb = hsv2rgb(rs);
+     rs.rgb = hsv2rgb(rs.rgb);
      rs.rgb = rs.rgb * top.a + (1.0 - top.a) * bottom.rgb;
-     return mediump vec4(rs, 1.0);
+     return rs;
  }
  // Common
  mediump vec4 blendWithBlendingMode(const in mediump vec4 bottom, const in mediump vec4 top, int mode)
@@ -468,11 +468,13 @@ NSString* kVnImageFilterFragmentShaderString = SHADER_STRING
 
 - (id)initWithFragmentShaderFromString:(NSString *)fragmentShaderString
 {
+    /*
     kVnImageFilterFragmentShaderString = [kVnImageFilterFragmentShaderString stringByReplacingOccurrencesOfString:@";" withString:@";\n"];
     kVnImageFilterFragmentShaderString = [kVnImageFilterFragmentShaderString stringByReplacingOccurrencesOfString:@"}" withString:@"}\n"];
     kVnImageFilterFragmentShaderString = [kVnImageFilterFragmentShaderString stringByReplacingOccurrencesOfString:@"{" withString:@"{\n"];
+     */
     NSString* shader = [NSString stringWithFormat:@"%@%@", kVnImageFilterFragmentShaderString, fragmentShaderString];
-    LOG(@"%@", shader);
+    //LOG(@"%@", shader);
     self = [super initWithFragmentShaderFromString:shader];
     if (self) {
         self.blendingMode = VnBlendingModeNormal;

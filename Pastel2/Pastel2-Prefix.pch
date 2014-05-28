@@ -163,3 +163,24 @@ typedef NS_ENUM(NSInteger, VnBlendingMode){
 #import "LmCmSharedCamera.h"
 #import "MotionOrientation.h"
 #import "VnViewLabel.h"
+
+#import "VnAdjustmentLayerGradientColorFill.h"
+#import "VnAdjustmentLayerColorBalance.h"
+#import "VnAdjustmentLayerSelectiveColor.h"
+#import "VnAdjustmentLayerGradientMap.h"
+#import "VnAdjustmentLayerChannelMixerFilter.h"
+#import "VnAdjustmentLayerHueSaturation.h"
+#import "VnAdjustmentLayerPhotoFilter.h"
+
+#import "VnFilterLensBlur.h"
+#import "VnFilterLevels.h"
+#import "VnFilterBrightness.h"
+#import "VnFilterTemperature.h"
+
+#import "VnEffectColorBronze.h"
+
+
+
+
+
+

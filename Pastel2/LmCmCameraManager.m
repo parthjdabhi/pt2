@@ -201,15 +201,15 @@
     self = [super init];
     if(self){
 
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
-        if ([UIDevice underIPhone5]) {
+        if ([UIDevice isIOS6]) {
             [self setupAVCapture:AVCaptureSessionPresetHigh];
         }else{
-            [self setupAVCapture:AVCaptureSessionPresetInputPriority];
+            if ([UIDevice underIPhone5]) {
+                [self setupAVCapture:AVCaptureSessionPresetHigh];
+            }else{
+                [self setupAVCapture:AVCaptureSessionPresetInputPriority];
+            }
         }
-#else
-        [self setupAVCapture:AVCaptureSessionPresetHigh];
-#endif
         return self;
     }
 return nil;
@@ -567,18 +567,29 @@ return nil;
             }
             
             _currentCapturedNumber++;
-            
-            CGImageRef cgImage = [LmCmCameraManager imageFromSampleBuffer:sampleBuffer];
-            UIImage* captureImage = [UIImage imageWithCGImage:cgImage];
-            CGImageRelease(cgImage);
-            
             LmCmSharedCamera* camera = [LmCmSharedCamera instance];
             LmCmImageAsset* asset = [[LmCmImageAsset alloc] init];
-            asset.zoom = camera.zoom;
-            asset.cropSize = camera.cropSize;
-            asset.frontCamera = [self isUsingFrontCamera];
-            asset.image = captureImage;
-            asset.orientation = [MotionOrientation sharedInstance].deviceOrientation;
+            
+            CGImageRef cgImage = [LmCmCameraManager imageFromSampleBuffer:sampleBuffer];
+            //UIImage* captureImage = [UIImage imageWithCGImage:cgImage];
+
+            @autoreleasepool {
+                UIImage* image = [UIImage imageWithCGImage:cgImage];
+                CGImageRelease(cgImage);
+                asset.originalSize = image.size;
+                asset.image = image;
+                asset.zoom = camera.zoom;
+                asset.cropSize = camera.cropSize;
+                asset.frontCamera = [self isUsingFrontCamera];
+                asset.orientation = [MotionOrientation sharedInstance].deviceOrientation;
+                asset = [LmCmSharedCamera applyZoomToAsset:asset];
+                asset = [LmCmSharedCamera fixRotationWithNoSoundImageAsset:asset];
+                asset = [LmCmSharedCamera cropAsset:asset];
+                asset.image = nil;
+                asset.splitImages = [UIImage splitImageIn4Parts:image];
+            }
+            //asset.image = captureImage;
+            
             [self.delegate performSelectorOnMainThread:@selector(singleImageNoSoundDidTakeWithAsset:) withObject:asset waitUntilDone:NO];
             return;
             

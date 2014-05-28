@@ -109,144 +109,46 @@
 - (void)singleImageNoSoundDidTakeWithAsset:(LmCmImageAsset *)lmAsset
 {
     [self performSelectorOnMainThread:@selector(flashScreen) withObject:nil waitUntilDone:NO];
-    UIImage* image = lmAsset.image;
-    @autoreleasepool {
-        float zoom = [LmCmSharedCamera instance].zoom;
-        if (zoom != 1.0f) {
-            float width = roundf(image.size.width / zoom);
-            float height = roundf(image.size.height / zoom);
-            float afterWidth = image.size.width;
-            float afterHeight = image.size.height;
-            float length = MAX(width, height);
-            if (length < 1920.0f) {
-                afterWidth = roundf(afterWidth / 2.0f);
-                afterHeight = roundf(afterHeight / 2.0f);
-            }
-            float x = roundf((image.size.width - width) / 2.0f);
-            float y = roundf((image.size.height - height) / 2.0f);
-            @autoreleasepool {
-                image = [image croppedImage:CGRectMake(x, y, width, height)];
-                if (afterWidth < image.size.width) {
-                    image = [image resizedImage:CGSizeMake(afterWidth, afterHeight) interpolationQuality:kCGInterpolationHigh];
-                }
-            }
-        }
+    if (lmAsset.image) {
+        lmAsset = [LmCmSharedCamera applyZoomToAsset:lmAsset];
+        lmAsset = [LmCmSharedCamera fixRotationWithNoSoundImageAsset:lmAsset];
+        lmAsset = [LmCmSharedCamera cropAsset:lmAsset];
     }
-    @autoreleasepool {
-        if (lmAsset.frontCamera) {
-            switch (lmAsset.orientation) {
-                case UIDeviceOrientationUnknown:
-                    break;
-                case UIDeviceOrientationPortraitUpsideDown:
-                    image = [LmCmCameraManager rotateImage:image angle:90];
-                    break;
-                case UIDeviceOrientationPortrait:
-                    image = [LmCmCameraManager rotateImage:image angle:270];
-                    break;
-                case UIDeviceOrientationLandscapeLeft:
-                    image = [LmCmCameraManager rotateImage:image angle:180];
-                    break;
-                case UIDeviceOrientationLandscapeRight:
-                    break;
-                case UIDeviceOrientationFaceUp:
-                    break;
-                case UIDeviceOrientationFaceDown:
-                    break;
-                default:
-                    break;
-            }
-        }else{
-            switch (lmAsset.orientation) {
-                case UIDeviceOrientationUnknown:
-                    break;
-                case UIDeviceOrientationPortraitUpsideDown:
-                    image = [LmCmCameraManager rotateImage:image angle:90];
-                    break;
-                case UIDeviceOrientationPortrait:
-                    image = [LmCmCameraManager rotateImage:image angle:270];
-                    break;
-                case UIDeviceOrientationLandscapeLeft:
-                    break;
-                case UIDeviceOrientationLandscapeRight:
-                    image = [LmCmCameraManager rotateImage:image angle:180];
-                    break;
-                case UIDeviceOrientationFaceUp:
-                    break;
-                case UIDeviceOrientationFaceDown:
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
-    lmAsset.image = image;
     [self singleImageDidTakeWithAsset:lmAsset];
 }
 
 - (void)singleImageByNormalCameraDidTakeWithAsset:(LmCmImageAsset *)lmAsset
 {
-    UIImage* image = lmAsset.image;
-    @autoreleasepool {
-        float zoom = [LmCmSharedCamera instance].zoom;
-        if (zoom != 1.0f) {
-            float width = roundf(image.size.width / zoom);
-            float height = roundf(image.size.height / zoom);
-            float afterWidth = image.size.width;
-            float afterHeight = image.size.height;
-            float length = MAX(width, height);
-            if (length < 1920.0f) {
-                afterWidth = roundf(afterWidth / 2.0f);
-                afterHeight = roundf(afterHeight / 2.0f);
-            }
-            float x = roundf((image.size.width - width) / 2.0f);
-            float y = roundf((image.size.height - height) / 2.0f);
-            @autoreleasepool {
-                image = [image croppedImage:CGRectMake(x, y, width, height)];
-                if (afterWidth < image.size.width) {
-                    image = [image resizedImage:CGSizeMake(afterWidth, afterHeight) interpolationQuality:kCGInterpolationHigh];
-                }
-            }
-        }
+    if (lmAsset.image) {
+        lmAsset = [LmCmSharedCamera applyZoomToAsset:lmAsset];
+        lmAsset = [LmCmSharedCamera cropAsset:lmAsset];
     }
     [self singleImageDidTakeWithAsset:lmAsset];
 }
 
 - (void)singleImageDidTakeWithAsset:(LmCmImageAsset *)asset
 {
-    asset.image = [LmCmSharedCamera cropImage:asset.image WithCropSize:asset.cropSize];
-    
-    UIImage* crop = [asset.image resizedImage:CGSizeMake(asset.image.size.width/10.0f, asset.image.size.height/10.0f) interpolationQuality:kCGInterpolationHigh];
-    
     __block LmCmViewController* _self = self;
     
-    
-    
-    
-    @autoreleasepool {
-        GPUImagePicture* pic = [[GPUImagePicture alloc] initWithImage:asset.image];
-        VnAdjustmentLayerGradientMap* gradientMap = [[VnAdjustmentLayerGradientMap alloc] init];
-        [gradientMap addColorRed:149.0f Green:23.0f Blue:112.0f Opacity:100.0f Location:0 Midpoint:50];
-        [gradientMap addColorRed:234.0f Green:201.0f Blue:175.0f Opacity:100.0f Location:3829 Midpoint:50];
-        [gradientMap addColorRed:234.0f Green:201.0f Blue:175.0f Opacity:100.0f Location:4096 Midpoint:50];
-        gradientMap.blendingMode = VnBlendingModeMultiply;
-        gradientMap.topLayerOpacity = 0.3;
-        [pic addTarget:gradientMap];
-        [pic processImage];
-        asset.image = [gradientMap imageFromCurrentlyProcessedOutput];
+    VnEffectColorBronze* effect = [[VnEffectColorBronze alloc] init];
+    [effect makeFilterGroup];
+    if (asset.image) {
         
+    }else{
+        for (int i = 0; i < 4; i++) {
+            @autoreleasepool {
+                UIImage* image = [asset.splitImages objectAtIndex:i];
+                LOG_SIZE(image.size);
+                image = [VnEffect processImage:image WithStartFilter:effect.startFilter EndFilter:effect.endFilter];
+                [asset.splitImages replaceObjectAtIndex:i withObject:image];
+            }
+        }
+        
+        @autoreleasepool {
+            asset.image = [UIImage mergeSplitImage:asset.splitImages WithSize:asset.originalSize];
+            [asset.splitImages removeAllObjects];
+        }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    /*
-     
-     
-     */
     
     [self.assetLibrary writeImageToSavedPhotosAlbum:asset.image.CGImage orientation:ALAssetOrientationUp completionBlock:^(NSURL *assetURL, NSError *error) {
         if (error) {

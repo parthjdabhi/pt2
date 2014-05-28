@@ -247,6 +247,7 @@ NSString *const kVnAdjustmentLayerSelectiveColorFragmentShaderString = SHADER_ST
  {
      // Sample the input pixel
      mediump vec4 pixel   = texture2D(inputImageTexture, textureCoordinate);
+     mediump vec4 rs;
      mediump float r = pixel.r;
      mediump float g = pixel.g;
      mediump float b = pixel.b;
@@ -579,12 +580,12 @@ NSString *const kVnAdjustmentLayerSelectiveColorFragmentShaderString = SHADER_ST
      g = max(0.0, min(1.0, ga));
      b = max(0.0, min(1.0, ba));
 
-     pixel.r = r;
-     pixel.g = g;
-     pixel.b = b;
+     rs.r = r;
+     rs.g = g;
+     rs.b = b;
      
      // Save the result
-     gl_FragColor = pixel;
+     gl_FragColor = blendWithBlendingMode(pixel, vec4(rs.r, rs.g, rs.b, topLayerOpacity), blendingMode);
  }
  );
 

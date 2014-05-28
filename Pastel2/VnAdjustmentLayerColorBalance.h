@@ -6,9 +6,9 @@
 //  Copyright (c) 2013年 SSC. All rights reserved.
 //
 
-#import "GPUImageFilter.h"
+#import "VnImageFilter.h"
 
-@interface VnAdjustmentLayerColorBalance : GPUImageFilter
+@interface VnAdjustmentLayerColorBalance : VnImageFilter
 {
     GLint shadowsUniform;
     GLint midtonesUniform;

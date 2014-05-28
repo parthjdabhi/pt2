@@ -6,9 +6,9 @@
 //  Copyright (c) 2013年 SSC. All rights reserved.
 //
 
-#import "GPUImageFilter.h"
+#import "VnImageFilter.h"
 
-@interface VnAdjustmentLayerSelectiveColor : GPUImageFilter
+@interface VnAdjustmentLayerSelectiveColor : VnImageFilter
 
 - (void)setRedsCyan:(int)cyan Magenta:(int)magenta Yellow:(int)yellow Black:(int)black;
 - (void)setYellowsCyan:(int)cyan Magenta:(int)magenta Yellow:(int)yellow Black:(int)black;
