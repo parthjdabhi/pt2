@@ -21,7 +21,7 @@ NSString* kVnImageFilterFragmentShaderString = SHADER_STRING
  }
  
  mediump vec3 clipcolor(mediump vec3 c) {
-     mediump float l = lum(c);
+     mediump float l = luminocity(c);
      mediump float n = min(min(c.r, c.g), c.b);
      mediump float x = max(max(c.r, c.g), c.b);
      
@@ -40,20 +40,20 @@ NSString* kVnImageFilterFragmentShaderString = SHADER_STRING
  }
  
  mediump vec3 setlum(mediump vec3 c, mediump float l) {
-     mediump float d = l - lum(c);
+     mediump float d = l - luminocity(c);
      c = c + vec3(d);
      return clipcolor(c);
  }
  
  
  mediump vec3 rgb2hsv(mediump vec3 color){
-     float r = color.r;
-     float g = color.g;
-     float b = color.b;
+     mediump float r = color.r;
+     mediump float g = color.g;
+     mediump float b = color.b;
      
-     float max = max(r, max(g, b));
-     float min = min(r, min(g, b));
-     float h = 0.0;
+     mediump float max = max(r, max(g, b));
+     mediump float min = min(r, min(g, b));
+     mediump float h = 0.0;
      if(max < min){
          max = 0.0;
          min = 0.0;
@@ -73,56 +73,56 @@ NSString* kVnImageFilterFragmentShaderString = SHADER_STRING
      }
      h = mod(h, 360.0);
      
-     float s;
+     mediump float s;
      if(max == 0.0) {
          s = 0.0;
      } else {
          s = (max - min) / max;
      }
-     float v = max;
+     mediump float v = max;
      
      return vec3(h, s, v);
  }
  
  mediump vec3 hsv2rgb(mediump vec3 color){
-     float h = color.r;
-     float s = color.g;
-     float v = color.b;
-     float r;
-     float g;
-     float b;
-     int hi = int(mod(float(floor(h / 60.0)), 6.0));
-     float f = (h / 60.0) - float(hi);
-     float p = v * (1.0 - s);
-     float q = v * (1.0 - s * f);
-     float t = v * (1.0 - s * (1.0 - f));
+     //float h = color.r;
+     //float s = color.g;
+     //float v = color.b;
+     mediump float r;
+     mediump float g;
+     mediump float b;
+     int hi = int(mod(float(floor(color.r / 60.0)), 6.0));
+     mediump float f = (color.r / 60.0) - float(hi);
+     mediump float p = color.b * (1.0 - color.g);
+     mediump float q = color.b * (1.0 - color.g * f);
+     mediump float t = color.b * (1.0 - color.g * (1.0 - f));
      
      if(hi == 0){
-         r = v;
+         r = color.b;
          g = t;
          b = p;
      } else if(hi == 1){
          r = q;
-         g = v;
+         g = color.b;
          b = p;
      } else if(hi == 2){
          r = p;
-         g = v;
+         g = color.b;
          b = t;
      } else if(hi == 3){
          r = p;
          g = q;
-         b = v;
+         b = color.b;
      } else if(hi == 4){
          r = t;
          g = p;
-         b = v;
+         b = color.b;
      } else if(hi == 5){
-         r = v;
+         r = color.b;
          g = p;
          b = q;
      } else {
-         r = v;
+         r = color.b;
          g = t;
          b = p;
      }
@@ -321,9 +321,6 @@ NSString* kVnImageFilterFragmentShaderString = SHADER_STRING
      rs.rgb = rs.rgb * top.a + (1.0 - top.a) * bottom.rgb;
      return rs;
  }
- 
- 
- 
  // LinearLight
  mediump vec4 blendLinearLight(const in mediump vec4 bottom, const in mediump vec4 top)
  {
@@ -365,7 +362,7 @@ NSString* kVnImageFilterFragmentShaderString = SHADER_STRING
  mediump vec4 blendColorBurn(const in mediump vec4 bottom, const in mediump vec4 top)
  {
      mediump vec4 whiteColor = vec4(1.0);
-     mediump rs = whiteColor - (whiteColor - bottom) / top;
+     mediump vec4 rs = whiteColor - (whiteColor - bottom) / top;
      rs.rgb = rs.rgb * top.a + (1.0 - top.a) * bottom.rgb;
      rs.a = 1.0;
      return rs;
