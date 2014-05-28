@@ -13,5 +13,6 @@
 @property (nonatomic, assign) BOOL holding;
 @property (nonatomic, assign) BOOL soundEnabled;
 @property (nonatomic, assign) UIDeviceOrientation orientation;
+@property (nonatomic, assign) BOOL shooting;
 
 @end

@@ -14,6 +14,30 @@
 
 @implementation LmCmViewController
 
+- (void)initCameraManager
+{
+    _isCameraInitializing = YES;
+    if (_cameraManager) {
+        [_cameraManager deallocCamera];
+        _cameraManager = nil;
+    }
+    __block __weak LmCmViewController* _self = self;
+    dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_queue_t q_main = dispatch_get_main_queue();
+    dispatch_async(q_global, ^{
+        @autoreleasepool {
+            _self.cameraManager = [[LmCmCameraManager alloc] init];
+            _self.cameraManager.delegate = _self;
+        }
+        dispatch_async(q_main, ^{
+            [_self.cameraManager setPreview:_self.cameraPreview];
+            _self.isCameraInitializing = NO;
+            LOG(@"Camera is ready");
+        });
+        
+    });
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -36,10 +60,6 @@
     _toolsManager.delegate = self;
     _toolsManager.view = self.view;
     
-    //// camera
-    _cameraManager = [[LmCmCameraManager alloc] init];
-    _cameraManager.delegate = self;
-    
     //// Preview
     CGRect previewFrame;
     if ([UIDevice underIPhone5]) {
@@ -49,7 +69,9 @@
     }
     _cameraPreview = [[UIView alloc] initWithFrame:previewFrame];
     [self.view addSubview:_cameraPreview];
-    [_cameraManager setPreview:_cameraPreview];
+    
+    //// camera
+    [self initCameraManager];
     
     //// Black rect
     _blackRectView = [[LmCmViewCropBlackRect alloc] initWithFrame:_cameraPreview.frame];
@@ -89,9 +111,18 @@
 
 #pragma mark shutter
 
+- (void)shootingDidCancel
+{
+    _shutterButton.shooting = NO;
+}
+
 - (void)didShutterButtonTouchUpInside:(id)sender
 {
-    ((LmCmButtonShutter*)sender).holding = NO;
+    if (_isCameraInitializing) {
+        return;
+    }
+    _shutterButton.holding = NO;
+    _shutterButton.shooting = YES;
     if ([LmCmSharedCamera instance].soundEnabled) {
         [self flashScreen];
     }
@@ -100,7 +131,7 @@
 
 - (void)didShutterButtonTouchCancel:(id)sender
 {
-    ((LmCmButtonShutter*)sender).holding = NO;    
+    _shutterButton.holding = NO;
 }
 
 #pragma mark delegate
@@ -171,6 +202,7 @@
         [_self.assetLibrary assetForURL:assetURL resultBlock:^(ALAsset *asset) {
             _self.cameraManager.processingToConvert = NO;
             [_self lastAssetDidLoad:asset];
+            _self.shutterButton.shooting = NO;
         } failureBlock:^(NSError *error) {
             
         }];

@@ -200,14 +200,17 @@
 {
     self = [super init];
     if(self){
-
-        if ([UIDevice isIOS6]) {
-            [self setupAVCapture:AVCaptureSessionPresetHigh];
+        if ([LmCmSharedCamera instance].soundEnabled) {
+            [self setupAVCapture:AVCaptureSessionPresetPhoto];
         }else{
-            if ([UIDevice underIPhone5]) {
+            if ([UIDevice isIOS6]) {
                 [self setupAVCapture:AVCaptureSessionPresetHigh];
             }else{
-                [self setupAVCapture:AVCaptureSessionPresetInputPriority];
+                if ([UIDevice underIPhone5]) {
+                    [self setupAVCapture:AVCaptureSessionPresetHigh];
+                }else{
+                    [self setupAVCapture:AVCaptureSessionPresetInputPriority];
+                }
             }
         }
         return self;

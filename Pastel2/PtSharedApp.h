@@ -14,6 +14,7 @@
 @property (nonatomic, assign) BOOL startInCameraMode;
 @property (nonatomic, assign) BOOL shootAndShare;
 @property (nonatomic, assign) BOOL useDefaultCameraApp;
+@property (nonatomic, assign) BOOL useFullResolutionImage;
 
 + (PtSharedApp*)instance;
 

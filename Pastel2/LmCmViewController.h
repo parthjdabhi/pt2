@@ -25,8 +25,10 @@
 
 @interface LmCmViewController : UIViewController <CameraManagerDelegate, UIGestureRecognizerDelegate, LmCmViewManagerZoomDelegate, LmCmViewManagerPreviewDelegate, LmCmViewManagerToolsDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 {
-     float initialVolume;
+    float initialVolume;
 }
+
+@property (nonatomic, assign) BOOL isCameraInitializing;
 
 @property (nonatomic, strong) LmCmCameraManager* cameraManager;
 @property (nonatomic, strong) UIView* cameraPreview;
@@ -42,6 +44,7 @@
 
 @property (nonatomic, strong) ALAssetsLibrary* assetLibrary;
 
+- (void)initCameraManager;
 - (void)didShutterButtonTouchUpInside:(id)sender;
 - (void)didShutterButtonTouchCancel:(id)sender;
 - (void)orientationDidChange;

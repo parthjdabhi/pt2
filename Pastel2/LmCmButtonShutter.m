@@ -44,6 +44,16 @@
     [self setNeedsDisplay];
 }
 
+- (void)setShooting:(BOOL)shooting
+{
+    _shooting = shooting;
+    if (shooting) {
+        self.alpha = 0.50f;
+    }else{
+        self.alpha = 1.0f;
+    }
+}
+
 - (void)drawRect:(CGRect)rect
 {
     float lineWidth = 3.0f;

@@ -29,6 +29,7 @@
 -(void)videoFrameUpdate:(CGImageRef)cgImage from:(LmCmCameraManager*)manager;
 - (void)singleImageNoSoundDidTakeWithAsset:(LmCmImageAsset*)lmAsset;
 - (void)singleImageByNormalCameraDidTakeWithAsset:(LmCmImageAsset*)lmAsset;
+- (void)shootingDidCancel;
 @end
 
 //////////////////////////////////////////////////

@@ -218,12 +218,18 @@
             break;
         case LmCmViewSettingsListItemEnableSound:
         {
+            if (_self.isCameraInitializing) {
+                return;
+            }
+            LOG(@"Switching...");
+            _self.isCameraInitializing = YES;
             camera.soundEnabled = YES;
             _self.shutterButton.soundEnabled = YES;
             _flashButton.hidden = [_self.cameraManager isUsingFrontCamera];
             if (_flashButton.hidden == NO) {
                 _flashList.hidden = !_flashButton.selected;
             }
+            [_self initCameraManager];
         }
             break;
         default:
@@ -249,10 +255,16 @@
             break;
         case LmCmViewSettingsListItemEnableSound:
         {
+            if (_self.isCameraInitializing) {
+                return;
+            }
+            LOG(@"Switching...");
+            _self.isCameraInitializing = YES;
             camera.soundEnabled = NO;
             _self.shutterButton.soundEnabled = NO;
             _flashButton.hidden = YES;
             _flashList.hidden = YES;
+            [_self initCameraManager];
         }
             break;
         default:

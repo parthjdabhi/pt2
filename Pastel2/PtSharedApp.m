@@ -137,4 +137,28 @@ static PtSharedApp* sharedPtSharedApp = nil;
     [ud synchronize];
 }
 
+//// 最大解像度
+
+- (BOOL)useFullResolutionImage
+{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSInteger f = [ud integerForKey:@"useFullResolutionImage"];
+    if (f == 2) {
+        return YES;
+    }else if(f == 1){
+        return NO;
+    }
+    //// デフォルト
+    self.useFullResolutionImage = NO;
+    return NO;
+}
+
+- (void)setUseFullResolutionImage:(BOOL)useFullResolutionImage
+{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSInteger flag = (useFullResolutionImage) ? 2 : 1;
+    [ud setInteger:flag forKey:@"useFullResolutionImage"];
+    [ud synchronize];
+}
+
 @end
