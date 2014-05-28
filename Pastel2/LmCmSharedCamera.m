@@ -151,6 +151,7 @@ static LmCmSharedCamera* sharedLmCurrentCamera = nil;
                 break;
         }
     }
+    asset.image = image;
     return asset;
 }
 
@@ -221,8 +222,9 @@ static LmCmSharedCamera* sharedLmCurrentCamera = nil;
     }
     
     CGContextDrawImage(context, CGRectMake(0, 0, img.size.width, img.size.height), imgRef);
-    UIImage*    result = UIGraphicsGetImageFromCurrentImageContext();
+    UIImage* result = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
+    result = [UIImage imageWithCGImage:[result CGImage] scale:result.scale orientation:UIImageOrientationUp];
     return result;
 }
 

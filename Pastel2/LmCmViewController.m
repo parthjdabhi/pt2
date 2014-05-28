@@ -132,14 +132,19 @@
     
     VnEffectColorBronze* effect = [[VnEffectColorBronze alloc] init];
     [effect makeFilterGroup];
+
     if (asset.image) {
-        
+        @autoreleasepool {
+            asset.image = [VnEffect processImage:asset.image WithStartFilter:effect.startFilter EndFilter:effect.endFilter];
+        }
     }else{
         for (int i = 0; i < 4; i++) {
             @autoreleasepool {
                 UIImage* image = [asset.splitImages objectAtIndex:i];
-                LOG_SIZE(image.size);
                 image = [VnEffect processImage:image WithStartFilter:effect.startFilter EndFilter:effect.endFilter];
+                if (image.imageOrientation != UIImageOrientationUp) {
+                    image = [UIImage imageWithCGImage:image.CGImage scale:image.scale orientation:UIImageOrientationUp];
+                }
                 [asset.splitImages replaceObjectAtIndex:i withObject:image];
             }
         }

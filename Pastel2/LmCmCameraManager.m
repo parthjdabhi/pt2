@@ -438,42 +438,7 @@ return nil;
     
     return image;
 }
-+ (UIImage*)rotateImage:(UIImage*)img angle:(int)angle
-{
-    CGImageRef      imgRef = [img CGImage];
-    CGContextRef    context;
-    
-    switch (angle) {
-        case 90:
-            UIGraphicsBeginImageContextWithOptions(CGSizeMake(img.size.height, img.size.width), YES, img.scale);
-            context = UIGraphicsGetCurrentContext();
-            CGContextTranslateCTM(context, img.size.height, img.size.width);
-            CGContextScaleCTM(context, 1, -1);
-            CGContextRotateCTM(context, M_PI_2);
-            break;
-        case 180:
-            UIGraphicsBeginImageContextWithOptions(CGSizeMake(img.size.width, img.size.height), YES, img.scale);
-            context = UIGraphicsGetCurrentContext();
-            CGContextTranslateCTM(context, img.size.width, 0);
-            CGContextScaleCTM(context, 1, -1);
-            CGContextRotateCTM(context, -M_PI);
-            break;
-        case 270:
-            UIGraphicsBeginImageContextWithOptions(CGSizeMake(img.size.height, img.size.width), YES, img.scale);
-            context = UIGraphicsGetCurrentContext();
-            CGContextScaleCTM(context, 1, -1);
-            CGContextRotateCTM(context, -M_PI_2);
-            break;
-        default:
-            return img;
-            break;
-    }
-    
-    CGContextDrawImage(context, CGRectMake(0, 0, img.size.width, img.size.height), imgRef);
-    UIImage*    result = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return result;
-}
+
 + (UIImage *)fixOrientationOfImage:(UIImage *)image {
     
     // No-op if the orientation is already correct
@@ -559,7 +524,6 @@ return nil;
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection
 {
     if (_currentCapturedNumber < _allCaptureNumber) {
-        @autoreleasepool {
             AVCaptureDevice* device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
             if (device.adjustingFocus) {
                 LOG(@"Sorry adjusting focus.");
@@ -569,14 +533,12 @@ return nil;
             _currentCapturedNumber++;
             LmCmSharedCamera* camera = [LmCmSharedCamera instance];
             LmCmImageAsset* asset = [[LmCmImageAsset alloc] init];
-            
-            CGImageRef cgImage = [LmCmCameraManager imageFromSampleBuffer:sampleBuffer];
             //UIImage* captureImage = [UIImage imageWithCGImage:cgImage];
 
             @autoreleasepool {
+                CGImageRef cgImage = [LmCmCameraManager imageFromSampleBuffer:sampleBuffer];
                 UIImage* image = [UIImage imageWithCGImage:cgImage];
                 CGImageRelease(cgImage);
-                asset.originalSize = image.size;
                 asset.image = image;
                 asset.zoom = camera.zoom;
                 asset.cropSize = camera.cropSize;
@@ -585,15 +547,16 @@ return nil;
                 asset = [LmCmSharedCamera applyZoomToAsset:asset];
                 asset = [LmCmSharedCamera fixRotationWithNoSoundImageAsset:asset];
                 asset = [LmCmSharedCamera cropAsset:asset];
+                asset.originalSize = asset.image.size;
+                asset.splitImages = [UIImage splitImageIn4Parts:asset.image];
                 asset.image = nil;
-                asset.splitImages = [UIImage splitImageIn4Parts:image];
             }
             //asset.image = captureImage;
-            
+        
             [self.delegate performSelectorOnMainThread:@selector(singleImageNoSoundDidTakeWithAsset:) withObject:asset waitUntilDone:NO];
             return;
             
-        }
+        
         
         
             /*
