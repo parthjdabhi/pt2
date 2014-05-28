@@ -10,114 +10,401 @@
 
 @implementation VnImageFilter
 
-NSString *const kVnImageFilterFragmentShaderString = SHADER_STRING
+NSString* kVnImageFilterFragmentShaderString = SHADER_STRING
 (
  
  uniform int blendingMode;
- uniform lowp float topLayerOpacity;
+ uniform mediump float topLayerOpacity;
  
+ mediump float luminocity(mediump vec3 c) {
+     return dot(c, vec3(0.3, 0.59, 0.11));
+ }
+ 
+ mediump vec3 clipcolor(mediump vec3 c) {
+     mediump float l = lum(c);
+     mediump float n = min(min(c.r, c.g), c.b);
+     mediump float x = max(max(c.r, c.g), c.b);
+     
+     if (n < 0.0) {
+         c.r = l + ((c.r - l) * l) / (l - n);
+         c.g = l + ((c.g - l) * l) / (l - n);
+         c.b = l + ((c.b - l) * l) / (l - n);
+     }
+     if (x > 1.0) {
+         c.r = l + ((c.r - l) * (1.0 - l)) / (x - l);
+         c.g = l + ((c.g - l) * (1.0 - l)) / (x - l);
+         c.b = l + ((c.b - l) * (1.0 - l)) / (x - l);
+     }
+     
+     return c;
+ }
+ 
+ mediump vec3 setlum(mediump vec3 c, mediump float l) {
+     mediump float d = l - lum(c);
+     c = c + vec3(d);
+     return clipcolor(c);
+ }
+ 
+ 
+ mediump vec3 rgb2hsv(mediump vec3 color){
+     float r = color.r;
+     float g = color.g;
+     float b = color.b;
+     
+     float max = max(r, max(g, b));
+     float min = min(r, min(g, b));
+     float h = 0.0;
+     if(max < min){
+         max = 0.0;
+         min = 0.0;
+     }
+     
+     if(max == min){
+         
+     } else if(max == r){
+         h = 60.0 * (g - b) / (max - min);
+     } else if(max == g){
+         h = 60.0 * (b - r) / (max - min) + 120.0;
+     } else if(max == b){
+         h = 60.0 * (r - g) / (max - min) + 240.0;
+     }
+     if(h < 0.0){
+         h += 360.0;
+     }
+     h = mod(h, 360.0);
+     
+     float s;
+     if(max == 0.0) {
+         s = 0.0;
+     } else {
+         s = (max - min) / max;
+     }
+     float v = max;
+     
+     return vec3(h, s, v);
+ }
+ 
+ mediump vec3 hsv2rgb(mediump vec3 color){
+     float h = color.r;
+     float s = color.g;
+     float v = color.b;
+     float r;
+     float g;
+     float b;
+     int hi = int(mod(float(floor(h / 60.0)), 6.0));
+     float f = (h / 60.0) - float(hi);
+     float p = v * (1.0 - s);
+     float q = v * (1.0 - s * f);
+     float t = v * (1.0 - s * (1.0 - f));
+     
+     if(hi == 0){
+         r = v;
+         g = t;
+         b = p;
+     } else if(hi == 1){
+         r = q;
+         g = v;
+         b = p;
+     } else if(hi == 2){
+         r = p;
+         g = v;
+         b = t;
+     } else if(hi == 3){
+         r = p;
+         g = q;
+         b = v;
+     } else if(hi == 4){
+         r = t;
+         g = p;
+         b = v;
+     } else if(hi == 5){
+         r = v;
+         g = p;
+         b = q;
+     } else {
+         r = v;
+         g = t;
+         b = p;
+     }
+     return vec3(r, g, b);
+     
+ }
+ 
+
  // Normal
- lowp vec4 blendNormal(const in lowp vec4 bottom, const in lowp vec4 top)
+ mediump vec4 blendNormal(const in mediump vec4 bottom, const in mediump vec4 top)
  {
-     return lowp vec4(1.0, 1.0, 1.0, 1.0);
+     return mediump vec4(1.0, 1.0, 1.0, 1.0);
  }
  // Darken
- lowp vec4 blendDarken(const in lowp vec4 bottom, const in lowp vec4 top)
+ mediump vec4 blendDarken(const in mediump vec4 bottom, const in mediump vec4 top)
  {
-     return lowp vec4(min(top.rgb, bottom.rgb) * top.a + (1.0 - top.a) * bottom.rgb, 1.0);
+     return mediump vec4(min(top.rgb, bottom.rgb) * top.a + (1.0 - top.a) * bottom.rgb, 1.0);
  }
  // Multiply
- lowp vec4 blendMultiply(const in lowp vec4 bottom, const in lowp vec4 top)
+ mediump vec4 blendMultiply(const in mediump vec4 bottom, const in mediump vec4 top)
  {
-     return lowp vec4(bottom.rgb * top.rgb * top.a + (1.0 - top.a) * bottom.rgb, 1.0);
+     return mediump vec4(bottom.rgb * top.rgb * top.a + (1.0 - top.a) * bottom.rgb, 1.0);
  }
  // Screen
- lowp vec4 blendScreen(const in lowp vec4 bottom, const in lowp vec4 top)
+ mediump vec4 blendScreen(const in mediump vec4 bottom, const in mediump vec4 top)
  {
-     return lowp vec4(1.0, 1.0, 1.0, 1.0);
+     mediump vec4 rs = vec4(1.0, 1.0, 1.0, 1.0);
+     rs.r = (1.0 - ((1.0 - bottom.r) * (1.0 - top.r))) * top.a + bottom.r * (1.0 - top.a);
+     rs.g = (1.0 - ((1.0 - bottom.g) * (1.0 - top.g))) * top.a + bottom.g * (1.0 - top.a);
+     rs.b = (1.0 - ((1.0 - bottom.b) * (1.0 - top.b))) * top.a + bottom.b * (1.0 - top.a);
+     return rs;
  }
  // SoftLight
- lowp vec4 blendSoftLight(const in lowp vec4 bottom, const in lowp vec4 top)
+ mediump vec4 blendSoftLight(const in mediump vec4 base, const in mediump vec4 overlay)
  {
-     return lowp vec4(1.0, 1.0, 1.0, 1.0);
+     mediump vec4 rs = vec4(1.0, 1.0, 1.0, 1.0);
+     
+     if(overlay.r  < 0.5){
+         rs.r = 2.0 * overlay.r * base.r + base.r * base.r * (1.0 - 2.0 * overlay.r);
+     } else{
+         rs.r = 2.0 * base.r * (1.0 - overlay.r) + sqrt(base.r) * (2.0 * overlay.r - 1.0);
+     }
+     
+     if(overlay.g  < 0.5){
+         rs.g = 2.0 * overlay.g * base.g + base.g * base.g * (1.0 - 2.0 * overlay.g);
+     } else{
+         rs.g = 2.0 * base.g * (1.0 - overlay.g) + sqrt(base.g) * (2.0 * overlay.g - 1.0);
+     }
+     
+     if(overlay.b  < 0.5){
+         rs.b = 2.0 * overlay.b * base.b + base.b * base.b * (1.0 - 2.0 * overlay.b);
+     } else{
+         rs.b = 2.0 * base.b * (1.0 - overlay.b) + sqrt(base.b) * (2.0 * overlay.b - 1.0);
+     }
+     
+     rs.r = rs.r * overlay.a + base.r * (1.0 - overlay.a);
+     rs.g = rs.g * overlay.a + base.g * (1.0 - overlay.a);
+     rs.b = rs.b * overlay.a + base.b * (1.0 - overlay.a);
+     return rs;
  }
  // Lighten
- lowp vec4 blendLighten(const in lowp vec4 bottom, const in lowp vec4 top)
+ mediump vec4 blendLighten(const in mediump vec4 bottom, const in mediump vec4 top)
  {
-     return lowp vec4(1.0, 1.0, 1.0, 1.0);
+     mediump vec4 rs = max(bottom, top);
+     rs = rs * top.a + (1.0 - top.a) * bottom;
+     rs.a = 1.0;
+     return rs;
  }
  // HardLight
- lowp vec4 blendHardLight(const in lowp vec4 bottom, const in lowp vec4 top)
+ mediump vec4 blendHardLight(const in mediump vec4 base, const in mediump vec4 overlay)
  {
-     return lowp vec4(1.0, 1.0, 1.0, 1.0);
+     mediump vec4 rs = vec4(1.0, 1.0, 1.0, 1.0);
+     if (overlay.r < 0.5) {
+         rs.r = base.r * overlay.r * 2.0;
+     } else {
+         rs.r = 2.0 * (base.r + overlay.r - base.r * overlay.r) - 1.0;
+     }
+     if (overlay.g < 0.5) {
+         rs.g = base.g * overlay.g * 2.0;
+     } else {
+         rs.g = 2.0 * (base.g + overlay.g - base.g * overlay.g) - 1.0;
+     }
+     if (overlay.b < 0.5) {
+         rs.b = base.b * overlay.b * 2.0;
+     } else {
+         rs.b = 2.0 * (base.b + overlay.b - base.b * overlay.b) - 1.0;
+     }
+     
+     rs.r = rs.r * overlay.a + (1.0 - overlay.a) * base.r;
+     rs.g = rs.g * overlay.a + (1.0 - overlay.a) * base.g;
+     rs.b = rs.b * overlay.a + (1.0 - overlay.a) * base.b;
+     return rs;
  }
  // VividLight
- lowp vec4 blendVividLight(const in lowp vec4 bottom, const in lowp vec4 top)
+ mediump vec4 blendVividLight(const in mediump vec4 base, const in mediump vec4 overlay)
  {
-     return lowp vec4(1.0, 1.0, 1.0, 1.0);
+     mediump vec4 rs = vec4(1.0, 1.0, 1.0, 1.0);
+     if (overlay.r < 0.5) {
+         if(overlay.r == 0.0){
+             rs.r = 0.0;
+         } else {
+             rs.r = 1.0 - (1.0 - base.r) / (2.0 * overlay.r);
+         }
+     } else {
+         if(overlay.r == 1.0){
+             rs.r = 1.0;
+         } else {
+             rs.r = base.r / (2.0 * (1.0 - overlay.r));
+         }
+     }
+     if (overlay.g < 0.5) {
+         if(overlay.g == 0.0){
+             rs.g = 0.0;
+         } else {
+             rs.g = 1.0 - (1.0 - base.g) / (2.0 * overlay.g);
+         }
+     } else {
+         if(overlay.g == 1.0){
+             rs.g = 1.0;
+         } else {
+             rs.g = base.g / (2.0 * (1.0 - overlay.g));
+         }
+     }
+     if (overlay.b < 0.5) {
+         if(overlay.b == 0.0){
+             rs.b = 0.0;
+         } else {
+             rs.b = 1.0 - (1.0 - base.b) / (2.0 * overlay.b);
+         }
+     } else {
+         if(overlay.b == 1.0){
+             rs.b = 1.0;
+         } else {
+             rs.b = base.b / (2.0 * (1.0 - overlay.b));
+         }
+     }
+     
+     rs.r = min(1.0, max(0.0, rs.r));
+     rs.g = min(1.0, max(0.0, rs.g));
+     rs.b = min(1.0, max(0.0, rs.b));
+     
+     rs.r = rs.r * overlay.a + (1.0 - overlay.a) * base.r;
+     rs.g = rs.g * overlay.a + (1.0 - overlay.a) * base.g;
+     rs.b = rs.b * overlay.a + (1.0 - overlay.a) * base.b;
+     return rs;
  }
  // Overlay
- lowp vec4 blendOverlay(const in lowp vec4 bottom, const in lowp vec4 top)
+ mediump vec4 blendOverlay(const in mediump vec4 base, const in mediump vec4 overlay)
  {
-     return lowp vec4(1.0, 1.0, 1.0, 1.0);
+     mediump vec4 rs = vec4(1.0, 1.0, 1.0, 1.0);
+     if(base.r < 0.5){
+         rs.r = (base.r * overlay.r * 2.0) * overlay.a + (1.0 - overlay.a) * base.r;
+     } else{
+         rs.r = (2.0 * (base.r + overlay.r - base.r * overlay.r) - 1.0) * overlay.a + (1.0 - overlay.a) * base.r;
+     }
+     if(base.g < 0.5){
+         rs.g = (base.g * overlay.g * 2.0) * overlay.a + (1.0 - overlay.a) * base.g;
+     } else{
+         rs.g = (2.0 * (base.g + overlay.g - base.g * overlay.g) - 1.0) * overlay.a + (1.0 - overlay.a) * base.g;
+     }
+     if(base.b < 0.5){
+         rs.b = (base.b * overlay.b * 2.0) * overlay.a + (1.0 - overlay.a) * base.b;
+     } else{
+         rs.b = (2.0 * (base.b + overlay.b - base.b * overlay.b) - 1.0) * overlay.a + (1.0 - overlay.a) * base.b;
+     }
+     return rs;
  }
  // ColorDodge
- lowp vec4 blendColorDodge(const in lowp vec4 bottom, const in lowp vec4 top)
+ mediump vec4 blendColorDodge(const in mediump vec4 base, const in mediump vec4 overlay)
  {
-     return lowp vec4(1.0, 1.0, 1.0, 1.0);
+     mediump vec3 baseOverlayAlphaProduct = vec3(overlay.a * base.a);
+     mediump vec3 rightHandProduct = overlay.rgb * (1.0 - base.a) + base.rgb * (1.0 - overlay.a);
+     mediump vec3 firstBlendColor = baseOverlayAlphaProduct + rightHandProduct;
+     mediump vec3 overlayRGB = clamp((overlay.rgb / clamp(overlay.a, 0.01, 1.0)) * step(0.0, overlay.a), 0.0, 0.99);
+     mediump vec3 secondBlendColor = (base.rgb * overlay.a) / (1.0 - overlayRGB) + rightHandProduct;
+     mediump vec3 colorChoice = step((overlay.rgb * base.a + base.rgb * overlay.a), baseOverlayAlphaProduct);
+     mediump vec4 rs = vec4(mix(firstBlendColor, secondBlendColor, colorChoice), 1.0);
+     rs.rgb = rs.rgb * overlay.a + (1.0 - overlay.a) * base.rgb;
+     return rs;
  }
  // Difference
- lowp vec4 blendDifference(const in lowp vec4 bottom, const in lowp vec4 top)
+ mediump vec4 blendDifference(const in mediump vec4 bottom, const in mediump vec4 top)
  {
-     return lowp vec4(1.0, 1.0, 1.0, 1.0);
+     mediump vec4 rs = vec4(overlay.rgb - bottom.rgb, 1.0);
+     rs.rgb = rs.rgb * top.a + (1.0 - top.a) * bottom.rgb;
+     return rs;
  }
  // LinearDodge
- lowp vec4 blendLinearDodge(const in lowp vec4 bottom, const in lowp vec4 top)
+ mediump vec4 blendLinearDodge(const in mediump vec4 bottom, const in mediump vec4 top)
  {
-     return lowp vec4(1.0, 1.0, 1.0, 1.0);
+     mediump vec4 rs = bottom + top;;
+     rs.r = min(rs.r, 1.0);
+     rs.g = min(rs.g, 1.0);
+     rs.b = min(rs.b, 1.0);
+     rs.a = 1.0;
+     rs.rgb = rs.rgb * top.a + (1.0 - top.a) * bottom.rgb;
+     return rs;
  }
+ 
+ 
+ 
  // LinearLight
- lowp vec4 blendLinearLight(const in lowp vec4 bottom, const in lowp vec4 top)
+ mediump vec4 blendLinearLight(const in mediump vec4 bottom, const in mediump vec4 top)
  {
-     return lowp vec4(1.0, 1.0, 1.0, 1.0);
+     mediump vec4 rs = bottom + 2.0 * top - 1.0;
+     rs.r = max(0.0, min(rs.r, 1.0));
+     rs.g = max(0.0, min(rs.g, 1.0));
+     rs.b = max(0.0, min(rs.b, 1.0));
+     rs.rgb = rs.rgb * top.a + (1.0 - top.a) * bottom.rgb;
+     return rs;
  }
  // Color
- lowp vec4 blendColor(const in lowp vec4 bottom, const in lowp vec4 top)
+ mediump vec4 blendColor(const in mediump vec4 base, const in mediump vec4 overlay)
  {
-     return lowp vec4(1.0, 1.0, 1.0, 1.0);
+     return mediump vec4(base.rgb * (1.0 - overlay.a) + setlum(overlay.rgb, lum(base.rgb)) * overlay.a, 1.0);
  }
  // DarkerColor
- lowp vec4 blendDarkerColor(const in lowp vec4 bottom, const in lowp vec4 top)
+ mediump vec4 blendDarkerColor(const in mediump vec4 base, const in mediump vec4 overlay)
  {
-     return lowp vec4(1.0, 1.0, 1.0, 1.0);
+     mediump vec4 rs = vec4(bottom.rgb, 1.0);
+     if(overlay.r < base.r){
+         rs.r = overlay.r;
+     }
+     if(overlay.g < base.g){
+         rs.g = overlay.g;
+     }
+     if(overlay.b < base.b){
+         rs.b = overlay.b;
+     }
+     return rs;
  }
  // Exclusion
- lowp vec4 blendExclusion(const in lowp vec4 bottom, const in lowp vec4 top)
+ mediump vec4 blendExclusion(const in mediump vec4 base, const in mediump vec4 overlay)
  {
-     return lowp vec4(1.0, 1.0, 1.0, 1.0);
+     mediump vec4 rs = (base + overlay - 2.0 * base * overlay) * overlay.a + (1.0 - overlay.a) * base;
+     rs.a = 1.0;
+     return rs;
  }
  // ColorBurn
- lowp vec4 blendColorBurn(const in lowp vec4 bottom, const in lowp vec4 top)
+ mediump vec4 blendColorBurn(const in mediump vec4 bottom, const in mediump vec4 top)
  {
-     return lowp vec4(1.0, 1.0, 1.0, 1.0);
+     mediump vec4 whiteColor = vec4(1.0);
+     mediump rs = whiteColor - (whiteColor - bottom) / top;
+     rs.rgb = rs.rgb * top.a + (1.0 - top.a) * bottom.rgb;
+     rs.a = 1.0;
+     return rs;
  }
  // Hue
- lowp vec4 blendHue(const in lowp vec4 bottom, const in lowp vec4 top)
+ mediump vec4 blendHue(const in mediump vec4 bottom, const in mediump vec4 top)
  {
-     return lowp vec4(1.0, 1.0, 1.0, 1.0);
+     mediump vec4 rs = vec4(1.0, 1.0, 1.0, 1.0);
+     rs.xyz = rgb2hsv(bottom.rgb);
+     mediump vec3 overlayHsv = rgb2hsv(top.rgb);
+     rs.x = overlayHsv.x;
+     rs.rgb = hsv2rgb(rs);
+     rs.rgb = rs.rgb * top.a + (1.0 - top.a) * bottom.rgb;
+     return mediump vec4(rs, 1.0);
  }
  // Saturation
- lowp vec4 blendSaturation(const in lowp vec4 bottom, const in lowp vec4 top)
+ mediump vec4 blendSaturation(const in mediump vec4 bottom, const in mediump vec4 top)
  {
-     return lowp vec4(1.0, 1.0, 1.0, 1.0);
+     mediump vec4 rs = vec4(1.0, 1.0, 1.0, 1.0);
+     rs.xyz = rgb2hsv(bottom.rgb);
+     mediump vec3 overlayHsv = rgb2hsv(top.rgb);
+     rs.y = overlayHsv.y;
+     rs.rgb = hsv2rgb(rs);
+     rs.rgb = rs.rgb * top.a + (1.0 - top.a) * bottom.rgb;
+     return mediump vec4(rs, 1.0);
  }
  // Luminosity
- lowp vec4 blendLuminosity(const in lowp vec4 bottom, const in lowp vec4 top)
+ mediump vec4 blendLuminosity(const in mediump vec4 bottom, const in mediump vec4 top)
  {
-     return lowp vec4(1.0, 1.0, 1.0, 1.0);
+     return mediump vec4(1.0, 1.0, 1.0, 1.0);
+     rs.xyz = rgb2hsv(bottom.rgb);
+     mediump vec3 overlayHsv = rgb2hsv(top.rgb);
+     rs.z = overlayHsv.z;
+     rs.rgb = hsv2rgb(rs);
+     rs.rgb = rs.rgb * top.a + (1.0 - top.a) * bottom.rgb;
+     return mediump vec4(rs, 1.0);
  }
  // Common
- lowp vec4 blendWithBlendingMode(const in lowp vec4 bottom, const in lowp vec4 top, int mode)
+ mediump vec4 blendWithBlendingMode(const in mediump vec4 bottom, const in mediump vec4 top, int mode)
  {
      if(mode == 1){
          return blendNormal(bottom, top);
@@ -184,7 +471,11 @@ NSString *const kVnImageFilterFragmentShaderString = SHADER_STRING
 
 - (id)initWithFragmentShaderFromString:(NSString *)fragmentShaderString
 {
+    kVnImageFilterFragmentShaderString = [kVnImageFilterFragmentShaderString stringByReplacingOccurrencesOfString:@";" withString:@";\n"];
+    kVnImageFilterFragmentShaderString = [kVnImageFilterFragmentShaderString stringByReplacingOccurrencesOfString:@"}" withString:@"}\n"];
+    kVnImageFilterFragmentShaderString = [kVnImageFilterFragmentShaderString stringByReplacingOccurrencesOfString:@"{" withString:@"{\n"];
     NSString* shader = [NSString stringWithFormat:@"%@%@", kVnImageFilterFragmentShaderString, fragmentShaderString];
+    LOG(@"%@", shader);
     self = [super initWithFragmentShaderFromString:shader];
     if (self) {
         self.blendingMode = VnBlendingModeNormal;
