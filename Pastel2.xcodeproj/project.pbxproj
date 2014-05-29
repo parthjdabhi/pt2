@@ -142,6 +142,24 @@
 		58767A191934857200F01BBA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 587679F81934857100F01BBA /* UIKit.framework */; };
 		58767A211934857200F01BBA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 58767A1F1934857200F01BBA /* InfoPlist.strings */; };
 		58767A231934857200F01BBA /* Pastel2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 58767A221934857200F01BBA /* Pastel2Tests.m */; };
+		588EADAD19375ABB005C486E /* VnEffectColorSerenity.m in Sources */ = {isa = PBXBuildFile; fileRef = 588EADAC19375ABB005C486E /* VnEffectColorSerenity.m */; };
+		588EADB319375B93005C486E /* VnEffectColorSummerSkin.m in Sources */ = {isa = PBXBuildFile; fileRef = 588EADB219375B93005C486E /* VnEffectColorSummerSkin.m */; };
+		588EADB619375C35005C486E /* VnEffectColorSunnyLight.m in Sources */ = {isa = PBXBuildFile; fileRef = 588EADB519375C35005C486E /* VnEffectColorSunnyLight.m */; };
+		588EADB919375CED005C486E /* VnEffectColorUrbanCandy.m in Sources */ = {isa = PBXBuildFile; fileRef = 588EADB819375CED005C486E /* VnEffectColorUrbanCandy.m */; };
+		588EADBC19375E89005C486E /* VnEffectColorWarmHaze.m in Sources */ = {isa = PBXBuildFile; fileRef = 588EADBB19375E89005C486E /* VnEffectColorWarmHaze.m */; };
+		588EADBF193761C2005C486E /* VnEffectColorWildHoney.m in Sources */ = {isa = PBXBuildFile; fileRef = 588EADBE193761C2005C486E /* VnEffectColorWildHoney.m */; };
+		588EADD919376426005C486E /* VnEffectOverlayBlueHaze.m in Sources */ = {isa = PBXBuildFile; fileRef = 588EADC219376426005C486E /* VnEffectOverlayBlueHaze.m */; };
+		588EADDA19376426005C486E /* VnEffectOverlayHazyLightWarmPink.m in Sources */ = {isa = PBXBuildFile; fileRef = 588EADC419376426005C486E /* VnEffectOverlayHazyLightWarmPink.m */; };
+		588EADDB19376426005C486E /* VnEffectOverlayHazyLightWarmPink2.m in Sources */ = {isa = PBXBuildFile; fileRef = 588EADC619376426005C486E /* VnEffectOverlayHazyLightWarmPink2.m */; };
+		588EADDC19376426005C486E /* VnEffectOverlayLightBrightHaze.m in Sources */ = {isa = PBXBuildFile; fileRef = 588EADC819376426005C486E /* VnEffectOverlayLightBrightHaze.m */; };
+		588EADF519376E41005C486E /* VnEffectOverlayLightBrightMatte.m in Sources */ = {isa = PBXBuildFile; fileRef = 588EADE619376E41005C486E /* VnEffectOverlayLightBrightMatte.m */; };
+		588EADF619376E41005C486E /* VnEffectOverlayLightBrightPop.m in Sources */ = {isa = PBXBuildFile; fileRef = 588EADE819376E41005C486E /* VnEffectOverlayLightBrightPop.m */; };
+		588EADF719376E41005C486E /* VnEffectOverlayPinkHaze.m in Sources */ = {isa = PBXBuildFile; fileRef = 588EADEA19376E41005C486E /* VnEffectOverlayPinkHaze.m */; };
+		588EADF819376E41005C486E /* VnEffectOverlayRetroSun.m in Sources */ = {isa = PBXBuildFile; fileRef = 588EADEC19376E41005C486E /* VnEffectOverlayRetroSun.m */; };
+		588EADF919376E41005C486E /* VnEffectOverlayWarmVintage.m in Sources */ = {isa = PBXBuildFile; fileRef = 588EADEE19376E41005C486E /* VnEffectOverlayWarmVintage.m */; };
+		588EADFA19376E41005C486E /* VnEffectOverlayCandyHaze.m in Sources */ = {isa = PBXBuildFile; fileRef = 588EADF019376E41005C486E /* VnEffectOverlayCandyHaze.m */; };
+		588EADFB19376E41005C486E /* VnEffectOverlaySunhazeLeft.m in Sources */ = {isa = PBXBuildFile; fileRef = 588EADF219376E41005C486E /* VnEffectOverlaySunhazeLeft.m */; };
+		588EADFC19376E41005C486E /* VnEffectOverlaySunhazeRight.m in Sources */ = {isa = PBXBuildFile; fileRef = 588EADF419376E41005C486E /* VnEffectOverlaySunhazeRight.m */; };
 		58D1926C19370EB3000FAFDB /* VnEffectColorPinkMilk.m in Sources */ = {isa = PBXBuildFile; fileRef = 58D1926B19370EB3000FAFDB /* VnEffectColorPinkMilk.m */; };
 		58D192721937107B000FAFDB /* VnEffectColorPotion9.m in Sources */ = {isa = PBXBuildFile; fileRef = 58D192711937107B000FAFDB /* VnEffectColorPotion9.m */; };
 		58D19275193711C3000FAFDB /* VnEffectColorPurePeach.m in Sources */ = {isa = PBXBuildFile; fileRef = 58D19274193711C3000FAFDB /* VnEffectColorPurePeach.m */; };
@@ -371,6 +389,42 @@
 		58767A1E1934857200F01BBA /* Pastel2Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Pastel2Tests-Info.plist"; sourceTree = "<group>"; };
 		58767A201934857200F01BBA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		58767A221934857200F01BBA /* Pastel2Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Pastel2Tests.m; sourceTree = "<group>"; };
+		588EADAB19375ABB005C486E /* VnEffectColorSerenity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VnEffectColorSerenity.h; sourceTree = "<group>"; };
+		588EADAC19375ABB005C486E /* VnEffectColorSerenity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VnEffectColorSerenity.m; sourceTree = "<group>"; };
+		588EADB119375B93005C486E /* VnEffectColorSummerSkin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VnEffectColorSummerSkin.h; sourceTree = "<group>"; };
+		588EADB219375B93005C486E /* VnEffectColorSummerSkin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VnEffectColorSummerSkin.m; sourceTree = "<group>"; };
+		588EADB419375C35005C486E /* VnEffectColorSunnyLight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VnEffectColorSunnyLight.h; sourceTree = "<group>"; };
+		588EADB519375C35005C486E /* VnEffectColorSunnyLight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VnEffectColorSunnyLight.m; sourceTree = "<group>"; };
+		588EADB719375CED005C486E /* VnEffectColorUrbanCandy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VnEffectColorUrbanCandy.h; sourceTree = "<group>"; };
+		588EADB819375CED005C486E /* VnEffectColorUrbanCandy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VnEffectColorUrbanCandy.m; sourceTree = "<group>"; };
+		588EADBA19375E89005C486E /* VnEffectColorWarmHaze.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VnEffectColorWarmHaze.h; sourceTree = "<group>"; };
+		588EADBB19375E89005C486E /* VnEffectColorWarmHaze.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VnEffectColorWarmHaze.m; sourceTree = "<group>"; };
+		588EADBD193761C2005C486E /* VnEffectColorWildHoney.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VnEffectColorWildHoney.h; sourceTree = "<group>"; };
+		588EADBE193761C2005C486E /* VnEffectColorWildHoney.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VnEffectColorWildHoney.m; sourceTree = "<group>"; };
+		588EADC119376426005C486E /* VnEffectOverlayBlueHaze.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VnEffectOverlayBlueHaze.h; sourceTree = "<group>"; };
+		588EADC219376426005C486E /* VnEffectOverlayBlueHaze.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VnEffectOverlayBlueHaze.m; sourceTree = "<group>"; };
+		588EADC319376426005C486E /* VnEffectOverlayHazyLightWarmPink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VnEffectOverlayHazyLightWarmPink.h; sourceTree = "<group>"; };
+		588EADC419376426005C486E /* VnEffectOverlayHazyLightWarmPink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VnEffectOverlayHazyLightWarmPink.m; sourceTree = "<group>"; };
+		588EADC519376426005C486E /* VnEffectOverlayHazyLightWarmPink2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VnEffectOverlayHazyLightWarmPink2.h; sourceTree = "<group>"; };
+		588EADC619376426005C486E /* VnEffectOverlayHazyLightWarmPink2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VnEffectOverlayHazyLightWarmPink2.m; sourceTree = "<group>"; };
+		588EADC719376426005C486E /* VnEffectOverlayLightBrightHaze.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VnEffectOverlayLightBrightHaze.h; sourceTree = "<group>"; };
+		588EADC819376426005C486E /* VnEffectOverlayLightBrightHaze.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VnEffectOverlayLightBrightHaze.m; sourceTree = "<group>"; };
+		588EADE519376E41005C486E /* VnEffectOverlayLightBrightMatte.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VnEffectOverlayLightBrightMatte.h; sourceTree = "<group>"; };
+		588EADE619376E41005C486E /* VnEffectOverlayLightBrightMatte.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VnEffectOverlayLightBrightMatte.m; sourceTree = "<group>"; };
+		588EADE719376E41005C486E /* VnEffectOverlayLightBrightPop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VnEffectOverlayLightBrightPop.h; sourceTree = "<group>"; };
+		588EADE819376E41005C486E /* VnEffectOverlayLightBrightPop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VnEffectOverlayLightBrightPop.m; sourceTree = "<group>"; };
+		588EADE919376E41005C486E /* VnEffectOverlayPinkHaze.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VnEffectOverlayPinkHaze.h; sourceTree = "<group>"; };
+		588EADEA19376E41005C486E /* VnEffectOverlayPinkHaze.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VnEffectOverlayPinkHaze.m; sourceTree = "<group>"; };
+		588EADEB19376E41005C486E /* VnEffectOverlayRetroSun.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VnEffectOverlayRetroSun.h; sourceTree = "<group>"; };
+		588EADEC19376E41005C486E /* VnEffectOverlayRetroSun.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VnEffectOverlayRetroSun.m; sourceTree = "<group>"; };
+		588EADED19376E41005C486E /* VnEffectOverlayWarmVintage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VnEffectOverlayWarmVintage.h; sourceTree = "<group>"; };
+		588EADEE19376E41005C486E /* VnEffectOverlayWarmVintage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VnEffectOverlayWarmVintage.m; sourceTree = "<group>"; };
+		588EADEF19376E41005C486E /* VnEffectOverlayCandyHaze.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VnEffectOverlayCandyHaze.h; sourceTree = "<group>"; };
+		588EADF019376E41005C486E /* VnEffectOverlayCandyHaze.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VnEffectOverlayCandyHaze.m; sourceTree = "<group>"; };
+		588EADF119376E41005C486E /* VnEffectOverlaySunhazeLeft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VnEffectOverlaySunhazeLeft.h; sourceTree = "<group>"; };
+		588EADF219376E41005C486E /* VnEffectOverlaySunhazeLeft.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VnEffectOverlaySunhazeLeft.m; sourceTree = "<group>"; };
+		588EADF319376E41005C486E /* VnEffectOverlaySunhazeRight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VnEffectOverlaySunhazeRight.h; sourceTree = "<group>"; };
+		588EADF419376E41005C486E /* VnEffectOverlaySunhazeRight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VnEffectOverlaySunhazeRight.m; sourceTree = "<group>"; };
 		58D1926A19370EB3000FAFDB /* VnEffectColorPinkMilk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VnEffectColorPinkMilk.h; sourceTree = "<group>"; };
 		58D1926B19370EB3000FAFDB /* VnEffectColorPinkMilk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VnEffectColorPinkMilk.m; sourceTree = "<group>"; };
 		58D192701937107B000FAFDB /* VnEffectColorPotion9.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VnEffectColorPotion9.h; sourceTree = "<group>"; };
@@ -710,6 +764,18 @@
 				58D1927719371420000FAFDB /* VnEffectColorPurrr.m */,
 				58D192791937177C000FAFDB /* VnEffectColorRosyVintage.h */,
 				58D1927A1937177C000FAFDB /* VnEffectColorRosyVintage.m */,
+				588EADAB19375ABB005C486E /* VnEffectColorSerenity.h */,
+				588EADAC19375ABB005C486E /* VnEffectColorSerenity.m */,
+				588EADB119375B93005C486E /* VnEffectColorSummerSkin.h */,
+				588EADB219375B93005C486E /* VnEffectColorSummerSkin.m */,
+				588EADB419375C35005C486E /* VnEffectColorSunnyLight.h */,
+				588EADB519375C35005C486E /* VnEffectColorSunnyLight.m */,
+				588EADB719375CED005C486E /* VnEffectColorUrbanCandy.h */,
+				588EADB819375CED005C486E /* VnEffectColorUrbanCandy.m */,
+				588EADBA19375E89005C486E /* VnEffectColorWarmHaze.h */,
+				588EADBB19375E89005C486E /* VnEffectColorWarmHaze.m */,
+				588EADBD193761C2005C486E /* VnEffectColorWildHoney.h */,
+				588EADBE193761C2005C486E /* VnEffectColorWildHoney.m */,
 			);
 			name = Color;
 			sourceTree = "<group>";
@@ -747,6 +813,7 @@
 			children = (
 				5800CD281935C85E004BB438 /* VnEffect.h */,
 				5800CD291935C85E004BB438 /* VnEffect.m */,
+				588EADC019376416005C486E /* Overlay */,
 				5800CCFA1935C727004BB438 /* Color */,
 				5800CC851935C70E004BB438 /* Curves */,
 			);
@@ -884,6 +951,37 @@
 				58767A1F1934857200F01BBA /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		588EADC019376416005C486E /* Overlay */ = {
+			isa = PBXGroup;
+			children = (
+				588EADC119376426005C486E /* VnEffectOverlayBlueHaze.h */,
+				588EADC219376426005C486E /* VnEffectOverlayBlueHaze.m */,
+				588EADC319376426005C486E /* VnEffectOverlayHazyLightWarmPink.h */,
+				588EADC419376426005C486E /* VnEffectOverlayHazyLightWarmPink.m */,
+				588EADC519376426005C486E /* VnEffectOverlayHazyLightWarmPink2.h */,
+				588EADC619376426005C486E /* VnEffectOverlayHazyLightWarmPink2.m */,
+				588EADC719376426005C486E /* VnEffectOverlayLightBrightHaze.h */,
+				588EADC819376426005C486E /* VnEffectOverlayLightBrightHaze.m */,
+				588EADE519376E41005C486E /* VnEffectOverlayLightBrightMatte.h */,
+				588EADE619376E41005C486E /* VnEffectOverlayLightBrightMatte.m */,
+				588EADE719376E41005C486E /* VnEffectOverlayLightBrightPop.h */,
+				588EADE819376E41005C486E /* VnEffectOverlayLightBrightPop.m */,
+				588EADE919376E41005C486E /* VnEffectOverlayPinkHaze.h */,
+				588EADEA19376E41005C486E /* VnEffectOverlayPinkHaze.m */,
+				588EADEB19376E41005C486E /* VnEffectOverlayRetroSun.h */,
+				588EADEC19376E41005C486E /* VnEffectOverlayRetroSun.m */,
+				588EADED19376E41005C486E /* VnEffectOverlayWarmVintage.h */,
+				588EADEE19376E41005C486E /* VnEffectOverlayWarmVintage.m */,
+				588EADEF19376E41005C486E /* VnEffectOverlayCandyHaze.h */,
+				588EADF019376E41005C486E /* VnEffectOverlayCandyHaze.m */,
+				588EADF119376E41005C486E /* VnEffectOverlaySunhazeLeft.h */,
+				588EADF219376E41005C486E /* VnEffectOverlaySunhazeLeft.m */,
+				588EADF319376E41005C486E /* VnEffectOverlaySunhazeRight.h */,
+				588EADF419376E41005C486E /* VnEffectOverlaySunhazeRight.m */,
+			);
+			name = Overlay;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1071,6 +1169,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				58767A0E1934857100F01BBA /* ViewController.m in Sources */,
+				588EADAD19375ABB005C486E /* VnEffectColorSerenity.m in Sources */,
+				588EADDC19376426005C486E /* VnEffectOverlayLightBrightHaze.m in Sources */,
 				5800108F193491CA00B44C5F /* UIViewController+extend.m in Sources */,
 				58D1927819371420000FAFDB /* VnEffectColorPurrr.m in Sources */,
 				5800CD2A1935C85E004BB438 /* VnEffect.m in Sources */,
@@ -1078,17 +1178,20 @@
 				58001090193491CB00B44C5F /* UIImagePickerController+extend.m in Sources */,
 				5800104D1934911200B44C5F /* LmCmViewFlashModeList.m in Sources */,
 				580010611934912C00B44C5F /* LmCmButtonShutter.m in Sources */,
+				588EADDA19376426005C486E /* VnEffectOverlayHazyLightWarmPink.m in Sources */,
 				5800104E1934911200B44C5F /* LmCmButtonFlashModeItem.m in Sources */,
 				580F847D1934EABE0036A99F /* VnAdjustmentLayerColorBalance.m in Sources */,
 				580010381934907200B44C5F /* LmCmImageAsset.m in Sources */,
 				580010591934912400B44C5F /* LmCmViewSettingsList.m in Sources */,
 				58F84578193707AB00F413A6 /* VnFilterSolidColor.m in Sources */,
 				58D192721937107B000FAFDB /* VnEffectColorPotion9.m in Sources */,
+				588EADF719376E41005C486E /* VnEffectOverlayPinkHaze.m in Sources */,
 				5800107A1934916900B44C5F /* LmCmSharedCamera.m in Sources */,
 				5800106B1934913500B44C5F /* UISliderThumbView.m in Sources */,
 				580F84781934EABE0036A99F /* VnAdjustmentLayerPhotoFilter.m in Sources */,
 				580F847A1934EABE0036A99F /* VnAdjustmentLayerChannelMixerFilter.m in Sources */,
 				58F8457B19370CD000F413A6 /* VnEffectColorOphelia.m in Sources */,
+				588EADBF193761C2005C486E /* VnEffectColorWildHoney.m in Sources */,
 				58D1926C19370EB3000FAFDB /* VnEffectColorPinkMilk.m in Sources */,
 				5800106A1934913500B44C5F /* LmCmViewSlider.m in Sources */,
 				58767A051934857100F01BBA /* AppDelegate.m in Sources */,
@@ -1096,22 +1199,32 @@
 				5800109C193492A400B44C5F /* PtViewControllerRoot.m in Sources */,
 				58D1927B1937177C000FAFDB /* VnEffectColorRosyVintage.m in Sources */,
 				5800CC811935C565004BB438 /* VnFilterLensBlur.m in Sources */,
+				588EADFC19376E41005C486E /* VnEffectOverlaySunhazeRight.m in Sources */,
 				580010621934912C00B44C5F /* LmCmViewPreviewOverlay.m in Sources */,
 				580010531934911A00B44C5F /* LmCmViewCropList.m in Sources */,
 				580010751934915600B44C5F /* LmCmViewManagerPreview.m in Sources */,
 				58767A011934857100F01BBA /* main.m in Sources */,
+				588EADFA19376E41005C486E /* VnEffectOverlayCandyHaze.m in Sources */,
 				5800108D193491CA00B44C5F /* UIScrollView+extend.m in Sources */,
+				588EADBC19375E89005C486E /* VnEffectColorWarmHaze.m in Sources */,
 				580010741934915600B44C5F /* LmCmViewManagerZoom.m in Sources */,
 				5800108A193491CA00B44C5F /* UIDevice+extend.m in Sources */,
+				588EADF819376E41005C486E /* VnEffectOverlayRetroSun.m in Sources */,
+				588EADB619375C35005C486E /* VnEffectColorSunnyLight.m in Sources */,
 				580010471934910A00B44C5F /* LmCmViewBottomBar.m in Sources */,
 				580010631934912C00B44C5F /* LmCmViewCropBlackRect.m in Sources */,
 				5800CC821935C565004BB438 /* VnFilterBrightness.m in Sources */,
+				588EADDB19376426005C486E /* VnEffectOverlayHazyLightWarmPink2.m in Sources */,
 				5800105A1934912400B44C5F /* LmCmButtonSettingsItem.m in Sources */,
 				5800108E193491CA00B44C5F /* UIImage+extend.m in Sources */,
 				58001096193491D800B44C5F /* VnViewLabel.m in Sources */,
 				5800CC831935C565004BB438 /* VnFilterLevels.m in Sources */,
 				580F847C1934EABE0036A99F /* VnAdjustmentLayerSelectiveColor.m in Sources */,
+				588EADB919375CED005C486E /* VnEffectColorUrbanCandy.m in Sources */,
+				588EADB319375B93005C486E /* VnEffectColorSummerSkin.m in Sources */,
 				5800CC841935C565004BB438 /* VnFilterTemperature.m in Sources */,
+				588EADF519376E41005C486E /* VnEffectOverlayLightBrightMatte.m in Sources */,
+				588EADF919376E41005C486E /* VnEffectOverlayWarmVintage.m in Sources */,
 				580F83D01934D6140036A99F /* PtViewControllerEditor.m in Sources */,
 				580010761934915600B44C5F /* LmCmViewManagerTools.m in Sources */,
 				580F83CB1934BA480036A99F /* PtSharedApp.m in Sources */,
@@ -1119,6 +1232,8 @@
 				580F847E1934EABE0036A99F /* VnAdjustmentLayerGradientColorFill.m in Sources */,
 				5800108C193491CA00B44C5F /* UIView+extend.m in Sources */,
 				580F84821934EBA90036A99F /* VnImageFilter.m in Sources */,
+				588EADD919376426005C486E /* VnEffectOverlayBlueHaze.m in Sources */,
+				588EADFB19376E41005C486E /* VnEffectOverlaySunhazeLeft.m in Sources */,
 				580010331934905900B44C5F /* LmCmCameraManager.m in Sources */,
 				580010481934910A00B44C5F /* LmCmViewTopBar.m in Sources */,
 				580010541934911A00B44C5F /* LmCmButtonCropListItem.m in Sources */,
@@ -1127,6 +1242,7 @@
 				58D19275193711C3000FAFDB /* VnEffectColorPurePeach.m in Sources */,
 				580F84791934EABE0036A99F /* VnAdjustmentLayerHueSaturation.m in Sources */,
 				5800CD191935C73B004BB438 /* VnEffectColorBronze.m in Sources */,
+				588EADF619376E41005C486E /* VnEffectOverlayLightBrightPop.m in Sources */,
 				58F8456F193704A000F413A6 /* VnEffectColorLittleBlueSecret.m in Sources */,
 				5800106C1934913500B44C5F /* LmCmViewZoomSlider.m in Sources */,
 				58F845751937051700F413A6 /* VnFilterToneCurve.m in Sources */,

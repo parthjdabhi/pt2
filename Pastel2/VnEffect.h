@@ -31,6 +31,7 @@
 @property (nonatomic, assign) CGFloat faceOpacity;
 @property (nonatomic, strong) VnImageFilter* startFilter;
 @property (nonatomic, strong) VnImageFilter* endFilter;
+@property (nonatomic, assign) CGSize imageSize;
 
 + (UIImage*)processImage:(UIImage*)image WithStartFilter:(VnImageFilter*)startFilter EndFilter:(VnImageFilter*)endFilter;
 

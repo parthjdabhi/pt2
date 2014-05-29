@@ -174,58 +174,42 @@
         @autoreleasepool {
             
             NSMutableArray* effects = [NSMutableArray array];
-            [effects addObject:[VnEffectColorBronze new]];
-            [effects addObject:[VnEffectColorLittleBlueSecret new]];
-            [effects addObject:[VnEffectColorOphelia new]];
-            [effects addObject:[VnEffectColorPinkMilk new]];
-            [effects addObject:[VnEffectColorPotion9 new]];
-            [effects addObject:[VnEffectColorPurePeach new]];
-            [effects addObject:[VnEffectColorPurrr new]];
-            [effects addObject:[VnEffectColorRosyVintage new]];
+            [effects addObject:[VnEffectOverlayLightBrightHaze new]];
             
             
-            for (int n = 0; n < [effects count]; n++) {
-                @autoreleasepool {
-                    [((VnEffect*)[effects objectAtIndex:n]) makeFilterGroup];
-                    VnImageFilter* startFilter = ((VnEffect*)[effects objectAtIndex:n]).startFilter;
-                    VnImageFilter* endFilter = ((VnEffect*)[effects objectAtIndex:n]).endFilter;
-                    asset.image = [VnEffect processImage:asset.image WithStartFilter:startFilter EndFilter:endFilter];
-                    if (asset.image.imageOrientation != UIImageOrientationUp) {
-                        asset.image = [UIImage imageWithCGImage:asset.image.CGImage scale:asset.image.scale orientation:UIImageOrientationUp];
-                    }
+            for (int n = 0; n < [effects count]; n++) {                
+                [((VnEffect*)[effects objectAtIndex:n]) makeFilterGroup];
+                VnImageFilter* startFilter = ((VnEffect*)[effects objectAtIndex:n]).startFilter;
+                VnImageFilter* endFilter = ((VnEffect*)[effects objectAtIndex:n]).endFilter;
+                asset.image = [VnEffect processImage:asset.image WithStartFilter:startFilter EndFilter:endFilter];
+                if (asset.image.imageOrientation != UIImageOrientationUp) {
+                    asset.image = [UIImage imageWithCGImage:asset.image.CGImage scale:asset.image.scale orientation:UIImageOrientationUp];
                 }
+                
             }
         }
     }else{
         for (int i = 0; i < 9; i++) {
-            @autoreleasepool {
+            for (int n = 0; n < 1; n++) {
                 
-                
-                NSMutableArray* effects = [NSMutableArray array];
-                [effects addObject:[VnEffectColorBronze new]];
-                [effects addObject:[VnEffectColorLittleBlueSecret new]];
-                [effects addObject:[VnEffectColorOphelia new]];
-                [effects addObject:[VnEffectColorPinkMilk new]];
-                [effects addObject:[VnEffectColorPotion9 new]];
-                [effects addObject:[VnEffectColorPurePeach new]];
-                [effects addObject:[VnEffectColorPurrr new]];
-                [effects addObject:[VnEffectColorRosyVintage new]];
-                
-                for (int n = 0; n < [effects count]; n++) {
-                    @autoreleasepool {
-                        UIImage* image = [asset.splitImages objectAtIndex:i];
-                        [((VnEffect*)[effects objectAtIndex:n]) makeFilterGroup];
-                        VnImageFilter* startFilter = ((VnEffect*)[effects objectAtIndex:n]).startFilter;
-                        VnImageFilter* endFilter = ((VnEffect*)[effects objectAtIndex:n]).endFilter;
-                        image = [VnEffect processImage:image WithStartFilter:startFilter EndFilter:endFilter];
-                        if (image.imageOrientation != UIImageOrientationUp) {
-                            image = [UIImage imageWithCGImage:image.CGImage scale:image.scale orientation:UIImageOrientationUp];
-                        }
-                        [asset.splitImages replaceObjectAtIndex:i withObject:image];
+                @autoreleasepool {
+                    NSMutableArray* effects = [NSMutableArray array];
+                    [effects addObject:[VnEffectOverlayLightBrightHaze new]];
+                    
+                    UIImage* image = [asset.splitImages objectAtIndex:i];
+                    [((VnEffect*)[effects objectAtIndex:n]) makeFilterGroup];
+                    VnImageFilter* startFilter = ((VnEffect*)[effects objectAtIndex:n]).startFilter;
+                    VnImageFilter* endFilter = ((VnEffect*)[effects objectAtIndex:n]).endFilter;
+                    image = [VnEffect processImage:image WithStartFilter:startFilter EndFilter:endFilter];
+                    if (image.imageOrientation != UIImageOrientationUp) {
+                        image = [UIImage imageWithCGImage:image.CGImage scale:image.scale orientation:UIImageOrientationUp];
                     }
+                    [asset.splitImages replaceObjectAtIndex:i withObject:image];
+                    
                 }
                 
             }
+            
         }
         
         @autoreleasepool {

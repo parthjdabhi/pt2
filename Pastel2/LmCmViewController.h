@@ -30,6 +30,17 @@
 #import "VnEffectColorPinkMilk.h"
 #import "VnEffectColorPurePeach.h"
 #import "VnEffectColorRosyVintage.h"
+#import "VnEffectColorSerenity.h"
+#import "VnEffectColorSummerSkin.h"
+#import "VnEffectColorSunnyLight.h"
+#import "VnEffectColorUrbanCandy.h"
+#import "VnEffectColorWarmHaze.h"
+#import "VnEffectColorWildHoney.h"
+
+#import "VnEffectOverlayBlueHaze.h"
+#import "VnEffectOverlayHazyLightWarmPink.h"
+#import "VnEffectOverlayHazyLightWarmPink2.h"
+#import "VnEffectOverlayLightBrightHaze.h"
 
 @interface LmCmViewController : UIViewController <CameraManagerDelegate, UIGestureRecognizerDelegate, LmCmViewManagerZoomDelegate, LmCmViewManagerPreviewDelegate, LmCmViewManagerToolsDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 {
