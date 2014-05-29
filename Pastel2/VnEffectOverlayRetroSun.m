@@ -21,32 +21,23 @@
     return self;
 }
 
-- (UIImage*)process
+- (void)makeFilterGroup
 {
     
-    [VnCurrentImage saveTmpImage:self.imageToProcess];
+    // Levels
+    VnFilterLevels* levelsFilter1 = [[VnFilterLevels alloc] init];
+    [levelsFilter1 setRedMin:s255(0.0f) gamma:1.00f max:s255(238.0f) minOut:s255(5.0f) maxOut:s255(255.0f)];
+    [levelsFilter1 setGreenMin:s255(8.0f) gamma:1.00f max:s255(242.0f) minOut:s255(3.0f) maxOut:s255(235.0f)];
+    [levelsFilter1 setBlueMin:s255(0.0f) gamma:1.04f max:s255(248.0f) minOut:s255(0.0f) maxOut:s255(209.0f)];
+    
     
     // Levels
-    @autoreleasepool {
-        GPUImageLevelsFilter* levelsFilter = [[GPUImageLevelsFilter alloc] init];
-        [levelsFilter setRedMin:s255(0.0f) gamma:1.00f max:s255(238.0f) minOut:s255(5.0f) maxOut:s255(255.0f)];
-        [levelsFilter setGreenMin:s255(8.0f) gamma:1.00f max:s255(242.0f) minOut:s255(3.0f) maxOut:s255(235.0f)];
-        [levelsFilter setBlueMin:s255(0.0f) gamma:1.04f max:s255(248.0f) minOut:s255(0.0f) maxOut:s255(209.0f)];
-        
-        
-        [self mergeAndSaveTmpImageWithOverlayFilter:levelsFilter opacity:1.0f blendingMode:VnBlendingModeNormal];
-    }
+    VnFilterLevels* levelsFilter2 = [[VnFilterLevels alloc] init];
+    [levelsFilter2 setMin:s255(6.0f) gamma:1.19f max:s255(253.0f) minOut:s255(3.0f) maxOut:s255(254.0f)];
     
-    // Levels
-    @autoreleasepool {
-        GPUImageLevelsFilter* levelsFilter = [[GPUImageLevelsFilter alloc] init];
-        [levelsFilter setMin:s255(6.0f) gamma:1.19f max:s255(253.0f) minOut:s255(3.0f) maxOut:s255(254.0f)];
-        
-        
-        [self mergeAndSaveTmpImageWithOverlayFilter:levelsFilter opacity:1.0f blendingMode:VnBlendingModeNormal];
-    }
-    
-    return [VnCurrentImage tmpImage];
+    self.startFilter = levelsFilter1;
+    [levelsFilter1 addTarget:levelsFilter2];
+    self.endFilter = levelsFilter2;
 }
 
 @end

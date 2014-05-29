@@ -21,20 +21,15 @@
     return self;
 }
 
-- (UIImage*)process
+- (void)makeFilterGroup
 {
-    
-    [VnCurrentImage saveTmpImage:self.imageToProcess];
-    
     // Fill Layer
-    @autoreleasepool {
-        GPUImageSolidColorGenerator* solidColor = [[GPUImageSolidColorGenerator alloc] init];
-        [solidColor setColorRed:245.0f/255.0f green:228.0f/255.0f blue:233.0f/255.0 alpha:1.0f];
-        
-        [self mergeAndSaveTmpImageWithOverlayFilter:solidColor opacity:0.40f blendingMode:VnBlendingModeLighten];
-    }
+    VnFilterSolidColor* solidColor = [[VnFilterSolidColor alloc] init];
+    [solidColor setColorRed:245.0f/255.0f green:228.0f/255.0f blue:233.0f/255.0 alpha:1.0f];
+    solidColor.topLayerOpacity = 0.40f;
+    solidColor.blendingMode = VnBlendingModeLighten;
     
-    return [VnCurrentImage tmpImage];
+    self.startFilter = self.endFilter = solidColor;
 }
 
 @end
