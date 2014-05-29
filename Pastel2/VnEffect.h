@@ -9,6 +9,24 @@
 #import <Foundation/Foundation.h>
 #import "GPUImage.h"
 
+#import "VnAdjustmentLayerGradientColorFill.h"
+#import "VnAdjustmentLayerColorBalance.h"
+#import "VnAdjustmentLayerSelectiveColor.h"
+#import "VnAdjustmentLayerGradientMap.h"
+#import "VnAdjustmentLayerChannelMixerFilter.h"
+#import "VnAdjustmentLayerHueSaturation.h"
+#import "VnAdjustmentLayerPhotoFilter.h"
+
+#import "VnFilterLensBlur.h"
+#import "VnFilterLevels.h"
+#import "VnFilterBrightness.h"
+#import "VnFilterTemperature.h"
+#import "VnFilterToneCurve.h"
+#import "VnFilterSolidColor.h"
+
+#import "VnEffectColorBronze.h"
+
+
 @interface VnEffect : NSObject
 
 @property (nonatomic, weak) UIImage* imageToProcess;
