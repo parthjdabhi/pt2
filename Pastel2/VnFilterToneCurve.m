@@ -9,7 +9,7 @@
 #import "VnFilterToneCurve.h"
 
 
-@interface GPUImageACVFile : NSObject{
+@interface VnImageACVFile : NSObject{
     short version;
     short totalCurves;
     
@@ -27,10 +27,10 @@
 - (id) initWithACVFileData:(NSData*)data;
 
 
-unsigned short int16WithBytes(Byte* bytes);
+unsigned short vnInt16WithBytes(Byte* bytes);
 @end
 
-@implementation GPUImageACVFile
+@implementation VnImageACVFile
 
 @synthesize rgbCompositeCurvePoints, redCurvePoints, greenCurvePoints, blueCurvePoints;
 
@@ -46,10 +46,10 @@ unsigned short int16WithBytes(Byte* bytes);
         }
         
         Byte* rawBytes = (Byte*) [data bytes];
-        version        = int16WithBytes(rawBytes);
+        version        = vnInt16WithBytes(rawBytes);
         rawBytes+=2;
         
-        totalCurves    = int16WithBytes(rawBytes);
+        totalCurves    = vnInt16WithBytes(rawBytes);
         rawBytes+=2;
         
         NSMutableArray *curves = [NSMutableArray new];
@@ -58,7 +58,7 @@ unsigned short int16WithBytes(Byte* bytes);
         // The following is the data for each curve specified by count above
         for (NSInteger x = 0; x<totalCurves; x++)
         {
-            unsigned short pointCount = int16WithBytes(rawBytes);
+            unsigned short pointCount = vnInt16WithBytes(rawBytes);
             rawBytes+=2;
             
             NSMutableArray *points = [NSMutableArray new];
@@ -68,9 +68,9 @@ unsigned short int16WithBytes(Byte* bytes);
             // Curves dialog graph) and the second is the input value. All coordinates have range 0 to 255.
             for (NSInteger y = 0; y<pointCount; y++)
             {
-                unsigned short y = int16WithBytes(rawBytes);
+                unsigned short y = vnInt16WithBytes(rawBytes);
                 rawBytes+=2;
-                unsigned short x = int16WithBytes(rawBytes);
+                unsigned short x = vnInt16WithBytes(rawBytes);
                 rawBytes+=2;
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
                 [points addObject:[NSValue valueWithCGSize:CGSizeMake(x * pointRate, y * pointRate)]];
@@ -88,7 +88,7 @@ unsigned short int16WithBytes(Byte* bytes);
     return self;
 }
 
-unsigned short int16WithBytes(Byte* bytes) {
+unsigned short vnInt16WithBytes(Byte* bytes) {
     uint16_t result;
     memcpy(&result, bytes, sizeof(result));
     return CFSwapInt16BigToHost(result);
@@ -117,12 +117,13 @@ NSString *const kVnFilterToneCurveFragmentShaderString = SHADER_STRING
  
  void main()
  {
-     lowp vec4 textureColor = texture2D(inputImageTexture, textureCoordinate);
-     lowp float redCurveValue = texture2D(toneCurveTexture, vec2(textureColor.r, 0.0)).r;
-     lowp float greenCurveValue = texture2D(toneCurveTexture, vec2(textureColor.g, 0.0)).g;
-     lowp float blueCurveValue = texture2D(toneCurveTexture, vec2(textureColor.b, 0.0)).b;
+     mediump vec4 textureColor = texture2D(inputImageTexture, textureCoordinate);
+     mediump float redCurveValue = texture2D(toneCurveTexture, vec2(textureColor.r, 0.0)).r;
+     mediump float greenCurveValue = texture2D(toneCurveTexture, vec2(textureColor.g, 0.0)).g;
+     mediump float blueCurveValue = texture2D(toneCurveTexture, vec2(textureColor.b, 0.0)).b;
      
-     gl_FragColor = vec4(redCurveValue, greenCurveValue, blueCurveValue, textureColor.a);
+     mediump vec4 rs = vec4(redCurveValue, greenCurveValue, blueCurveValue, textureColor.a);
+     gl_FragColor = blendWithBlendingMode(textureColor, vec4(rs.r, rs.g, rs.b, topLayerOpacity), blendingMode);
  }
  );
 
@@ -136,7 +137,7 @@ NSString *const kVnFilterToneCurveFragmentShaderString = SHADER_STRING
 
 - (id)init;
 {
-    if (!(self = [super initWithFragmentShaderFromString:kGPUImageToneCurveFragmentShaderString]))
+    if (!(self = [super initWithFragmentShaderFromString:kVnFilterToneCurveFragmentShaderString]))
     {
 		return nil;
     }
@@ -157,14 +158,14 @@ NSString *const kVnFilterToneCurveFragmentShaderString = SHADER_STRING
 
 // This pulls in Adobe ACV curve files to specify the tone curve
 - (id)initWithACVData:(NSData *)data {
-    if (!(self = [super initWithFragmentShaderFromString:kGPUImageToneCurveFragmentShaderString]))
+    if (!(self = [super initWithFragmentShaderFromString:kVnFilterToneCurveFragmentShaderString]))
     {
 		return nil;
     }
     
     toneCurveTextureUniform = [filterProgram uniformIndex:@"toneCurveTexture"];
     
-    GPUImageACVFile *curve = [[GPUImageACVFile alloc] initWithACVFileData:data];
+    VnImageACVFile *curve = [[VnImageACVFile alloc] initWithACVFileData:data];
     
     [self setRgbCompositeControlPoints:curve.rgbCompositeCurvePoints];
     [self setRedControlPoints:curve.redCurvePoints];
@@ -196,7 +197,7 @@ NSString *const kVnFilterToneCurveFragmentShaderString = SHADER_STRING
 - (void)setPointsWithACVURL:(NSURL*)curveFileURL
 {
     NSData* fileData = [NSData dataWithContentsOfURL:curveFileURL];
-    GPUImageACVFile *curve = [[GPUImageACVFile alloc] initWithACVFileData:fileData];
+    VnImageACVFile *curve = [[VnImageACVFile alloc] initWithACVFileData:fileData];
     
     [self setRgbCompositeControlPoints:curve.rgbCompositeCurvePoints];
     [self setRedControlPoints:curve.redCurvePoints];

@@ -412,7 +412,7 @@
     return  array;
 }
 
-+ (UIImage *)mergeSplitImage:(NSMutableArray*)array WithSize:(CGSize)size
++ (UIImage *)mergeSplitImage4:(NSMutableArray*)array WithSize:(CGSize)size
 {
     float padding = 0.0f;
     float cropWidth = floor(size.width / 2.0f);
@@ -441,6 +441,129 @@
     //// 4
     {
         [[array objectAtIndex:3] drawAtPoint:CGPointMake(cropWidth, cropHeight)];
+    }
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
+
++ (NSMutableArray*)splitImageIn9Parts:(UIImage *)image
+{
+    float cropWidth = floor(image.size.width / 3.0f);
+    float cropHeight = floor(image.size.height / 3.0f);
+    
+    float width1 = cropWidth;
+    float width2 = cropWidth;
+    float width3 = image.size.width - width1 - width2;
+    float height1 = cropHeight;
+    float height2 = cropHeight;
+    float height3 = image.size.height - height1 - height2;
+    
+    NSMutableArray* array = [NSMutableArray array];
+    
+    //// 1
+    @autoreleasepool {
+        UIImage* piece = [image croppedImage:CGRectMake(0.0f, 0.0f, width1, height1)];
+        [array addObject:piece];
+    }
+    //// 2
+    @autoreleasepool {
+        UIImage* piece = [image croppedImage:CGRectMake(width1, 0.0f, width2, height1)];
+        [array addObject:piece];
+    }
+    //// 3
+    @autoreleasepool {
+        UIImage* piece = [image croppedImage:CGRectMake(width1 + width2, 0.0f, width3, height1)];
+        [array addObject:piece];
+    }
+    //// 4
+    @autoreleasepool {
+        UIImage* piece = [image croppedImage:CGRectMake(0.0f, height1, width1, height2)];
+        [array addObject:piece];
+    }
+    //// 5
+    @autoreleasepool {
+        UIImage* piece = [image croppedImage:CGRectMake(width1, height1, width2, height2)];
+        [array addObject:piece];
+    }
+    //// 6
+    @autoreleasepool {
+        UIImage* piece = [image croppedImage:CGRectMake(width1 + width2, height1, width3, height2)];
+        [array addObject:piece];
+    }
+    //// 7
+    @autoreleasepool {
+        UIImage* piece = [image croppedImage:CGRectMake(0.0f, height1 + height2, width1, height3)];
+        [array addObject:piece];
+    }
+    //// 8
+    @autoreleasepool {
+        UIImage* piece = [image croppedImage:CGRectMake(width1, height1 + height2, width2, height3)];
+        [array addObject:piece];
+    }
+    //// 9
+    @autoreleasepool {
+        UIImage* piece = [image croppedImage:CGRectMake(width1 + width2, height1 + height2, width3, height3)];
+        [array addObject:piece];
+    }
+    
+    return  array;
+}
+
++ (UIImage *)mergeSplitImage9:(NSMutableArray*)array WithSize:(CGSize)size
+{
+    
+    float cropWidth = floor(size.width / 3.0f);
+    float cropHeight = floor(size.height / 3.0f);
+    
+    float width1 = cropWidth;
+    float width2 = cropWidth;
+    float width3 = size.width - width1 - width2;
+    float height1 = cropHeight;
+    float height2 = cropHeight;
+    float height3 = size.height - height1 - height2;
+
+    
+    UIGraphicsBeginImageContext(size);
+    
+    UIImageOrientation o = ((UIImage*)[array objectAtIndex:0]).imageOrientation;
+    
+    //// 1
+    {
+        [[array objectAtIndex:0] drawAtPoint:CGPointMake(0.0f, 0.0f)];
+    }
+    //// 2
+    {
+        [[array objectAtIndex:1] drawAtPoint:CGPointMake(width1, 0.0f)];
+    }
+    //// 3
+    {
+        [[array objectAtIndex:2] drawAtPoint:CGPointMake(width1 + width2, 0.0f)];
+    }
+    //// 4
+    {
+        [[array objectAtIndex:3] drawAtPoint:CGPointMake(0.0f, height1)];
+    }
+    //// 5
+    {
+        [[array objectAtIndex:4] drawAtPoint:CGPointMake(width1, height1)];
+    }
+    //// 6
+    {
+        [[array objectAtIndex:5] drawAtPoint:CGPointMake(width1 + width2, height1)];
+    }
+    //// 7
+    {
+        [[array objectAtIndex:6] drawAtPoint:CGPointMake(0.0f, height1 + height2)];
+    }
+    //// 8
+    {
+        [[array objectAtIndex:7] drawAtPoint:CGPointMake(width1, height1 + height2)];
+    }
+    //// 9
+    {
+        [[array objectAtIndex:8] drawAtPoint:CGPointMake(width1 + width2, height1 + height2)];
     }
     
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();

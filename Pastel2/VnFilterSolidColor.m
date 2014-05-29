@@ -19,8 +19,9 @@ NSString *const kVnFilterSolidColorFragmentShaderString = SHADER_STRING
  
  void main()
  {
-     lowp vec4 textureColor = texture2D(inputImageTexture, textureCoordinate);
-     gl_FragColor = vec4(color.rgb, max(textureColor.a, 1.0 - useExistingAlpha));
+     mediump vec4 textureColor = texture2D(inputImageTexture, textureCoordinate);
+     mediump vec4 rs = vec4(color.rgb, max(textureColor.a, 1.0 - useExistingAlpha));
+     gl_FragColor = blendWithBlendingMode(textureColor, vec4(rs.r, rs.g, rs.b, topLayerOpacity), blendingMode);
  }
  );
 

@@ -21,7 +21,15 @@
 #import "LmCmViewCropBlackRect.h"
 
 
-#import "VnEffect.h"
+#import "VnEffectColorBronze.h"
+#import "VnEffectColorLittleBlueSecret.h"
+#import "VnEffectColorPurrr.h"
+#import "VnEffectColorBronze.h"
+#import "VnEffectColorOphelia.h"
+#import "VnEffectColorPotion9.h"
+#import "VnEffectColorPinkMilk.h"
+#import "VnEffectColorPurePeach.h"
+#import "VnEffectColorRosyVintage.h"
 
 @interface LmCmViewController : UIViewController <CameraManagerDelegate, UIGestureRecognizerDelegate, LmCmViewManagerZoomDelegate, LmCmViewManagerPreviewDelegate, LmCmViewManagerToolsDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 {

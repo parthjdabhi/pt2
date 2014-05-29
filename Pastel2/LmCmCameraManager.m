@@ -9,7 +9,7 @@
 #import "LmCmCameraManager.h"
 
 @interface LmCmCameraManager(){
-
+    
     AVCaptureSession*               captureSession;
     AVCaptureDeviceInput*           videoInput;             //  現在のビデオ入力デバイス
     
@@ -93,11 +93,11 @@
 }
 
 -(BOOL)isUsingFrontCamera{
-
+    
     //      フロントカメラを使っているか
-   if(videoInput.device.position == AVCaptureDevicePositionFront)
-       return YES;
-
+    if(videoInput.device.position == AVCaptureDevicePositionFront)
+        return YES;
+    
     return NO;
 }
 
@@ -133,10 +133,10 @@
 }
 
 -(void)light:(BOOL)yesno{
-
+    
     if(![_backCameraDevice hasTorch])
         return;
-
+    
     //      フロントカメラ使用中ならバックカメラに切り替え
     if(self.isUsingFrontCamera){
         [self useFrontCamera:NO];
@@ -147,13 +147,13 @@
     if(yesno == YES)
         _backCameraDevice.torchMode = AVCaptureTorchModeOn;
     else
-      _backCameraDevice.torchMode = AVCaptureTorchModeOff;
+        _backCameraDevice.torchMode = AVCaptureTorchModeOff;
     
     [_backCameraDevice unlockForConfiguration];
     
 }
 -(BOOL)isLightOn{
-
+    
     
     if(![_backCameraDevice hasTorch])
         return NO;
@@ -189,7 +189,7 @@
 			[device setFocusPointOfInterest:point];
 			[device setFocusMode:AVCaptureFocusModeContinuousAutoFocus];
 			[device unlockForConfiguration];
-		} 
+		}
 	}
 }
 
@@ -215,7 +215,7 @@
         }
         return self;
     }
-return nil;
+    return nil;
 }
 
 
@@ -224,7 +224,7 @@ return nil;
 
 //      解像度指定して初期化
 -(id)initWithPreset:(NSString*)preset{
-
+    
     if(super.init){
         [self setupAVCapture:preset];
         
@@ -236,7 +236,7 @@ return nil;
 
 //      プレビューレイヤをビューに設定する
 -(void)setPreview:(UIView*)view{
-
+    
     _previewLayer.frame = view.bounds;
     [view.layer addSublayer:_previewLayer];
     
@@ -383,7 +383,7 @@ return nil;
 //      写真撮影
 -(void)takePhoto:(takePhotoBlock) block
 {
-
+    
     
     AVCaptureConnection* connection = [imageOutput connectionWithMediaType:AVMediaTypeVideo];
     
@@ -395,30 +395,30 @@ return nil;
     
     //      UIImage化した画像を通知する
     [imageOutput captureStillImageAsynchronouslyFromConnection:connection
-                                                  completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
-                                                      
-                                                      if(imageDataSampleBuffer == nil){
-                                                          block(nil,error);
-                                                          return;
-                                                      }
-                                                      
-                                                      NSData *data = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
-                                                      UIImage *image = [UIImage imageWithData:data];
-                                        
-                                                      
-                                                      block(image,error);
-
-                                                  }];
-
+                                             completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
+                                                 
+                                                 if(imageDataSampleBuffer == nil){
+                                                     block(nil,error);
+                                                     return;
+                                                 }
+                                                 
+                                                 NSData *data = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
+                                                 UIImage *image = [UIImage imageWithData:data];
+                                                 
+                                                 
+                                                 block(image,error);
+                                                 
+                                             }];
+    
     
 }
- //  デバイスの向きに合わせたビデオイメージを作成
+//  デバイスの向きに合わせたビデオイメージを作成
 -(UIImage*)rotatedVideoImage{
-
+    
     if(self.videoImage == nil)
         return nil;
     
-
+    
     UIImage* image = nil;
     UIDeviceOrientation orientation = _videoOrientaion;
     BOOL isMirrored = self.isUsingFrontCamera;
@@ -426,7 +426,7 @@ return nil;
     if (orientation == UIDeviceOrientationPortrait) {
         image = [LmCmCameraManager rotateImage:self.videoImage angle:270];
     } else if (orientation == UIDeviceOrientationPortraitUpsideDown) {
-            image = [LmCmCameraManager rotateImage:self.videoImage angle:90];
+        image = [LmCmCameraManager rotateImage:self.videoImage angle:90];
     } else if (orientation == UIDeviceOrientationLandscapeRight) {
         if(isMirrored)
             image = self.videoImage;
@@ -527,94 +527,107 @@ return nil;
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection
 {
     if (_currentCapturedNumber < _allCaptureNumber) {
-            AVCaptureDevice* device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-            if (device.adjustingFocus) {
-                LOG(@"Sorry adjusting focus.");
-                return;
-            }
-            
-            _currentCapturedNumber++;
-            LmCmSharedCamera* camera = [LmCmSharedCamera instance];
-            LmCmImageAsset* asset = [[LmCmImageAsset alloc] init];
-            //UIImage* captureImage = [UIImage imageWithCGImage:cgImage];
-
-            @autoreleasepool {
-                CGImageRef cgImage = [LmCmCameraManager imageFromSampleBuffer:sampleBuffer];
-                UIImage* image = [UIImage imageWithCGImage:cgImage];
-                CGImageRelease(cgImage);
-                asset.image = image;
-                asset.zoom = camera.zoom;
-                asset.cropSize = camera.cropSize;
-                asset.frontCamera = [self isUsingFrontCamera];
-                asset.orientation = [MotionOrientation sharedInstance].deviceOrientation;
-                asset = [LmCmSharedCamera applyZoomToAsset:asset];
-                asset = [LmCmSharedCamera fixRotationWithNoSoundImageAsset:asset];
-                asset = [LmCmSharedCamera cropAsset:asset];
-                asset.originalSize = asset.image.size;
-                asset.splitImages = [UIImage splitImageIn4Parts:asset.image];
-                asset.image = nil;
-            }
-            //asset.image = captureImage;
-        
-            [self.delegate performSelectorOnMainThread:@selector(singleImageNoSoundDidTakeWithAsset:) withObject:asset waitUntilDone:NO];
+        AVCaptureDevice* device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+        if (device.adjustingFocus) {
+            LOG(@"Sorry adjusting focus.");
             return;
-            
-        
-        
-        
-            /*
-            CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
-            CVPixelBufferLockBaseAddress(imageBuffer,0);
-            
-            size_t bytesPerRow = CVPixelBufferGetBytesPerRow(imageBuffer);
-            size_t width = CVPixelBufferGetWidth(imageBuffer);
-            size_t height = CVPixelBufferGetHeight(imageBuffer);
-            void *src_buff = CVPixelBufferGetBaseAddress(imageBuffer);
-            
-            LmCmPixelData* data = [[LmCmPixelData alloc] init];
-            data.width = width;
-            data.height = height;
-            data.bytesPerRow = bytesPerRow;
-            data.bufferSize = CVPixelBufferGetDataSize(imageBuffer);
-            data.orientation = [MotionOrientation sharedInstance].deviceOrientation;
-            data.pixelData = [NSData dataWithBytes:src_buff length:bytesPerRow * height];
-            CVPixelBufferUnlockBaseAddress(imageBuffer, 0);
-            
-            LmCmSharedCamera* camera = [LmCmSharedCamera instance];
-            data.zoom = camera.zoom;
-            data.cropSize = camera.cropSize;
-            data.frontCamera = [self isUsingFrontCamera];
-            
-            [self addPixelDataObject:data];
-             */
-            
-            /*
-             CGImageRef cgImage = [CameraManager imageFromSampleBuffer:sampleBuffer];
-             UIImage* captureImage = [UIImage imageWithCGImage:cgImage];
-             CGImageRelease(cgImage);
-             
-             dispatch_async(dispatch_get_main_queue(), ^(void) {
-             [_self.delegate singleImageCaptured:captureImage withOrientation:[MotionOrientation sharedInstance].deviceOrientation];
-             });
-             */
         }
-        /*
+        
+        _currentCapturedNumber++;
+        LmCmSharedCamera* camera = [LmCmSharedCamera instance];
+        LmCmImageAsset* asset = [[LmCmImageAsset alloc] init];
+        //UIImage* captureImage = [UIImage imageWithCGImage:cgImage];
+        
+        @autoreleasepool {
+            CGImageRef cgImage = [LmCmCameraManager imageFromSampleBuffer:sampleBuffer];
+            asset.image = [UIImage imageWithCGImage:cgImage];
+            CGImageRelease(cgImage);
+        }
+        
+        asset.zoom = camera.zoom;
+        asset.cropSize = camera.cropSize;
+        asset.frontCamera = [self isUsingFrontCamera];
+        asset.orientation = [MotionOrientation sharedInstance].deviceOrientation;
+        @autoreleasepool {
+            asset = [LmCmSharedCamera applyZoomToAsset:asset];
+            
+        }
+        @autoreleasepool {
+            asset = [LmCmSharedCamera fixRotationWithNoSoundImageAsset:asset];
+            
+        }
+        @autoreleasepool {
+            asset = [LmCmSharedCamera cropAsset:asset];
+            
+        }
+        asset.originalSize = asset.image.size;
+        @autoreleasepool {
+            
+            asset.splitImages = [UIImage splitImageIn9Parts:asset.image];
+        }
+        asset.image = nil;
+        
+        //asset.image = captureImage;
+        
+        [self.delegate performSelectorOnMainThread:@selector(singleImageNoSoundDidTakeWithAsset:) withObject:asset waitUntilDone:NO];
         return;
-        ////////////////////////////////////////////
-        //      メインスレッドでの処理
-        ////////////////////////////////////////////
-        dispatch_async(dispatch_get_main_queue(), ^(void) {
-            self.videoImage = captureImage;
-            self.videoOrientaion = UIDevice.currentDevice.orientation;
- 
-            //      デリゲートの存在確認後画面更新
-            if ([self.delegate respondsToSelector:@selector(videoFrameUpdate:from:)]) {
-                [self.delegate videoFrameUpdate:self.videoImage.CGImage from:self];
-            }
-        });
+        
+        
+        
+        
+        /*
+         CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
+         CVPixelBufferLockBaseAddress(imageBuffer,0);
          
+         size_t bytesPerRow = CVPixelBufferGetBytesPerRow(imageBuffer);
+         size_t width = CVPixelBufferGetWidth(imageBuffer);
+         size_t height = CVPixelBufferGetHeight(imageBuffer);
+         void *src_buff = CVPixelBufferGetBaseAddress(imageBuffer);
+         
+         LmCmPixelData* data = [[LmCmPixelData alloc] init];
+         data.width = width;
+         data.height = height;
+         data.bytesPerRow = bytesPerRow;
+         data.bufferSize = CVPixelBufferGetDataSize(imageBuffer);
+         data.orientation = [MotionOrientation sharedInstance].deviceOrientation;
+         data.pixelData = [NSData dataWithBytes:src_buff length:bytesPerRow * height];
+         CVPixelBufferUnlockBaseAddress(imageBuffer, 0);
+         
+         LmCmSharedCamera* camera = [LmCmSharedCamera instance];
+         data.zoom = camera.zoom;
+         data.cropSize = camera.cropSize;
+         data.frontCamera = [self isUsingFrontCamera];
+         
+         [self addPixelDataObject:data];
          */
-
+        
+        /*
+         CGImageRef cgImage = [CameraManager imageFromSampleBuffer:sampleBuffer];
+         UIImage* captureImage = [UIImage imageWithCGImage:cgImage];
+         CGImageRelease(cgImage);
+         
+         dispatch_async(dispatch_get_main_queue(), ^(void) {
+         [_self.delegate singleImageCaptured:captureImage withOrientation:[MotionOrientation sharedInstance].deviceOrientation];
+         });
+         */
+    }
+    /*
+     return;
+     ////////////////////////////////////////////
+     //      メインスレッドでの処理
+     ////////////////////////////////////////////
+     dispatch_async(dispatch_get_main_queue(), ^(void) {
+     self.videoImage = captureImage;
+     self.videoOrientaion = UIDevice.currentDevice.orientation;
+     
+     //      デリゲートの存在確認後画面更新
+     if ([self.delegate respondsToSelector:@selector(videoFrameUpdate:from:)]) {
+     [self.delegate videoFrameUpdate:self.videoImage.CGImage from:self];
+     }
+     });
+     
+     */
+    
 }
 
 
@@ -717,7 +730,7 @@ return nil;
                                                  
                                              }];
     
-
+    
 }
 
 #pragma mark - クラス・メソッド
@@ -743,7 +756,7 @@ return nil;
     
     CGColorSpaceRelease(colorSpace);
     CVPixelBufferUnlockBaseAddress(imageBuffer,0);      //      バッファをアンロック
-
+    
     return newImage;
 }
 

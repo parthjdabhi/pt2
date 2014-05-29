@@ -21,6 +21,13 @@
         [_cameraManager deallocCamera];
         _cameraManager = nil;
     }
+    
+    self.cameraManager = [[LmCmCameraManager alloc] init];
+    self.cameraManager.delegate = self;
+    [self.cameraManager setPreview:self.cameraPreview];
+    self.isCameraInitializing = NO;
+    return;
+    
     __block __weak LmCmViewController* _self = self;
     dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_queue_t q_main = dispatch_get_main_queue();
@@ -161,27 +168,68 @@
 {
     __block LmCmViewController* _self = self;
     
-    VnEffectColorBronze* effect = [[VnEffectColorBronze alloc] init];
-    [effect makeFilterGroup];
+    
 
     if (asset.image) {
         @autoreleasepool {
-            asset.image = [VnEffect processImage:asset.image WithStartFilter:effect.startFilter EndFilter:effect.endFilter];
+            
+            NSMutableArray* effects = [NSMutableArray array];
+            [effects addObject:[VnEffectColorBronze new]];
+            [effects addObject:[VnEffectColorLittleBlueSecret new]];
+            [effects addObject:[VnEffectColorOphelia new]];
+            [effects addObject:[VnEffectColorPinkMilk new]];
+            [effects addObject:[VnEffectColorPotion9 new]];
+            [effects addObject:[VnEffectColorPurePeach new]];
+            [effects addObject:[VnEffectColorPurrr new]];
+            [effects addObject:[VnEffectColorRosyVintage new]];
+            
+            
+            for (int n = 0; n < [effects count]; n++) {
+                @autoreleasepool {
+                    [((VnEffect*)[effects objectAtIndex:n]) makeFilterGroup];
+                    VnImageFilter* startFilter = ((VnEffect*)[effects objectAtIndex:n]).startFilter;
+                    VnImageFilter* endFilter = ((VnEffect*)[effects objectAtIndex:n]).endFilter;
+                    asset.image = [VnEffect processImage:asset.image WithStartFilter:startFilter EndFilter:endFilter];
+                    if (asset.image.imageOrientation != UIImageOrientationUp) {
+                        asset.image = [UIImage imageWithCGImage:asset.image.CGImage scale:asset.image.scale orientation:UIImageOrientationUp];
+                    }
+                }
+            }
         }
     }else{
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 9; i++) {
             @autoreleasepool {
-                UIImage* image = [asset.splitImages objectAtIndex:i];
-                image = [VnEffect processImage:image WithStartFilter:effect.startFilter EndFilter:effect.endFilter];
-                if (image.imageOrientation != UIImageOrientationUp) {
-                    image = [UIImage imageWithCGImage:image.CGImage scale:image.scale orientation:UIImageOrientationUp];
+                
+                
+                NSMutableArray* effects = [NSMutableArray array];
+                [effects addObject:[VnEffectColorBronze new]];
+                [effects addObject:[VnEffectColorLittleBlueSecret new]];
+                [effects addObject:[VnEffectColorOphelia new]];
+                [effects addObject:[VnEffectColorPinkMilk new]];
+                [effects addObject:[VnEffectColorPotion9 new]];
+                [effects addObject:[VnEffectColorPurePeach new]];
+                [effects addObject:[VnEffectColorPurrr new]];
+                [effects addObject:[VnEffectColorRosyVintage new]];
+                
+                for (int n = 0; n < [effects count]; n++) {
+                    @autoreleasepool {
+                        UIImage* image = [asset.splitImages objectAtIndex:i];
+                        [((VnEffect*)[effects objectAtIndex:n]) makeFilterGroup];
+                        VnImageFilter* startFilter = ((VnEffect*)[effects objectAtIndex:n]).startFilter;
+                        VnImageFilter* endFilter = ((VnEffect*)[effects objectAtIndex:n]).endFilter;
+                        image = [VnEffect processImage:image WithStartFilter:startFilter EndFilter:endFilter];
+                        if (image.imageOrientation != UIImageOrientationUp) {
+                            image = [UIImage imageWithCGImage:image.CGImage scale:image.scale orientation:UIImageOrientationUp];
+                        }
+                        [asset.splitImages replaceObjectAtIndex:i withObject:image];
+                    }
                 }
-                [asset.splitImages replaceObjectAtIndex:i withObject:image];
+                
             }
         }
         
         @autoreleasepool {
-            asset.image = [UIImage mergeSplitImage:asset.splitImages WithSize:asset.originalSize];
+            asset.image = [UIImage mergeSplitImage9:asset.splitImages WithSize:asset.originalSize];
             [asset.splitImages removeAllObjects];
         }
     }

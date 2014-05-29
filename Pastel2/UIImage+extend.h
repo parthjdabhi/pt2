@@ -31,5 +31,8 @@
 - (CGAffineTransform)transformForOrientation:(CGSize)newSize;
 + (UIImage *)fixOrientationOfImage:(UIImage *)image;
 + (NSMutableArray*)splitImageIn4Parts:(UIImage *)image;
-+ (UIImage *)mergeSplitImage:(NSMutableArray*)array WithSize:(CGSize)size;
++ (UIImage *)mergeSplitImage4:(NSMutableArray*)array WithSize:(CGSize)size;
++ (NSMutableArray*)splitImageIn9Parts:(UIImage *)image;
++ (UIImage *)mergeSplitImage9:(NSMutableArray*)array WithSize:(CGSize)size;
+
 @end

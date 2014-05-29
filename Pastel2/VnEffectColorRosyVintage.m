@@ -68,8 +68,6 @@
     [levelsFilter addTarget:colorBalance];
     [colorBalance addTarget:gradientMap];
     self.endFilter = gradientMap;
-    
-    
 }
 
 @end
