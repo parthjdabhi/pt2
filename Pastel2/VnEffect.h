@@ -22,6 +22,7 @@
 #import "VnFilterTemperature.h"
 #import "VnFilterToneCurve.h"
 #import "VnFilterSolidColor.h"
+#import "VnFilterNormal.h"
 
 @interface VnEffect : NSObject
 
