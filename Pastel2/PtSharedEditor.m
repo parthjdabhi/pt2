@@ -48,12 +48,15 @@ static PtSharedEditor* sharedPtSharedEditor = nil;
 
 + (float)topBarHeight
 {
-    return 50.0f;
+    if ([UIDevice isiPad]) {
+        return 60.0f;
+    }
+    return [UIScreen width] / 5.0f;
 }
 
 + (float)bottomBarHeight
 {
-    return 50.0f;
+    return [self topBarHeight];
 }
 
 + (UIColor *)topBarColor

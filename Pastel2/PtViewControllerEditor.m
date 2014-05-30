@@ -29,13 +29,13 @@
     _camerarollButton = [[PtViewBarButton alloc] initWithType:PtViewBarButtonTypeSaveToCameraRoll];
     [_topBar addCamerarollButton:_camerarollButton];
     _instagramButton = [[PtViewBarButton alloc] initWithType:PtViewBarButtonTypeInstagram];
-    [_topBar addCamerarollButton:_instagramButton];
+    [_topBar addInstagramButton:_instagramButton];
     _twitterButton = [[PtViewBarButton alloc] initWithType:PtViewBarButtonTypeTwitter];
-    [_topBar addCamerarollButton:_twitterButton];
+    [_topBar addTwitterButton:_twitterButton];
     _facebookButton = [[PtViewBarButton alloc] initWithType:PtViewBarButtonTypeFacebook];
-    [_topBar addCamerarollButton:_facebookButton];
+    [_topBar addFacebookButton:_facebookButton];
     _otherButton = [[PtViewBarButton alloc] initWithType:PtViewBarButtonTypeOther];
-    [_topBar addCamerarollButton:_otherButton];
+    [_topBar addOtherButton:_otherButton];
 }
 
 - (void)didReceiveMemoryWarning

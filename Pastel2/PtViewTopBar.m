@@ -19,7 +19,7 @@
     return self;
 }
 
-- (void)addCameraButton:(PtViewBarButton *)button
+- (void)addCamerarollButton:(PtViewBarButton *)button
 {
     float x = button.width / 2.0f * 1.0f;
     button.center = CGPointMake(x, self.height / 2.0f);
