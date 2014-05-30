@@ -45,7 +45,7 @@
     [gradientMap3 addColorRed:234.0f Green:201.0f Blue:175.0f Opacity:100.0f Location:3829 Midpoint:50];
     [gradientMap3 addColorRed:234.0f Green:201.0f Blue:175.0f Opacity:100.0f Location:4096 Midpoint:50];
     gradientMap3.topLayerOpacity = 0.35f;
-    gradientMap3.blendingMode = kCGBlendModeSoftLight;
+    gradientMap3.blendingMode = VnBlendingModeSoftLight;
     
     self.startFilter = gradientMap1;
     [gradientMap1 addTarget:gradientMap2];

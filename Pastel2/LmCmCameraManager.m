@@ -381,37 +381,6 @@
 
 #pragma  mark - 撮影
 //      写真撮影
--(void)takePhoto:(takePhotoBlock) block
-{
-    
-    
-    AVCaptureConnection* connection = [imageOutput connectionWithMediaType:AVMediaTypeVideo];
-    
-    //      画像の向きを調整する
-    if(connection.isVideoOrientationSupported){
-        connection.videoOrientation = UIDevice.currentDevice.orientation;
-    }
-    
-    
-    //      UIImage化した画像を通知する
-    [imageOutput captureStillImageAsynchronouslyFromConnection:connection
-                                             completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
-                                                 
-                                                 if(imageDataSampleBuffer == nil){
-                                                     block(nil,error);
-                                                     return;
-                                                 }
-                                                 
-                                                 NSData *data = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
-                                                 UIImage *image = [UIImage imageWithData:data];
-                                                 
-                                                 
-                                                 block(image,error);
-                                                 
-                                             }];
-    
-    
-}
 //  デバイスの向きに合わせたビデオイメージを作成
 -(UIImage*)rotatedVideoImage{
     
@@ -561,12 +530,6 @@
             
         }
         asset.originalSize = asset.image.size;
-        @autoreleasepool {
-            
-            asset.splitImages = [UIImage splitImageIn9Parts:asset.image];
-        }
-        asset.image = nil;
-        
         //asset.image = captureImage;
         
         [self.delegate performSelectorOnMainThread:@selector(singleImageNoSoundDidTakeWithAsset:) withObject:asset waitUntilDone:NO];

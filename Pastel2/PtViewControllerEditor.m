@@ -14,19 +14,28 @@
 
 @implementation PtViewControllerEditor
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.view.backgroundColor = [PtSharedEditor bgColor];
+    
+    //// Bar
+    _topBar = [[PtViewTopBar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [UIScreen width], [PtSharedEditor topBarHeight])];
+    [self.view addSubview:_topBar];
+    _bottomBar = [[PtViewBottomBar alloc] initWithFrame:CGRectMake(0.0f, [UIScreen height] - [PtSharedEditor bottomBarHeight], [UIScreen width], [PtSharedEditor bottomBarHeight])];
+    [self.view addSubview:_bottomBar];
+    
+    //// Buttons
+    _camerarollButton = [[PtViewBarButton alloc] initWithType:PtViewBarButtonTypeSaveToCameraRoll];
+    [_topBar addCamerarollButton:_camerarollButton];
+    _instagramButton = [[PtViewBarButton alloc] initWithType:PtViewBarButtonTypeInstagram];
+    [_topBar addCamerarollButton:_instagramButton];
+    _twitterButton = [[PtViewBarButton alloc] initWithType:PtViewBarButtonTypeTwitter];
+    [_topBar addCamerarollButton:_twitterButton];
+    _facebookButton = [[PtViewBarButton alloc] initWithType:PtViewBarButtonTypeFacebook];
+    [_topBar addCamerarollButton:_facebookButton];
+    _otherButton = [[PtViewBarButton alloc] initWithType:PtViewBarButtonTypeOther];
+    [_topBar addCamerarollButton:_otherButton];
 }
 
 - (void)didReceiveMemoryWarning

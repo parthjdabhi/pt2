@@ -51,7 +51,7 @@
     VnFilterSolidColor* solidColor = [[VnFilterSolidColor alloc] init];
     [solidColor setColorRed:s255(243.0f) green:s255(238.0f) blue:s255(230.0f) alpha:1.0f];
     solidColor.topLayerOpacity = 0.20f;
-    solidColor.blendingMode = kCGBlendModeMultiply;
+    solidColor.blendingMode = VnBlendingModeMultiply;
     
     // Curve
     VnFilterToneCurve* curveFilter = [[VnFilterToneCurve alloc] initWithACV:@"olbm"];

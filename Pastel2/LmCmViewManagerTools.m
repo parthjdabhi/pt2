@@ -195,7 +195,8 @@
 
 - (void)lastPhotoDidTouchUpInside:(LmCmViewBarButton *)sender
 {
-    
+    LmCmViewController* _self = self.delegate;
+    [_self presentEditorViewController];
 }
 
 #pragma mark delegate

@@ -168,56 +168,6 @@
 {
     __block LmCmViewController* _self = self;
     
-    
-
-    if (asset.image) {
-        @autoreleasepool {
-            
-            NSMutableArray* effects = [NSMutableArray array];
-            [effects addObject:[VnEffectOverlayLightBrightHaze new]];
-            
-            
-            for (int n = 0; n < [effects count]; n++) {                
-                [((VnEffect*)[effects objectAtIndex:n]) makeFilterGroup];
-                VnImageFilter* startFilter = ((VnEffect*)[effects objectAtIndex:n]).startFilter;
-                VnImageFilter* endFilter = ((VnEffect*)[effects objectAtIndex:n]).endFilter;
-                asset.image = [VnEffect processImage:asset.image WithStartFilter:startFilter EndFilter:endFilter];
-                if (asset.image.imageOrientation != UIImageOrientationUp) {
-                    asset.image = [UIImage imageWithCGImage:asset.image.CGImage scale:asset.image.scale orientation:UIImageOrientationUp];
-                }
-                
-            }
-        }
-    }else{
-        for (int i = 0; i < 9; i++) {
-            for (int n = 0; n < 1; n++) {
-                
-                @autoreleasepool {
-                    NSMutableArray* effects = [NSMutableArray array];
-                    [effects addObject:[VnEffectOverlayLightBrightHaze new]];
-                    
-                    UIImage* image = [asset.splitImages objectAtIndex:i];
-                    [((VnEffect*)[effects objectAtIndex:n]) makeFilterGroup];
-                    VnImageFilter* startFilter = ((VnEffect*)[effects objectAtIndex:n]).startFilter;
-                    VnImageFilter* endFilter = ((VnEffect*)[effects objectAtIndex:n]).endFilter;
-                    image = [VnEffect processImage:image WithStartFilter:startFilter EndFilter:endFilter];
-                    if (image.imageOrientation != UIImageOrientationUp) {
-                        image = [UIImage imageWithCGImage:image.CGImage scale:image.scale orientation:UIImageOrientationUp];
-                    }
-                    [asset.splitImages replaceObjectAtIndex:i withObject:image];
-                    
-                }
-                
-            }
-            
-        }
-        
-        @autoreleasepool {
-            asset.image = [UIImage mergeSplitImage9:asset.splitImages WithSize:asset.originalSize];
-            [asset.splitImages removeAllObjects];
-        }
-    }
-    
     [self.assetLibrary writeImageToSavedPhotosAlbum:asset.image.CGImage orientation:ALAssetOrientationUp completionBlock:^(NSURL *assetURL, NSError *error) {
         if (error) {
             LOG(@"%@", error);
@@ -235,15 +185,40 @@
             _self.cameraManager.processingToConvert = NO;
             [_self lastAssetDidLoad:asset];
             _self.shutterButton.shooting = NO;
+            [_self imageDidSave:asset];
         } failureBlock:^(NSError *error) {
             
         }];
     }];
 }
 
+- (void)imageDidSave:(ALAsset *)alAsset
+{
+    self.lastAsset = alAsset;
+}
+
 - (void)flashScreen
 {
     [self.cameraPreviewOverlay flash];
+}
+
+#pragma mark present
+
+- (void)presentEditorViewController
+{
+    if (self.lastAsset == nil) {
+        return;
+    }
+    PtViewControllerEditor* con = [[PtViewControllerEditor alloc] init];
+    ALAssetRepresentation *representation = [self.lastAsset defaultRepresentation];
+    UIImage *img = [UIImage imageWithCGImage:[representation fullResolutionImage]
+                                       scale:[representation scale]
+                                 orientation:[representation orientation]];
+    if (img == nil) {
+        return;
+    }
+    con.imageToProcess = img;
+    [self.navigationController pushViewController:con animated:YES];
 }
 
 #pragma mark camera roll
@@ -345,6 +320,7 @@
 
 - (void)lastAssetDidLoad:(ALAsset *)asset
 {
+    self.lastAsset = asset;
     [self.toolsManager lastPhotoButtonSetAsset:asset];
 }
 

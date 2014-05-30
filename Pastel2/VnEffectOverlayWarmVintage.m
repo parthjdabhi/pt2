@@ -26,7 +26,7 @@
     VnFilterSolidColor* solidColor = [[VnFilterSolidColor alloc] init];
     [solidColor setColorRed:s255(4.0f) green:s255(46.0f) blue:s255(132.0f) alpha:1.0f];
     solidColor.topLayerOpacity = 0.35f;
-    solidColor.blendingMode = kCGBlendModeExclusion;
+    solidColor.blendingMode = VnBlendingModeExclusion;
     
     // Levels
     GPUImageNormalBlendFilter* normalFilter = [[GPUImageNormalBlendFilter alloc] init];

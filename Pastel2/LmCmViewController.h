@@ -19,28 +19,7 @@
 #import "LmCmViewManagerPreview.h"
 #import "LmCmViewManagerTools.h"
 #import "LmCmViewCropBlackRect.h"
-
-
-#import "VnEffectColorBronze.h"
-#import "VnEffectColorLittleBlueSecret.h"
-#import "VnEffectColorPurrr.h"
-#import "VnEffectColorBronze.h"
-#import "VnEffectColorOphelia.h"
-#import "VnEffectColorPotion9.h"
-#import "VnEffectColorPinkMilk.h"
-#import "VnEffectColorPurePeach.h"
-#import "VnEffectColorRosyVintage.h"
-#import "VnEffectColorSerenity.h"
-#import "VnEffectColorSummerSkin.h"
-#import "VnEffectColorSunnyLight.h"
-#import "VnEffectColorUrbanCandy.h"
-#import "VnEffectColorWarmHaze.h"
-#import "VnEffectColorWildHoney.h"
-
-#import "VnEffectOverlayBlueHaze.h"
-#import "VnEffectOverlayHazyLightWarmPink.h"
-#import "VnEffectOverlayHazyLightWarmPink2.h"
-#import "VnEffectOverlayLightBrightHaze.h"
+#import "PtViewControllerEditor.h"
 
 @interface LmCmViewController : UIViewController <CameraManagerDelegate, UIGestureRecognizerDelegate, LmCmViewManagerZoomDelegate, LmCmViewManagerPreviewDelegate, LmCmViewManagerToolsDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 {
@@ -62,6 +41,7 @@
 @property (nonatomic, strong) LmCmViewManagerTools* toolsManager;
 
 @property (nonatomic, strong) ALAssetsLibrary* assetLibrary;
+@property (nonatomic, strong) ALAsset* lastAsset;
 
 - (void)initCameraManager;
 - (void)didShutterButtonTouchUpInside:(id)sender;
@@ -70,6 +50,10 @@
 - (void)loadLastPhoto;
 - (void)lastAssetDidLoad:(ALAsset*)asset;
 - (void)flashScreen;
+
+- (void)presentEditorViewController;
+
+- (void)imageDidSave:(ALAsset*)alAsset;
 
 - (void)initVolumeHandling;
 
