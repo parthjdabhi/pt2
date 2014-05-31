@@ -6,7 +6,7 @@
 //  Copyright (c) 2014年 SSC. All rights reserved.
 //
 
-#import "UISliderThumbView.h"
+#import "LmCmViewSliderThumb.h"
 
 @implementation LmCmViewSliderThumb
 

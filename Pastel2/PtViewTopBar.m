@@ -14,7 +14,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [PtSharedEditor topBarColor];
+        self.backgroundColor = [PtConfigEditor topBarColor];
     }
     return self;
 }

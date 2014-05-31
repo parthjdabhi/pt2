@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PtSharedEditor : NSObject
+@interface PtConfigEditor : NSObject
 
-+ (PtSharedEditor*)instance;
++ (PtConfigEditor*)instance;
 
 + (float)topBarHeight;
 + (float)bottomBarHeight;

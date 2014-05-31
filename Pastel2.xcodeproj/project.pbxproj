@@ -23,7 +23,7 @@
 		580010621934912C00B44C5F /* LmCmViewPreviewOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 5800105E1934912C00B44C5F /* LmCmViewPreviewOverlay.m */; };
 		580010631934912C00B44C5F /* LmCmViewCropBlackRect.m in Sources */ = {isa = PBXBuildFile; fileRef = 580010601934912C00B44C5F /* LmCmViewCropBlackRect.m */; };
 		5800106A1934913500B44C5F /* LmCmViewSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 580010651934913400B44C5F /* LmCmViewSlider.m */; };
-		5800106B1934913500B44C5F /* UISliderThumbView.m in Sources */ = {isa = PBXBuildFile; fileRef = 580010671934913400B44C5F /* UISliderThumbView.m */; };
+		5800106B1934913500B44C5F /* LmCmViewSliderThumb.m in Sources */ = {isa = PBXBuildFile; fileRef = 580010671934913400B44C5F /* LmCmViewSliderThumb.m */; };
 		5800106C1934913500B44C5F /* LmCmViewZoomSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 580010691934913400B44C5F /* LmCmViewZoomSlider.m */; };
 		580010741934915600B44C5F /* LmCmViewManagerZoom.m in Sources */ = {isa = PBXBuildFile; fileRef = 5800106F1934915600B44C5F /* LmCmViewManagerZoom.m */; };
 		580010751934915600B44C5F /* LmCmViewManagerPreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 580010711934915600B44C5F /* LmCmViewManagerPreview.m */; };
@@ -129,10 +129,16 @@
 		580F84821934EBA90036A99F /* VnImageFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 580F84811934EBA90036A99F /* VnImageFilter.m */; };
 		5819FA691938AE05001826DF /* PtViewTopBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5819FA681938AE05001826DF /* PtViewTopBar.m */; };
 		5819FA6D1938AF1B001826DF /* PtViewControllerFilters.m in Sources */ = {isa = PBXBuildFile; fileRef = 5819FA6C1938AF1B001826DF /* PtViewControllerFilters.m */; };
-		5819FA711938B0A4001826DF /* PtSharedEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 5819FA701938B0A4001826DF /* PtSharedEditor.m */; };
+		5819FA711938B0A4001826DF /* PtConfigEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 5819FA701938B0A4001826DF /* PtConfigEditor.m */; };
 		5819FA741938B289001826DF /* PtViewBottomBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5819FA731938B289001826DF /* PtViewBottomBar.m */; };
 		5819FA781938B9BB001826DF /* PtViewBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5819FA771938B9BB001826DF /* PtViewBarButton.m */; };
 		58341131193A2C660042729D /* LmCmViewPreviewLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 58341130193A2C660042729D /* LmCmViewPreviewLayer.m */; };
+		58341135193A39250042729D /* PtConfigFIlters.m in Sources */ = {isa = PBXBuildFile; fileRef = 58341134193A39250042729D /* PtConfigFIlters.m */; };
+		5834113C193A3F010042729D /* PtFtViewLayerBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 58341139193A3F010042729D /* PtFtViewLayerBar.m */; };
+		5834113D193A3F010042729D /* PtFtViewLayerBarWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5834113B193A3F010042729D /* PtFtViewLayerBarWrapper.m */; };
+		58341145193A3F410042729D /* PtFtViewLayerBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 58341140193A3F410042729D /* PtFtViewLayerBarButton.m */; };
+		58341146193A3F410042729D /* PtFtViewLayerBarButtonMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58341142193A3F410042729D /* PtFtViewLayerBarButtonMaskView.m */; };
+		58341147193A3F410042729D /* PtFtViewToolBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 58341144193A3F410042729D /* PtFtViewToolBarButton.m */; };
 		587679F51934857100F01BBA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 587679F41934857100F01BBA /* Foundation.framework */; };
 		587679F71934857100F01BBA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 587679F61934857100F01BBA /* CoreGraphics.framework */; };
 		587679F91934857100F01BBA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 587679F81934857100F01BBA /* UIKit.framework */; };
@@ -246,8 +252,8 @@
 		580010601934912C00B44C5F /* LmCmViewCropBlackRect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LmCmViewCropBlackRect.m; sourceTree = "<group>"; };
 		580010641934913400B44C5F /* LmCmViewSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LmCmViewSlider.h; sourceTree = "<group>"; };
 		580010651934913400B44C5F /* LmCmViewSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LmCmViewSlider.m; sourceTree = "<group>"; };
-		580010661934913400B44C5F /* UISliderThumbView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UISliderThumbView.h; sourceTree = "<group>"; };
-		580010671934913400B44C5F /* UISliderThumbView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UISliderThumbView.m; sourceTree = "<group>"; };
+		580010661934913400B44C5F /* LmCmViewSliderThumb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LmCmViewSliderThumb.h; sourceTree = "<group>"; };
+		580010671934913400B44C5F /* LmCmViewSliderThumb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LmCmViewSliderThumb.m; sourceTree = "<group>"; };
 		580010681934913400B44C5F /* LmCmViewZoomSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LmCmViewZoomSlider.h; sourceTree = "<group>"; };
 		580010691934913400B44C5F /* LmCmViewZoomSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LmCmViewZoomSlider.m; sourceTree = "<group>"; };
 		5800106E1934915600B44C5F /* LmCmViewManagerZoom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LmCmViewManagerZoom.h; sourceTree = "<group>"; };
@@ -391,14 +397,26 @@
 		5819FA681938AE05001826DF /* PtViewTopBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PtViewTopBar.m; sourceTree = "<group>"; };
 		5819FA6B1938AF1B001826DF /* PtViewControllerFilters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PtViewControllerFilters.h; sourceTree = "<group>"; };
 		5819FA6C1938AF1B001826DF /* PtViewControllerFilters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PtViewControllerFilters.m; sourceTree = "<group>"; };
-		5819FA6F1938B0A4001826DF /* PtSharedEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PtSharedEditor.h; sourceTree = "<group>"; };
-		5819FA701938B0A4001826DF /* PtSharedEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PtSharedEditor.m; sourceTree = "<group>"; };
+		5819FA6F1938B0A4001826DF /* PtConfigEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PtConfigEditor.h; sourceTree = "<group>"; };
+		5819FA701938B0A4001826DF /* PtConfigEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PtConfigEditor.m; sourceTree = "<group>"; };
 		5819FA721938B289001826DF /* PtViewBottomBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PtViewBottomBar.h; sourceTree = "<group>"; };
 		5819FA731938B289001826DF /* PtViewBottomBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PtViewBottomBar.m; sourceTree = "<group>"; };
 		5819FA761938B9BB001826DF /* PtViewBarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PtViewBarButton.h; sourceTree = "<group>"; };
 		5819FA771938B9BB001826DF /* PtViewBarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PtViewBarButton.m; sourceTree = "<group>"; };
 		5834112F193A2C660042729D /* LmCmViewPreviewLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LmCmViewPreviewLayer.h; sourceTree = "<group>"; };
 		58341130193A2C660042729D /* LmCmViewPreviewLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LmCmViewPreviewLayer.m; sourceTree = "<group>"; };
+		58341133193A39250042729D /* PtConfigFIlters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PtConfigFIlters.h; sourceTree = "<group>"; };
+		58341134193A39250042729D /* PtConfigFIlters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PtConfigFIlters.m; sourceTree = "<group>"; };
+		58341138193A3F010042729D /* PtFtViewLayerBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PtFtViewLayerBar.h; sourceTree = "<group>"; };
+		58341139193A3F010042729D /* PtFtViewLayerBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PtFtViewLayerBar.m; sourceTree = "<group>"; };
+		5834113A193A3F010042729D /* PtFtViewLayerBarWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PtFtViewLayerBarWrapper.h; sourceTree = "<group>"; };
+		5834113B193A3F010042729D /* PtFtViewLayerBarWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PtFtViewLayerBarWrapper.m; sourceTree = "<group>"; };
+		5834113F193A3F410042729D /* PtFtViewLayerBarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PtFtViewLayerBarButton.h; sourceTree = "<group>"; };
+		58341140193A3F410042729D /* PtFtViewLayerBarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PtFtViewLayerBarButton.m; sourceTree = "<group>"; };
+		58341141193A3F410042729D /* PtFtViewLayerBarButtonMaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PtFtViewLayerBarButtonMaskView.h; sourceTree = "<group>"; };
+		58341142193A3F410042729D /* PtFtViewLayerBarButtonMaskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PtFtViewLayerBarButtonMaskView.m; sourceTree = "<group>"; };
+		58341143193A3F410042729D /* PtFtViewToolBarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PtFtViewToolBarButton.h; sourceTree = "<group>"; };
+		58341144193A3F410042729D /* PtFtViewToolBarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PtFtViewToolBarButton.m; sourceTree = "<group>"; };
 		587679F11934857100F01BBA /* Pastel2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pastel2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		587679F41934857100F01BBA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		587679F61934857100F01BBA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -636,8 +654,8 @@
 			children = (
 				580010641934913400B44C5F /* LmCmViewSlider.h */,
 				580010651934913400B44C5F /* LmCmViewSlider.m */,
-				580010661934913400B44C5F /* UISliderThumbView.h */,
-				580010671934913400B44C5F /* UISliderThumbView.m */,
+				580010661934913400B44C5F /* LmCmViewSliderThumb.h */,
+				580010671934913400B44C5F /* LmCmViewSliderThumb.m */,
 				580010681934913400B44C5F /* LmCmViewZoomSlider.h */,
 				580010691934913400B44C5F /* LmCmViewZoomSlider.m */,
 			);
@@ -925,6 +943,7 @@
 			children = (
 				5819FA6B1938AF1B001826DF /* PtViewControllerFilters.h */,
 				5819FA6C1938AF1B001826DF /* PtViewControllerFilters.m */,
+				58341132193A39010042729D /* Config */,
 				58F5769D1939B81C00B43095 /* Views */,
 				58F576961939AB8C00B43095 /* Objects */,
 				58F576921939AB0400B43095 /* Managers */,
@@ -932,13 +951,13 @@
 			name = FiltersModule;
 			sourceTree = "<group>";
 		};
-		5819FA6E1938B08B001826DF /* Shared */ = {
+		5819FA6E1938B08B001826DF /* Config */ = {
 			isa = PBXGroup;
 			children = (
-				5819FA6F1938B0A4001826DF /* PtSharedEditor.h */,
-				5819FA701938B0A4001826DF /* PtSharedEditor.m */,
+				5819FA6F1938B0A4001826DF /* PtConfigEditor.h */,
+				5819FA701938B0A4001826DF /* PtConfigEditor.m */,
 			);
-			name = Shared;
+			name = Config;
 			sourceTree = "<group>";
 		};
 		5819FA751938B9A4001826DF /* Bar */ = {
@@ -952,6 +971,46 @@
 				5819FA771938B9BB001826DF /* PtViewBarButton.m */,
 			);
 			name = Bar;
+			sourceTree = "<group>";
+		};
+		58341132193A39010042729D /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				58341133193A39250042729D /* PtConfigFIlters.h */,
+				58341134193A39250042729D /* PtConfigFIlters.m */,
+			);
+			name = Config;
+			sourceTree = "<group>";
+		};
+		58341137193A3EE50042729D /* Bar */ = {
+			isa = PBXGroup;
+			children = (
+				58341138193A3F010042729D /* PtFtViewLayerBar.h */,
+				58341139193A3F010042729D /* PtFtViewLayerBar.m */,
+				5834113A193A3F010042729D /* PtFtViewLayerBarWrapper.h */,
+				5834113B193A3F010042729D /* PtFtViewLayerBarWrapper.m */,
+			);
+			name = Bar;
+			sourceTree = "<group>";
+		};
+		5834113E193A3F140042729D /* Button */ = {
+			isa = PBXGroup;
+			children = (
+				5834113F193A3F410042729D /* PtFtViewLayerBarButton.h */,
+				58341140193A3F410042729D /* PtFtViewLayerBarButton.m */,
+				58341141193A3F410042729D /* PtFtViewLayerBarButtonMaskView.h */,
+				58341142193A3F410042729D /* PtFtViewLayerBarButtonMaskView.m */,
+				58341143193A3F410042729D /* PtFtViewToolBarButton.h */,
+				58341144193A3F410042729D /* PtFtViewToolBarButton.m */,
+			);
+			name = Button;
+			sourceTree = "<group>";
+		};
+		58341148193A42860042729D /* Slider */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Slider;
 			sourceTree = "<group>";
 		};
 		587679E81934857100F01BBA = {
@@ -1125,6 +1184,9 @@
 		58F5769D1939B81C00B43095 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				58341148193A42860042729D /* Slider */,
+				5834113E193A3F140042729D /* Button */,
+				58341137193A3EE50042729D /* Bar */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1144,7 +1206,7 @@
 				580F83CE1934D6140036A99F /* PtViewControllerEditor.h */,
 				580F83CF1934D6140036A99F /* PtViewControllerEditor.m */,
 				58F5768819399EBA00B43095 /* ViewControllers */,
-				5819FA6E1938B08B001826DF /* Shared */,
+				5819FA6E1938B08B001826DF /* Config */,
 				5819FA661938AD23001826DF /* Views */,
 			);
 			name = EditorModule;
@@ -1378,15 +1440,17 @@
 				58F576951939AB5800B43095 /* PtFtSharedQueueManager.m in Sources */,
 				588EADF719376E41005C486E /* VnEffectOverlayPinkHaze.m in Sources */,
 				5800107A1934916900B44C5F /* LmCmSharedCamera.m in Sources */,
-				5800106B1934913500B44C5F /* UISliderThumbView.m in Sources */,
+				5800106B1934913500B44C5F /* LmCmViewSliderThumb.m in Sources */,
 				580F84781934EABE0036A99F /* VnAdjustmentLayerPhotoFilter.m in Sources */,
 				580F847A1934EABE0036A99F /* VnAdjustmentLayerChannelMixerFilter.m in Sources */,
+				58341145193A3F410042729D /* PtFtViewLayerBarButton.m in Sources */,
 				58F8457B19370CD000F413A6 /* VnEffectColorOphelia.m in Sources */,
 				588EADBF193761C2005C486E /* VnEffectColorWildHoney.m in Sources */,
 				58D1926C19370EB3000FAFDB /* VnEffectColorPinkMilk.m in Sources */,
 				5800106A1934913500B44C5F /* LmCmViewSlider.m in Sources */,
 				58767A051934857100F01BBA /* AppDelegate.m in Sources */,
 				5800108B193491CA00B44C5F /* UIScreen+extend.m in Sources */,
+				5834113C193A3F010042729D /* PtFtViewLayerBar.m in Sources */,
 				5800109C193492A400B44C5F /* PtViewControllerRoot.m in Sources */,
 				58D1927B1937177C000FAFDB /* VnEffectColorRosyVintage.m in Sources */,
 				58F9ED4B193885CE0033DC00 /* VnFilterNormal.m in Sources */,
@@ -1396,6 +1460,7 @@
 				5819FA691938AE05001826DF /* PtViewTopBar.m in Sources */,
 				580010621934912C00B44C5F /* LmCmViewPreviewOverlay.m in Sources */,
 				58F576991939ABA300B43095 /* PtFtProcessQueue.m in Sources */,
+				58341135193A39250042729D /* PtConfigFIlters.m in Sources */,
 				580010531934911A00B44C5F /* LmCmViewCropList.m in Sources */,
 				580010751934915600B44C5F /* LmCmViewManagerPreview.m in Sources */,
 				58767A011934857100F01BBA /* main.m in Sources */,
@@ -1406,6 +1471,7 @@
 				588EADBC19375E89005C486E /* VnEffectColorWarmHaze.m in Sources */,
 				580010741934915600B44C5F /* LmCmViewManagerZoom.m in Sources */,
 				5800108A193491CA00B44C5F /* UIDevice+extend.m in Sources */,
+				5834113D193A3F010042729D /* PtFtViewLayerBarWrapper.m in Sources */,
 				588EADF819376E41005C486E /* VnEffectOverlayRetroSun.m in Sources */,
 				588EADB619375C35005C486E /* VnEffectColorSunnyLight.m in Sources */,
 				580010471934910A00B44C5F /* LmCmViewBottomBar.m in Sources */,
@@ -1413,6 +1479,7 @@
 				5800CC821935C565004BB438 /* VnFilterBrightness.m in Sources */,
 				588EADDB19376426005C486E /* VnEffectOverlayHazyLightWarmPink2.m in Sources */,
 				5800105A1934912400B44C5F /* LmCmButtonSettingsItem.m in Sources */,
+				58341147193A3F410042729D /* PtFtViewToolBarButton.m in Sources */,
 				5800108E193491CA00B44C5F /* UIImage+extend.m in Sources */,
 				58001096193491D800B44C5F /* VnViewLabel.m in Sources */,
 				5800CC831935C565004BB438 /* VnFilterLevels.m in Sources */,
@@ -1421,6 +1488,7 @@
 				58F576A01939D06F00B43095 /* PtFtObjectFilterItem.m in Sources */,
 				588EADB919375CED005C486E /* VnEffectColorUrbanCandy.m in Sources */,
 				588EADB319375B93005C486E /* VnEffectColorSummerSkin.m in Sources */,
+				58341146193A3F410042729D /* PtFtViewLayerBarButtonMaskView.m in Sources */,
 				5800CC841935C565004BB438 /* VnFilterTemperature.m in Sources */,
 				588EADF519376E41005C486E /* VnEffectOverlayLightBrightMatte.m in Sources */,
 				588EADF919376E41005C486E /* VnEffectOverlayWarmVintage.m in Sources */,
@@ -1428,7 +1496,7 @@
 				580010761934915600B44C5F /* LmCmViewManagerTools.m in Sources */,
 				580F83CB1934BA480036A99F /* PtSharedApp.m in Sources */,
 				580010341934905900B44C5F /* LmCmViewController.m in Sources */,
-				5819FA711938B0A4001826DF /* PtSharedEditor.m in Sources */,
+				5819FA711938B0A4001826DF /* PtConfigEditor.m in Sources */,
 				580F847E1934EABE0036A99F /* VnAdjustmentLayerGradientColorFill.m in Sources */,
 				5819FA781938B9BB001826DF /* PtViewBarButton.m in Sources */,
 				5800108C193491CA00B44C5F /* UIView+extend.m in Sources */,

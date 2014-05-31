@@ -12,7 +12,7 @@
 
 - (id)initWithType:(PtViewBarButtonType)type
 {
-    float length = [PtSharedEditor topBarHeight];
+    float length = [PtConfigEditor topBarHeight];
     CGRect frame = CGRectMake(0.0f, 0.0f, length, length);
     self = [super initWithFrame:frame];
     if (self) {
@@ -20,6 +20,15 @@
         _type = type;
     }
     return self;
+}
+
+- (void)setHighlighted:(BOOL)highlighted
+{
+    if (highlighted) {
+        self.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.30f];
+    }else{
+        self.backgroundColor = [UIColor clearColor];
+    }
 }
 
 - (void)drawRect:(CGRect)rect

@@ -17,11 +17,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [PtSharedEditor bgColor];
+    self.view.backgroundColor = [PtConfigEditor bgColor];
     
     //// Bar
-    _topBar = [[PtViewTopBar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [UIScreen width], [PtSharedEditor topBarHeight])];
-    _bottomBar = [[PtViewBottomBar alloc] initWithFrame:CGRectMake(0.0f, [UIScreen height] - [PtSharedEditor bottomBarHeight], [UIScreen width], [PtSharedEditor bottomBarHeight])];
+    _topBar = [[PtViewTopBar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [UIScreen width], [PtConfigEditor topBarHeight])];
+    _bottomBar = [[PtViewBottomBar alloc] initWithFrame:CGRectMake(0.0f, [UIScreen height] - [PtConfigEditor bottomBarHeight], [UIScreen width], [PtConfigEditor bottomBarHeight])];
     
     //// Preview
     _imagePreview = [[PtViewImagePreview  alloc] initWithFrame:CGRectMake(0.0f, _topBar.height, [UIScreen width], [UIScreen height] - _topBar.height - _bottomBar.height)];

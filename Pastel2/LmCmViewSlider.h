@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UISliderThumbVIew.h"
+#import "LmCmViewSliderThumb.h"
 
 @class LmCmViewSlider;
 

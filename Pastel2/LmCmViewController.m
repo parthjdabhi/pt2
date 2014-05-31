@@ -134,6 +134,8 @@
             });
             
         });
+    }else{
+        [self.cameraPreview blackOut:NO];
     }
 }
 
