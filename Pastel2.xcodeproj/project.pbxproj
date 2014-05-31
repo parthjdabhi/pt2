@@ -177,6 +177,9 @@
 		58D19275193711C3000FAFDB /* VnEffectColorPurePeach.m in Sources */ = {isa = PBXBuildFile; fileRef = 58D19274193711C3000FAFDB /* VnEffectColorPurePeach.m */; };
 		58D1927819371420000FAFDB /* VnEffectColorPurrr.m in Sources */ = {isa = PBXBuildFile; fileRef = 58D1927719371420000FAFDB /* VnEffectColorPurrr.m */; };
 		58D1927B1937177C000FAFDB /* VnEffectColorRosyVintage.m in Sources */ = {isa = PBXBuildFile; fileRef = 58D1927A1937177C000FAFDB /* VnEffectColorRosyVintage.m */; };
+		58F4C380193A4E6100DB4E23 /* PtFtViewSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F4C37F193A4E6100DB4E23 /* PtFtViewSlider.m */; };
+		58F4C388193A4E6900DB4E23 /* PtFtViewSliderThumb.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F4C385193A4E6900DB4E23 /* PtFtViewSliderThumb.m */; };
+		58F4C389193A4E6900DB4E23 /* PtFtViewLayerStrengthSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F4C387193A4E6900DB4E23 /* PtFtViewLayerStrengthSlider.m */; };
 		58F57684193986B500B43095 /* PtViewImagePreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F57683193986B500B43095 /* PtViewImagePreview.m */; };
 		58F57687193986CC00B43095 /* PtViewImagePreviewScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F57686193986CC00B43095 /* PtViewImagePreviewScrollView.m */; };
 		58F5768D19399ECC00B43095 /* ShareInstagramViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F5768A19399ECC00B43095 /* ShareInstagramViewController.m */; };
@@ -483,6 +486,12 @@
 		58D1927719371420000FAFDB /* VnEffectColorPurrr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VnEffectColorPurrr.m; sourceTree = "<group>"; };
 		58D192791937177C000FAFDB /* VnEffectColorRosyVintage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VnEffectColorRosyVintage.h; sourceTree = "<group>"; };
 		58D1927A1937177C000FAFDB /* VnEffectColorRosyVintage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VnEffectColorRosyVintage.m; sourceTree = "<group>"; };
+		58F4C37E193A4E6100DB4E23 /* PtFtViewSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PtFtViewSlider.h; sourceTree = "<group>"; };
+		58F4C37F193A4E6100DB4E23 /* PtFtViewSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PtFtViewSlider.m; sourceTree = "<group>"; };
+		58F4C384193A4E6900DB4E23 /* PtFtViewSliderThumb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PtFtViewSliderThumb.h; sourceTree = "<group>"; };
+		58F4C385193A4E6900DB4E23 /* PtFtViewSliderThumb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PtFtViewSliderThumb.m; sourceTree = "<group>"; };
+		58F4C386193A4E6900DB4E23 /* PtFtViewLayerStrengthSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PtFtViewLayerStrengthSlider.h; sourceTree = "<group>"; };
+		58F4C387193A4E6900DB4E23 /* PtFtViewLayerStrengthSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PtFtViewLayerStrengthSlider.m; sourceTree = "<group>"; };
 		58F57682193986B500B43095 /* PtViewImagePreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PtViewImagePreview.h; sourceTree = "<group>"; };
 		58F57683193986B500B43095 /* PtViewImagePreview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PtViewImagePreview.m; sourceTree = "<group>"; };
 		58F57685193986CC00B43095 /* PtViewImagePreviewScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PtViewImagePreviewScrollView.h; sourceTree = "<group>"; };
@@ -1009,6 +1018,12 @@
 		58341148193A42860042729D /* Slider */ = {
 			isa = PBXGroup;
 			children = (
+				58F4C37E193A4E6100DB4E23 /* PtFtViewSlider.h */,
+				58F4C37F193A4E6100DB4E23 /* PtFtViewSlider.m */,
+				58F4C384193A4E6900DB4E23 /* PtFtViewSliderThumb.h */,
+				58F4C385193A4E6900DB4E23 /* PtFtViewSliderThumb.m */,
+				58F4C386193A4E6900DB4E23 /* PtFtViewLayerStrengthSlider.h */,
+				58F4C387193A4E6900DB4E23 /* PtFtViewLayerStrengthSlider.m */,
 			);
 			name = Slider;
 			sourceTree = "<group>";
@@ -1426,6 +1441,7 @@
 				58001097193491D800B44C5F /* MotionOrientation.m in Sources */,
 				58F5768D19399ECC00B43095 /* ShareInstagramViewController.m in Sources */,
 				58F57687193986CC00B43095 /* PtViewImagePreviewScrollView.m in Sources */,
+				58F4C388193A4E6900DB4E23 /* PtFtViewSliderThumb.m in Sources */,
 				58F5769C1939B4E700B43095 /* PtFtSharedFilterManager.m in Sources */,
 				58001090193491CB00B44C5F /* UIImagePickerController+extend.m in Sources */,
 				5800104D1934911200B44C5F /* LmCmViewFlashModeList.m in Sources */,
@@ -1461,6 +1477,7 @@
 				580010621934912C00B44C5F /* LmCmViewPreviewOverlay.m in Sources */,
 				58F576991939ABA300B43095 /* PtFtProcessQueue.m in Sources */,
 				58341135193A39250042729D /* PtConfigFIlters.m in Sources */,
+				58F4C389193A4E6900DB4E23 /* PtFtViewLayerStrengthSlider.m in Sources */,
 				580010531934911A00B44C5F /* LmCmViewCropList.m in Sources */,
 				580010751934915600B44C5F /* LmCmViewManagerPreview.m in Sources */,
 				58767A011934857100F01BBA /* main.m in Sources */,
@@ -1480,6 +1497,7 @@
 				588EADDB19376426005C486E /* VnEffectOverlayHazyLightWarmPink2.m in Sources */,
 				5800105A1934912400B44C5F /* LmCmButtonSettingsItem.m in Sources */,
 				58341147193A3F410042729D /* PtFtViewToolBarButton.m in Sources */,
+				58F4C380193A4E6100DB4E23 /* PtFtViewSlider.m in Sources */,
 				5800108E193491CA00B44C5F /* UIImage+extend.m in Sources */,
 				58001096193491D800B44C5F /* VnViewLabel.m in Sources */,
 				5800CC831935C565004BB438 /* VnFilterLevels.m in Sources */,
