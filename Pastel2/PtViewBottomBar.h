@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PtViewBarButton.h"
 
 @interface PtViewBottomBar : UIView
+
+- (void)addBackToCameraButton:(PtViewBarButton*)button;
+- (void)addFiltersButton:(PtViewBarButton*)button;
+- (void)addSlidersButton:(PtViewBarButton*)button;
 
 @end

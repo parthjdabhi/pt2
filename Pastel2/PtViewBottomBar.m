@@ -19,6 +19,25 @@
     return self;
 }
 
+- (void)addBackToCameraButton:(PtViewBarButton*)button
+{
+    float x = button.width / 2.0f * 1.0f;
+    button.center = CGPointMake(x, self.height / 2.0f);
+    [self addSubview:button];
+}
+- (void)addFiltersButton:(PtViewBarButton*)button
+{
+    float x = button.width / 2.0f * 3.0f;
+    button.center = CGPointMake(x, self.height / 2.0f);
+    [self addSubview:button];
+}
+- (void)addSlidersButton:(PtViewBarButton*)button
+{
+    float x = button.width / 2.0f * 5.0f;
+    button.center = CGPointMake(x, self.height / 2.0f);
+    [self addSubview:button];
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

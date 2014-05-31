@@ -25,7 +25,7 @@
     _bottomBar = [[PtViewBottomBar alloc] initWithFrame:CGRectMake(0.0f, [UIScreen height] - [PtSharedEditor bottomBarHeight], [UIScreen width], [PtSharedEditor bottomBarHeight])];
     [self.view addSubview:_bottomBar];
     
-    //// Buttons
+    //// Buttons - Top
     _camerarollButton = [[PtViewBarButton alloc] initWithType:PtViewBarButtonTypeSaveToCameraRoll];
     [_topBar addCamerarollButton:_camerarollButton];
     _instagramButton = [[PtViewBarButton alloc] initWithType:PtViewBarButtonTypeInstagram];
@@ -36,6 +36,14 @@
     [_topBar addFacebookButton:_facebookButton];
     _otherButton = [[PtViewBarButton alloc] initWithType:PtViewBarButtonTypeOther];
     [_topBar addOtherButton:_otherButton];
+    
+    //// Buttons - Bottom
+    _cameraButton = [[PtViewBarButton alloc] initWithType:PtViewBarButtonTypeBackToCamera];
+    [_bottomBar addBackToCameraButton:_cameraButton];
+    _filtersButton = [[PtViewBarButton alloc] initWithType:PtViewBarButtonTypeFilters];
+    [_bottomBar addFiltersButton:_filtersButton];
+    _slidersButton = [[PtViewBarButton alloc] initWithType:PtViewBarButtonTypeFilters];
+    [_bottomBar addSlidersButton:_slidersButton];
 }
 
 - (void)didReceiveMemoryWarning
