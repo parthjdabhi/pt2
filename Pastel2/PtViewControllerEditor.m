@@ -42,7 +42,7 @@
     [_bottomBar addBackToCameraButton:_cameraButton];
     _filtersButton = [[PtViewBarButton alloc] initWithType:PtViewBarButtonTypeFilters];
     [_bottomBar addFiltersButton:_filtersButton];
-    _slidersButton = [[PtViewBarButton alloc] initWithType:PtViewBarButtonTypeFilters];
+    _slidersButton = [[PtViewBarButton alloc] initWithType:PtViewBarButtonTypeSliders];
     [_bottomBar addSlidersButton:_slidersButton];
 }
 

@@ -64,10 +64,89 @@
         }
             break;
         case PtViewBarButtonTypeFilters:
+        {
             
+            //// Filters Drawing
+            UIBezierPath* filtersPath = [UIBezierPath bezierPath];
+            [filtersPath moveToPoint: CGPointMake(-5.66, -5.66)];
+            [filtersPath addCurveToPoint: CGPointMake(-5.66, 5.66) controlPoint1: CGPointMake(-8.78, -2.53) controlPoint2: CGPointMake(-8.78, 2.53)];
+            [filtersPath addCurveToPoint: CGPointMake(5.66, 5.66) controlPoint1: CGPointMake(-2.53, 8.78) controlPoint2: CGPointMake(2.53, 8.78)];
+            [filtersPath addCurveToPoint: CGPointMake(5.66, -5.66) controlPoint1: CGPointMake(8.78, 2.53) controlPoint2: CGPointMake(8.78, -2.53)];
+            [filtersPath addCurveToPoint: CGPointMake(-5.66, -5.66) controlPoint1: CGPointMake(2.53, -8.78) controlPoint2: CGPointMake(-2.53, -8.78)];
+            [filtersPath closePath];
+            [filtersPath moveToPoint: CGPointMake(7.78, -7.78)];
+            [filtersPath addCurveToPoint: CGPointMake(7.78, 7.78) controlPoint1: CGPointMake(12.07, -3.48) controlPoint2: CGPointMake(12.07, 3.48)];
+            [filtersPath addCurveToPoint: CGPointMake(-7.78, 7.78) controlPoint1: CGPointMake(3.48, 12.07) controlPoint2: CGPointMake(-3.48, 12.07)];
+            [filtersPath addCurveToPoint: CGPointMake(-7.78, -7.78) controlPoint1: CGPointMake(-12.07, 3.48) controlPoint2: CGPointMake(-12.07, -3.48)];
+            [filtersPath addCurveToPoint: CGPointMake(7.78, -7.78) controlPoint1: CGPointMake(-3.48, -12.07) controlPoint2: CGPointMake(3.48, -12.07)];
+            [filtersPath closePath];
+            [filtersPath moveToPoint: CGPointMake(4.24, 4.24)];
+            [filtersPath addCurveToPoint: CGPointMake(4.24, -4.24) controlPoint1: CGPointMake(6.59, 1.9) controlPoint2: CGPointMake(6.59, -1.9)];
+            [filtersPath addCurveToPoint: CGPointMake(-4.24, -4.24) controlPoint1: CGPointMake(1.9, -6.59) controlPoint2: CGPointMake(-1.9, -6.59)];
+            [filtersPath addCurveToPoint: CGPointMake(-4.24, 4.24) controlPoint1: CGPointMake(-6.59, -1.9) controlPoint2: CGPointMake(-6.59, 1.9)];
+            [filtersPath addCurveToPoint: CGPointMake(4.24, 4.24) controlPoint1: CGPointMake(-1.9, 6.59) controlPoint2: CGPointMake(1.9, 6.59)];
+            [filtersPath closePath];
+            [filtersPath applyTransform:move];
+            [color setFill];
+            [filtersPath fill];
+        }
             break;
         case PtViewBarButtonTypeSliders:
+        {
             
+            //// Sliders Drawing
+            UIBezierPath* slidersPath = [UIBezierPath bezierPath];
+            [slidersPath moveToPoint: CGPointMake(0, 3)];
+            [slidersPath addCurveToPoint: CGPointMake(1, 4) controlPoint1: CGPointMake(0, 3.55) controlPoint2: CGPointMake(0.45, 4)];
+            [slidersPath addLineToPoint: CGPointMake(8, 4)];
+            [slidersPath addCurveToPoint: CGPointMake(8.33, 3.95) controlPoint1: CGPointMake(8.11, 4) controlPoint2: CGPointMake(8.22, 3.98)];
+            [slidersPath addCurveToPoint: CGPointMake(9, 3) controlPoint1: CGPointMake(8.72, 3.81) controlPoint2: CGPointMake(9, 3.44)];
+            [slidersPath addLineToPoint: CGPointMake(9, 1)];
+            [slidersPath addCurveToPoint: CGPointMake(8, 0) controlPoint1: CGPointMake(9, 0.45) controlPoint2: CGPointMake(8.55, 0)];
+            [slidersPath addLineToPoint: CGPointMake(1, 0)];
+            [slidersPath addCurveToPoint: CGPointMake(0, 1) controlPoint1: CGPointMake(0.45, 0) controlPoint2: CGPointMake(0, 0.45)];
+            [slidersPath addLineToPoint: CGPointMake(0, 3)];
+            [slidersPath closePath];
+            [slidersPath moveToPoint: CGPointMake(-11, -4)];
+            [slidersPath addCurveToPoint: CGPointMake(-10, -3) controlPoint1: CGPointMake(-11, -3.45) controlPoint2: CGPointMake(-10.55, -3)];
+            [slidersPath addLineToPoint: CGPointMake(-3, -3)];
+            [slidersPath addCurveToPoint: CGPointMake(-2.03, -3.75) controlPoint1: CGPointMake(-2.53, -3) controlPoint2: CGPointMake(-2.14, -3.32)];
+            [slidersPath addCurveToPoint: CGPointMake(-2, -4) controlPoint1: CGPointMake(-2.01, -3.83) controlPoint2: CGPointMake(-2, -3.91)];
+            [slidersPath addLineToPoint: CGPointMake(-2, -6)];
+            [slidersPath addCurveToPoint: CGPointMake(-3, -7) controlPoint1: CGPointMake(-2, -6.55) controlPoint2: CGPointMake(-2.45, -7)];
+            [slidersPath addLineToPoint: CGPointMake(-10, -7)];
+            [slidersPath addCurveToPoint: CGPointMake(-11, -6) controlPoint1: CGPointMake(-10.55, -7) controlPoint2: CGPointMake(-11, -6.55)];
+            [slidersPath addLineToPoint: CGPointMake(-11, -4)];
+            [slidersPath closePath];
+            [slidersPath moveToPoint: CGPointMake(-5, -8.5)];
+            [slidersPath addLineToPoint: CGPointMake(-8, -8.5)];
+            [slidersPath addLineToPoint: CGPointMake(-8, -11)];
+            [slidersPath addLineToPoint: CGPointMake(-5, -11)];
+            [slidersPath addLineToPoint: CGPointMake(-5, -8.5)];
+            [slidersPath closePath];
+            [slidersPath moveToPoint: CGPointMake(-5, 9)];
+            [slidersPath addLineToPoint: CGPointMake(-8, 9)];
+            [slidersPath addLineToPoint: CGPointMake(-8, -1.5)];
+            [slidersPath addLineToPoint: CGPointMake(-5, -1.5)];
+            [slidersPath addLineToPoint: CGPointMake(-5, 9)];
+            [slidersPath closePath];
+            [slidersPath moveToPoint: CGPointMake(6, -1.5)];
+            [slidersPath addLineToPoint: CGPointMake(3, -1.5)];
+            [slidersPath addLineToPoint: CGPointMake(3, -11)];
+            [slidersPath addLineToPoint: CGPointMake(6, -11)];
+            [slidersPath addLineToPoint: CGPointMake(6, -1.5)];
+            [slidersPath closePath];
+            [slidersPath moveToPoint: CGPointMake(6, 9)];
+            [slidersPath addLineToPoint: CGPointMake(3, 9)];
+            [slidersPath addLineToPoint: CGPointMake(3, 5.5)];
+            [slidersPath addLineToPoint: CGPointMake(6, 5.5)];
+            [slidersPath addLineToPoint: CGPointMake(6, 9)];
+            [slidersPath closePath];
+            [slidersPath applyTransform:move];
+            [color setFill];
+            [slidersPath fill];
+
+        }
             break;
         case PtViewBarButtonTypeTwitter:
         {
@@ -196,46 +275,49 @@
         case PtViewBarButtonTypeBackToCamera:
         {
             
+            
             //// BackToCamera Drawing
             UIBezierPath* backToCameraPath = [UIBezierPath bezierPath];
-            [backToCameraPath moveToPoint: CGPointMake(-3.89, -3.89)];
-            [backToCameraPath addCurveToPoint: CGPointMake(-3.89, 3.89) controlPoint1: CGPointMake(-6.04, -1.74) controlPoint2: CGPointMake(-6.04, 1.74)];
-            [backToCameraPath addCurveToPoint: CGPointMake(3.89, 3.89) controlPoint1: CGPointMake(-1.74, 6.04) controlPoint2: CGPointMake(1.74, 6.04)];
-            [backToCameraPath addCurveToPoint: CGPointMake(3.89, -3.89) controlPoint1: CGPointMake(6.04, 1.74) controlPoint2: CGPointMake(6.04, -1.74)];
-            [backToCameraPath addCurveToPoint: CGPointMake(-1.15, -5.38) controlPoint1: CGPointMake(2.52, -5.26) controlPoint2: CGPointMake(0.61, -5.75)];
-            [backToCameraPath addCurveToPoint: CGPointMake(-3.89, -3.89) controlPoint1: CGPointMake(-2.15, -5.17) controlPoint2: CGPointMake(-3.11, -4.67)];
+            [backToCameraPath moveToPoint: CGPointMake(-3.89, -2.89)];
+            [backToCameraPath addCurveToPoint: CGPointMake(-3.89, 4.89) controlPoint1: CGPointMake(-6.04, -0.74) controlPoint2: CGPointMake(-6.04, 2.74)];
+            [backToCameraPath addCurveToPoint: CGPointMake(3.89, 4.89) controlPoint1: CGPointMake(-1.74, 7.04) controlPoint2: CGPointMake(1.74, 7.04)];
+            [backToCameraPath addCurveToPoint: CGPointMake(3.89, -2.89) controlPoint1: CGPointMake(6.04, 2.74) controlPoint2: CGPointMake(6.04, -0.74)];
+            [backToCameraPath addCurveToPoint: CGPointMake(-1.15, -4.38) controlPoint1: CGPointMake(2.52, -4.26) controlPoint2: CGPointMake(0.61, -4.75)];
+            [backToCameraPath addCurveToPoint: CGPointMake(-3.89, -2.89) controlPoint1: CGPointMake(-2.15, -4.17) controlPoint2: CGPointMake(-3.11, -3.67)];
             [backToCameraPath closePath];
-            [backToCameraPath moveToPoint: CGPointMake(6, -7)];
-            [backToCameraPath addLineToPoint: CGPointMake(9, -7)];
-            [backToCameraPath addCurveToPoint: CGPointMake(11, -5) controlPoint1: CGPointMake(10.1, -7) controlPoint2: CGPointMake(11, -6.1)];
-            [backToCameraPath addLineToPoint: CGPointMake(11, 6)];
-            [backToCameraPath addCurveToPoint: CGPointMake(9, 8) controlPoint1: CGPointMake(11, 7.1) controlPoint2: CGPointMake(10.1, 8)];
-            [backToCameraPath addLineToPoint: CGPointMake(-9, 8)];
-            [backToCameraPath addCurveToPoint: CGPointMake(-11, 6) controlPoint1: CGPointMake(-10.1, 8) controlPoint2: CGPointMake(-11, 7.1)];
-            [backToCameraPath addLineToPoint: CGPointMake(-11, -5)];
-            [backToCameraPath addCurveToPoint: CGPointMake(-9, -7) controlPoint1: CGPointMake(-11, -6.1) controlPoint2: CGPointMake(-10.1, -7)];
-            [backToCameraPath addLineToPoint: CGPointMake(-6, -7)];
-            [backToCameraPath addLineToPoint: CGPointMake(-4, -10)];
-            [backToCameraPath addLineToPoint: CGPointMake(4, -10)];
-            [backToCameraPath addLineToPoint: CGPointMake(6, -7)];
+            [backToCameraPath moveToPoint: CGPointMake(6, -6)];
+            [backToCameraPath addLineToPoint: CGPointMake(9, -6)];
+            [backToCameraPath addCurveToPoint: CGPointMake(11, -4) controlPoint1: CGPointMake(10.1, -6) controlPoint2: CGPointMake(11, -5.1)];
+            [backToCameraPath addLineToPoint: CGPointMake(11, 7)];
+            [backToCameraPath addCurveToPoint: CGPointMake(9, 9) controlPoint1: CGPointMake(11, 8.1) controlPoint2: CGPointMake(10.1, 9)];
+            [backToCameraPath addLineToPoint: CGPointMake(-9, 9)];
+            [backToCameraPath addCurveToPoint: CGPointMake(-11, 7) controlPoint1: CGPointMake(-10.1, 9) controlPoint2: CGPointMake(-11, 8.1)];
+            [backToCameraPath addLineToPoint: CGPointMake(-11, -4)];
+            [backToCameraPath addCurveToPoint: CGPointMake(-9, -6) controlPoint1: CGPointMake(-11, -5.1) controlPoint2: CGPointMake(-10.1, -6)];
+            [backToCameraPath addLineToPoint: CGPointMake(-6, -6)];
+            [backToCameraPath addLineToPoint: CGPointMake(-4, -9)];
+            [backToCameraPath addLineToPoint: CGPointMake(4, -9)];
+            [backToCameraPath addLineToPoint: CGPointMake(6, -6)];
             [backToCameraPath closePath];
-            [backToCameraPath moveToPoint: CGPointMake(2.47, 2.47)];
-            [backToCameraPath addCurveToPoint: CGPointMake(2.47, -2.47) controlPoint1: CGPointMake(3.84, 1.11) controlPoint2: CGPointMake(3.84, -1.11)];
-            [backToCameraPath addCurveToPoint: CGPointMake(-2.47, -2.47) controlPoint1: CGPointMake(1.11, -3.84) controlPoint2: CGPointMake(-1.11, -3.84)];
-            [backToCameraPath addCurveToPoint: CGPointMake(-2.47, 2.47) controlPoint1: CGPointMake(-3.84, -1.11) controlPoint2: CGPointMake(-3.84, 1.11)];
-            [backToCameraPath addCurveToPoint: CGPointMake(2.47, 2.47) controlPoint1: CGPointMake(-1.11, 3.84) controlPoint2: CGPointMake(1.11, 3.84)];
+            [backToCameraPath moveToPoint: CGPointMake(2.47, 3.47)];
+            [backToCameraPath addCurveToPoint: CGPointMake(2.47, -1.47) controlPoint1: CGPointMake(3.84, 2.11) controlPoint2: CGPointMake(3.84, -0.11)];
+            [backToCameraPath addCurveToPoint: CGPointMake(-2.47, -1.47) controlPoint1: CGPointMake(1.11, -2.84) controlPoint2: CGPointMake(-1.11, -2.84)];
+            [backToCameraPath addCurveToPoint: CGPointMake(-2.47, 3.47) controlPoint1: CGPointMake(-3.84, -0.11) controlPoint2: CGPointMake(-3.84, 2.11)];
+            [backToCameraPath addCurveToPoint: CGPointMake(2.47, 3.47) controlPoint1: CGPointMake(-1.11, 4.84) controlPoint2: CGPointMake(1.11, 4.84)];
             [backToCameraPath closePath];
-            [backToCameraPath moveToPoint: CGPointMake(-23, -1)];
-            [backToCameraPath addLineToPoint: CGPointMake(-19, 8)];
-            [backToCameraPath addLineToPoint: CGPointMake(-15, 8)];
-            [backToCameraPath addLineToPoint: CGPointMake(-19, -1)];
-            [backToCameraPath addLineToPoint: CGPointMake(-15, -10)];
-            [backToCameraPath addLineToPoint: CGPointMake(-19, -10)];
-            [backToCameraPath addLineToPoint: CGPointMake(-23, -1)];
+            [backToCameraPath moveToPoint: CGPointMake(-23, 0)];
+            [backToCameraPath addLineToPoint: CGPointMake(-19, 9)];
+            [backToCameraPath addLineToPoint: CGPointMake(-15, 9)];
+            [backToCameraPath addLineToPoint: CGPointMake(-19, 0)];
+            [backToCameraPath addLineToPoint: CGPointMake(-15, -9)];
+            [backToCameraPath addLineToPoint: CGPointMake(-19, -9)];
+            [backToCameraPath addLineToPoint: CGPointMake(-23, 0)];
             [backToCameraPath closePath];
             [backToCameraPath applyTransform:move];
             [color setFill];
             [backToCameraPath fill];
+            
+
         }
             break;
         case PtViewBarButtonTypeSaveToCameraRoll:
