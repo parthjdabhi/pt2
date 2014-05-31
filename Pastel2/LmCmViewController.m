@@ -39,6 +39,7 @@
         dispatch_async(q_main, ^{
             [_self.cameraManager setPreview:_self.cameraPreview];
             _self.isCameraInitializing = NO;
+            [_self.cameraPreviewOverlay blackOut:NO];
             LOG(@"Camera is ready");
         });
         
@@ -120,6 +121,7 @@
 {
     if (_cameraManager.isRunning == NO) {
         [_cameraManager enableCamera];
+        [self.cameraPreviewOverlay blackOut:NO];
     }
 }
 
@@ -213,6 +215,7 @@
 
 - (void)presentEditorViewControllerWithImage:(UIImage *)image
 {
+    [self.cameraPreviewOverlay blackOut:YES];
     [self disableCamera];
     PtViewControllerEditor* con = [[PtViewControllerEditor alloc] init];
     if ([PtSharedApp instance].useFullResolutionImage == NO) {

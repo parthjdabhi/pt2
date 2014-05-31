@@ -42,6 +42,16 @@
     [_flashView.layer addAnimation:flash forKey:@"flashAnimation"];
 }
 
+- (void)blackOut:(BOOL)enable
+{
+    if (enable) {
+        self.backgroundColor = [UIColor blackColor];
+    }else{
+        self.backgroundColor = [UIColor clearColor];
+    }
+}
+
+
 - (void)setShowGrid:(BOOL)showGrid
 {
     _showGrid = showGrid;
