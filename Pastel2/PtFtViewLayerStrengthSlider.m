@@ -41,7 +41,7 @@
     _sliderView.value = value;
 }
 
-- (void)setButton:(VnViewEditorLayerBarButton *)button
+- (void)setButton:(PtFtViewLayerBarButton*)button
 {
     if (_button) {
         [_button removeFromSuperview];

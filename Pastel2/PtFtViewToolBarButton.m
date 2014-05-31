@@ -20,7 +20,7 @@
     return self;
 }
 
-- (void)setType:(VnViewEditorToolBarButtonType)type
+- (void)setType:(PtFtViewToolBarButtonType)type
 {
     _type = type;
     [self setNeedsDisplay];
@@ -37,7 +37,7 @@
     //// Color Declarations
     UIColor* color = [UIColor colorWithWhite:1.0f alpha:0.80f];
     switch (_type) {
-        case VnViewEditorToolBarButtonTypeSlider:
+        case PtFtViewToolBarButtonTypeSlider:
         {
             
             //// Bezier Drawing
@@ -132,7 +132,7 @@
 
         }
             break;
-        case VnViewEditorToolBarButtonTypeShuffle:
+        case PtFtViewToolBarButtonTypeShuffle:
         {            
             //// Bezier 4 Drawing
             UIBezierPath* bezier4Path = [UIBezierPath bezierPath];
@@ -192,7 +192,7 @@
             [bezier4Path fill];
         }
             break;
-        case VnViewEditorToolBarButtonTypeClose:
+        case PtFtViewToolBarButtonTypeCancel:
         {
             //// Bezier Drawing
             UIBezierPath* bezierPath = [UIBezierPath bezierPath];
@@ -218,7 +218,7 @@
             [bezierPath fill];
         }
             break;
-        case VnViewEditorToolBarButtonTypeSave:
+        case PtFtViewToolBarButtonTypeDone:
         {
             
             //// Bezier Drawing

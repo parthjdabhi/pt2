@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "PtFtViewLayerBar.h"
-#import "VnViewSlider.h"
+#import "PtFtViewSlider.h"
 
 @protocol PtFtViewLayerBarWrapperDelegate
 - (void)wrapperDidSlideUp;
@@ -19,7 +19,7 @@
 
 @property (nonatomic, strong) UIView* view;
 @property (nonatomic, weak) PtFtViewLayerBar* bar;
-@property (nonatomic, weak) VnViewSlider* layerSlider;
+@property (nonatomic, weak) PtFtViewSlider* layerSlider;
 @property (nonatomic, assign) BOOL sliding;
 @property (nonatomic, weak) id<PtFtViewLayerBarWrapperDelegate> delegate;
 

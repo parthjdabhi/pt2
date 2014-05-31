@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "PtFtViewSlider.h"
-#import "VnViewEditorLayerBarButton.h"
+#import "PtFtViewLayerBarButton.h"
 
 @class PtFtViewLayerStrengthSlider;
 
-@protocol VnViewSliderDelegate
+@protocol PtFtViewLayerStrengthSliderDelegate
 - (void)slider:(PtFtViewLayerStrengthSlider*)slider DidValueChange:(CGFloat)value;
 - (void)sliderDidValueResetToDefault:(PtFtViewLayerStrengthSlider*)slider;
 - (BOOL)sliderShouldValueResetToDefault:(PtFtViewLayerStrengthSlider*)slider;
@@ -20,19 +20,18 @@
 - (void)touchesEndedWithSlider:(PtFtViewLayerStrengthSlider*)slider;
 @end
 
-@interface PtFtViewLayerStrengthSlider : UIView <UISliderViewDelegate>
+@interface PtFtViewLayerStrengthSlider : UIView <PtFtViewSliderDelegate>
 {
     float _paddingLeft;
 }
 
 @property (nonatomic, strong) PtFtViewSlider* sliderView;
-@property (nonatomic, weak) VnViewEditorLayerBarButton* button;
+@property (nonatomic, weak) PtFtViewLayerBarButton* button;
 @property (nonatomic, assign) CGFloat value;
 @property (nonatomic, assign) CGFloat defaultValue;
 @property (nonatomic, assign) CGFloat alpha;
-@property (nonatomic, weak) id<VnViewSliderDelegate> delegate;
+@property (nonatomic, weak) id<PtFtViewLayerStrengthSliderDelegate> delegate;
 @property (nonatomic, strong) NSString* title;
-@property (nonatomic, assign) SliderViewTitlePosition titlePosition;
 @property (nonatomic, assign) BOOL locked;
 @property (nonatomic, assign) VnEffectGroup effectGroup;
 

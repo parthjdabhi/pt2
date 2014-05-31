@@ -154,34 +154,6 @@
     }
 }
 
-- (void)setTitlePosition:(SliderViewTitlePosition)titlePosition
-{
-    _titlePosition = titlePosition;
-    switch (titlePosition) {
-        case SliderViewTitlePositionCenter:
-            _titleLabel.center = CGPointMake(self.bounds.size.width / 2.0f, self.bounds.size.height / 2.0f);
-            break;
-        case SliderViewTitlePositionLeft:
-            _titleLabel.center = CGPointMake(10.0f + _titleLabel.bounds.size.width / 2.0f + _paddingHorizontal, self.bounds.size.height / 2.0f);
-            break;
-        case SliderViewTitlePositionRight:
-            _titleLabel.center = CGPointMake(self.bounds.size.width - 10.0f - _titleLabel.bounds.size.width / 2.0f - _paddingHorizontal, self.bounds.size.height / 2.0f);
-            break;
-        default:
-            _titleLabel.center = CGPointMake(self.bounds.size.width / 2.0f, self.bounds.size.height / 2.0f);
-            break;
-    }
-    NSArray *langs = [NSLocale preferredLanguages];
-    NSString *currentLanguage = [langs objectAtIndex:0];
-    if([currentLanguage compare:@"ja"] == NSOrderedSame) {
-        if([UIDevice isIOS6]){
-            _titleLabel.center = CGPointMake(_titleLabel.center.x, _titleLabel.center.y + 1.0f);
-        }
-    } else {
-    }
-
-}
-
 - (void)setAlpha:(CGFloat)alpha
 {
     _alpha = alpha;

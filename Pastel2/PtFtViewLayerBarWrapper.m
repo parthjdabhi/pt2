@@ -32,7 +32,7 @@
     [_view addSubview:bar];
 }
 
-- (void)setLayerSlider:(VnViewSlider *)layerSlider
+- (void)setLayerSlider:(PtFtViewSlider *)layerSlider
 {
     _layerSlider = layerSlider;
     [_view addSubview:_layerSlider];
