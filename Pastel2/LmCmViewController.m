@@ -116,6 +116,13 @@
 
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    if (_cameraManager.isRunning == NO) {
+        [_cameraManager enableCamera];
+    }
+}
+
 #pragma mark shutter
 
 - (void)shootingDidCancel
@@ -209,17 +216,32 @@
     if (self.lastAsset == nil) {
         return;
     }
+    [self disableCamera];
     PtViewControllerEditor* con = [[PtViewControllerEditor alloc] init];
     ALAssetRepresentation *representation = [self.lastAsset defaultRepresentation];
-    UIImage *img = [UIImage imageWithCGImage:[representation fullResolutionImage]
-                                       scale:[representation scale]
-                                 orientation:[representation orientation]];
-    if (img == nil) {
-        return;
+    @autoreleasepool {
+        
+        UIImage *img = [UIImage imageWithCGImage:[representation fullResolutionImage]
+                                           scale:[representation scale]
+                                     orientation:[representation orientation]];
+        if (img == nil) {
+            return;
+        }
+        if ([PtSharedApp instance].useFullResolutionImage == NO) {
+            float length = MAX(img.size.width, img.size.height);
+            if (length > 1920.0f) {
+                float scale = img.size.width / 1920.0f;
+                if (img.size.height > img.size.width) {
+                    scale = img.size.height / 1920.0f;
+                }
+                img = [img resizedImage:CGSizeMake(img.size.width / scale, img.size.height / scale) interpolationQuality:kCGInterpolationHigh];
+            }
+        }
+        con.imageToProcess = img;
     }
-    con.imageToProcess = img;
     [self.navigationController pushViewController:con animated:YES];
 }
+
 
 #pragma mark camera roll
 

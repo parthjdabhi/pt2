@@ -159,7 +159,7 @@ typedef NS_ENUM(NSInteger, VnBlendingMode){
     VnBlendingModeDifference
 };
 
-
+#import "PtSharedApp.h"
 #import "LmCmSharedCamera.h"
 #import "PtSharedEditor.h"
 #import "MotionOrientation.h"

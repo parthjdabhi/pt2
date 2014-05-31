@@ -61,7 +61,7 @@ static PtSharedEditor* sharedPtSharedEditor = nil;
 
 + (UIColor *)topBarColor
 {
-    return [UIColor colorWithWhite:0.15f alpha:1.0f];
+    return [UIColor colorWithWhite:0.18f alpha:1.0f];
 }
 
 + (UIColor *)bottomBarColor
@@ -71,7 +71,7 @@ static PtSharedEditor* sharedPtSharedEditor = nil;
 
 + (UIColor *)bgColor
 {
-    return [UIColor colorWithWhite:0.10f alpha:1.0f];
+    return [UIColor colorWithWhite:0.12f alpha:1.0f];
 }
 
 @end

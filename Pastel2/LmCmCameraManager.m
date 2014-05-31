@@ -314,6 +314,11 @@
     [captureSession startRunning];
 }
 
+- (BOOL)isRunning
+{
+    return captureSession.isRunning;
+}
+
 /////////////////////////////////////////////////
 //      静止画キャプチャの初期化
 //      設定後:captureOutputが呼ばれる
@@ -517,18 +522,6 @@
         asset.cropSize = camera.cropSize;
         asset.frontCamera = [self isUsingFrontCamera];
         asset.orientation = [MotionOrientation sharedInstance].deviceOrientation;
-        @autoreleasepool {
-            asset = [LmCmSharedCamera applyZoomToAsset:asset];
-            
-        }
-        @autoreleasepool {
-            asset = [LmCmSharedCamera fixRotationWithNoSoundImageAsset:asset];
-            
-        }
-        @autoreleasepool {
-            asset = [LmCmSharedCamera cropAsset:asset];
-            
-        }
         asset.originalSize = asset.image.size;
         //asset.image = captureImage;
         

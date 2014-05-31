@@ -59,6 +59,7 @@ AVCaptureSessionPresetiFrame1280x720
 @property (nonatomic, assign) BOOL processingToConvert;
 @property (nonatomic, assign) int currentCapturedNumber;
 @property (nonatomic, assign) int allCaptureNumber;
+@property (nonatomic, assign) BOOL isRunning;
 
 - (void)addAssetToCache:(LmCmImageAsset*)asset;
 - (void)popCacheAndConvert;

@@ -11,12 +11,14 @@
 #import "PtViewTopBar.h"
 #import "PtViewBottomBar.h"
 #import "PtViewBarButton.h"
+#import "PtViewImagePreview.h"
 
 @interface PtViewControllerEditor : UIViewController
 
 @property (nonatomic, strong) UIImage* imageToProcess;
 @property (nonatomic, strong) PtViewBottomBar* bottomBar;
 @property (nonatomic, strong) PtViewTopBar* topBar;
+@property (nonatomic, strong) PtViewImagePreview* imagePreview;
 
 @property (nonatomic, strong) PtViewBarButton* camerarollButton;
 @property (nonatomic, strong) PtViewBarButton* instagramButton;
