@@ -39,7 +39,7 @@
         dispatch_async(q_main, ^{
             [_self.cameraManager setPreview:_self.cameraPreview];
             _self.isCameraInitializing = NO;
-            [_self.cameraPreviewOverlay blackOut:NO];
+            [_self.cameraPreview blackOut:NO];
             LOG(@"Camera is ready");
         });
         
@@ -75,7 +75,7 @@
     }else{
         previewFrame = CGRectMake(0.0f, [LmCmSharedCamera topBarHeight], [UIScreen width], [UIScreen height] - [LmCmSharedCamera topBarHeight] - [LmCmSharedCamera bottomBarHeight]);
     }
-    _cameraPreview = [[UIView alloc] initWithFrame:previewFrame];
+    _cameraPreview = [[LmCmViewPreviewLayer alloc] initWithFrame:previewFrame];
     [self.view addSubview:_cameraPreview];
     
     //// camera
@@ -119,9 +119,21 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    self.isPresenting = NO;
+    
+    __block __weak LmCmViewController* _self = self;
     if (_cameraManager.isRunning == NO) {
-        [_cameraManager enableCamera];
-        [self.cameraPreviewOverlay blackOut:NO];
+        dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        dispatch_queue_t q_main = dispatch_get_main_queue();
+        dispatch_async(q_global, ^{
+            @autoreleasepool {
+                [_self.cameraManager enableCamera];
+            }
+            dispatch_async(q_main, ^{
+                [_self.cameraPreview blackOut:NO];
+            });
+            
+        });
     }
 }
 
@@ -215,21 +227,41 @@
 
 - (void)presentEditorViewControllerWithImage:(UIImage *)image
 {
-    [self.cameraPreviewOverlay blackOut:YES];
-    [self disableCamera];
-    PtViewControllerEditor* con = [[PtViewControllerEditor alloc] init];
-    if ([PtSharedApp instance].useFullResolutionImage == NO) {
-        float length = MAX(image.size.width, image.size.height);
-        if (length > 1920.0f) {
-            float scale = image.size.width / 1920.0f;
-            if (image.size.height > image.size.width) {
-                scale = image.size.height / 1920.0f;
-            }
-            image = [image resizedImage:CGSizeMake(image.size.width / scale, image.size.height / scale) interpolationQuality:kCGInterpolationHigh];
-        }
+    if (self.isPresenting) {
+        return;
     }
-    con.imageToProcess = image;
-    [self.navigationController pushViewController:con animated:YES];
+    if (self.isCameraInitializing) {
+        return;
+    }
+    self.isPresenting = YES;
+    [self.cameraPreview blackOut:YES];
+    
+    __block __weak LmCmViewController* _self = self;
+    __block UIImage* _image = image;
+    dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_queue_t q_main = dispatch_get_main_queue();
+    dispatch_async(q_global, ^{
+        @autoreleasepool {
+            [_self disableCamera];
+            if ([PtSharedApp instance].useFullResolutionImage == NO) {
+                float length = MAX(_image.size.width, _image.size.height);
+                if (length > 1920.0f) {
+                    float scale = _image.size.width / 1920.0f;
+                    if (_image.size.height > _image.size.width) {
+                        scale = image.size.height / 1920.0f;
+                    }
+                    _image = [_image resizedImage:CGSizeMake(_image.size.width / scale, _image.size.height / scale) interpolationQuality:kCGInterpolationHigh];
+                }
+            }
+        }
+        dispatch_async(q_main, ^{
+            PtViewControllerEditor* con = [[PtViewControllerEditor alloc] init];
+            con.imageToProcess = _image;
+            [self.navigationController pushViewController:con animated:NO];
+        });
+        
+    });
+    
 }
 
 - (void)presentEditorViewControllerFromLastAsset

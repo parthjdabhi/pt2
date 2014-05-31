@@ -132,6 +132,7 @@
 		5819FA711938B0A4001826DF /* PtSharedEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 5819FA701938B0A4001826DF /* PtSharedEditor.m */; };
 		5819FA741938B289001826DF /* PtViewBottomBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5819FA731938B289001826DF /* PtViewBottomBar.m */; };
 		5819FA781938B9BB001826DF /* PtViewBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5819FA771938B9BB001826DF /* PtViewBarButton.m */; };
+		58341131193A2C660042729D /* LmCmViewPreviewLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 58341130193A2C660042729D /* LmCmViewPreviewLayer.m */; };
 		587679F51934857100F01BBA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 587679F41934857100F01BBA /* Foundation.framework */; };
 		587679F71934857100F01BBA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 587679F61934857100F01BBA /* CoreGraphics.framework */; };
 		587679F91934857100F01BBA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 587679F81934857100F01BBA /* UIKit.framework */; };
@@ -396,6 +397,8 @@
 		5819FA731938B289001826DF /* PtViewBottomBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PtViewBottomBar.m; sourceTree = "<group>"; };
 		5819FA761938B9BB001826DF /* PtViewBarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PtViewBarButton.h; sourceTree = "<group>"; };
 		5819FA771938B9BB001826DF /* PtViewBarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PtViewBarButton.m; sourceTree = "<group>"; };
+		5834112F193A2C660042729D /* LmCmViewPreviewLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LmCmViewPreviewLayer.h; sourceTree = "<group>"; };
+		58341130193A2C660042729D /* LmCmViewPreviewLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LmCmViewPreviewLayer.m; sourceTree = "<group>"; };
 		587679F11934857100F01BBA /* Pastel2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pastel2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		587679F41934857100F01BBA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		587679F61934857100F01BBA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -622,6 +625,8 @@
 				5800105E1934912C00B44C5F /* LmCmViewPreviewOverlay.m */,
 				5800105F1934912C00B44C5F /* LmCmViewCropBlackRect.h */,
 				580010601934912C00B44C5F /* LmCmViewCropBlackRect.m */,
+				5834112F193A2C660042729D /* LmCmViewPreviewLayer.h */,
+				58341130193A2C660042729D /* LmCmViewPreviewLayer.m */,
 			);
 			name = Camera;
 			sourceTree = "<group>";
@@ -1433,6 +1438,7 @@
 				580010331934905900B44C5F /* LmCmCameraManager.m in Sources */,
 				58F9ED471938855D0033DC00 /* VnEffectBeachVintage.m in Sources */,
 				580010481934910A00B44C5F /* LmCmViewTopBar.m in Sources */,
+				58341131193A2C660042729D /* LmCmViewPreviewLayer.m in Sources */,
 				58F5768E19399ECC00B43095 /* ShareOtherAppViewController.m in Sources */,
 				580010541934911A00B44C5F /* LmCmButtonCropListItem.m in Sources */,
 				580F847B1934EABE0036A99F /* VnAdjustmentLayerGradientMap.m in Sources */,

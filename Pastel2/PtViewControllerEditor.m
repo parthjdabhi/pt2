@@ -113,7 +113,7 @@
 
 - (void)buttonCameraDidTouchUpInside:(PtViewBarButton *)button
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 - (void)buttonFiltersDidTouchUpInside:(PtViewBarButton *)button

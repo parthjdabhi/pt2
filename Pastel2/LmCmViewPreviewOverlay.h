@@ -16,6 +16,5 @@
 @property (nonatomic, assign) BOOL showGrid;
 
 - (void)flash;
-- (void)blackOut:(BOOL)enable;
 
 @end

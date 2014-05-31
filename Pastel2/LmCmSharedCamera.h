@@ -23,10 +23,6 @@ typedef NS_ENUM(NSInteger, LmCmSharedCameraFocusMode){
     LmCmSharedCameraFocusModeManual
 };
 
-typedef NS_ENUM(NSInteger, LmCmSharedCameraTheme){
-    LmCmSharedCameraThemeBlack = 1,
-};
-
 typedef NS_ENUM(NSInteger, LmCmViewSettingsListItem){
     LmCmViewSettingsListItemShowGrid = 1,
     LmCmViewSettingsListItemShowZoom,

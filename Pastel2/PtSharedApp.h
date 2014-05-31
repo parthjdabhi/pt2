@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM(NSInteger, PtSharedAppThemeColor){
+    PtSharedAppThemeColorDefault = 1,
+    PtSharedAppThemeColorRed
+};
+
 @interface PtSharedApp : NSObject
 
 @property (nonatomic, assign) BOOL didUnlockExtraEffects;
@@ -16,6 +21,7 @@
 @property (nonatomic, assign) BOOL shootAndShare;
 @property (nonatomic, assign) BOOL useDefaultCameraApp;
 @property (nonatomic, assign) BOOL useFullResolutionImage;
+@property (nonatomic, assign) PtSharedAppThemeColor themeColor;
 
 + (PtSharedApp*)instance;
 

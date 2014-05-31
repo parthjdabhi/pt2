@@ -20,6 +20,7 @@
     return self;
 }
 
+
 - (void)setRectWithCropSize:(LmCmViewCropSize)size
 {
     _orientation = [MotionOrientation sharedInstance].deviceOrientation;

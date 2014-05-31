@@ -12,6 +12,7 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import "LmCmCameraManager.h"
 #import "LmCmViewPreviewOverlay.h"
+#import "LmCmViewPreviewLayer.h"
 #import "LmCmButtonShutter.h"
 #import "LmCmViewTopBar.h"
 #import "LmCmViewBottomBar.h"
@@ -26,10 +27,11 @@
     float initialVolume;
 }
 
+@property (nonatomic, assign) BOOL isPresenting;
 @property (nonatomic, assign) BOOL isCameraInitializing;
 
 @property (nonatomic, strong) LmCmCameraManager* cameraManager;
-@property (nonatomic, strong) UIView* cameraPreview;
+@property (nonatomic, strong) LmCmViewPreviewLayer* cameraPreview;
 @property (nonatomic, strong) LmCmViewPreviewOverlay* cameraPreviewOverlay;
 @property (nonatomic, strong) LmCmButtonShutter* shutterButton;
 @property (nonatomic, strong) LmCmViewTopBar* topBar;

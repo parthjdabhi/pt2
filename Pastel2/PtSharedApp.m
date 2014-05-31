@@ -182,4 +182,25 @@ static PtSharedApp* sharedPtSharedApp = nil;
     [ud synchronize];
 }
 
+//// テーマカラー
+
+- (PtSharedAppThemeColor)themeColor
+{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSInteger f = [ud integerForKey:@"themeColor"];
+    if (f != 0) {
+        return (PtSharedAppThemeColor)f;
+    }
+    //// デフォルト
+    self.themeColor = PtSharedAppThemeColorDefault;
+    return PtSharedAppThemeColorDefault;
+}
+
+- (void)setThemeColor:(PtSharedAppThemeColor)themeColor
+{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    [ud setInteger:(int)themeColor forKey:@"themeColor"];
+    [ud synchronize];
+}
+
 @end
