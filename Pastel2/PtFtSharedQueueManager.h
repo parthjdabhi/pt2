@@ -29,12 +29,12 @@
 + (PtFtSharedQueueManager*)instance;
 
 - (PtFtProcessQueue*)shiftQueue;
-- (void)addQueue:(VnObjectProcessingQueue*)queue;
+- (void)addQueue:(PtFtProcessQueue*)queue;
 
 - (void)processQueue;
-- (void)processQueueTypePreset:(VnObjectProcessingQueue*)queue;
-- (void)processQueueTypePreview:(VnObjectProcessingQueue*)queue;
-- (void)processQueueTypeOriginal:(VnObjectProcessingQueue*)queue;
+- (void)processQueueTypePreset:(PtFtProcessQueue*)queue;
+- (void)processQueueTypePreview:(PtFtProcessQueue*)queue;
+- (void)processQueueTypeOriginal:(PtFtProcessQueue*)queue;
 
 - (void)commonInit;
 - (void)cancelAllQueue;

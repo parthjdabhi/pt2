@@ -211,37 +211,52 @@
 
 #pragma mark present
 
-- (void)presentEditorViewController
+- (void)presentEditorViewControllerWithImage:(UIImage *)image
+{
+    [self disableCamera];
+    PtViewControllerEditor* con = [[PtViewControllerEditor alloc] init];
+    if ([PtSharedApp instance].useFullResolutionImage == NO) {
+        float length = MAX(image.size.width, image.size.height);
+        if (length > 1920.0f) {
+            float scale = image.size.width / 1920.0f;
+            if (image.size.height > image.size.width) {
+                scale = image.size.height / 1920.0f;
+            }
+            image = [image resizedImage:CGSizeMake(image.size.width / scale, image.size.height / scale) interpolationQuality:kCGInterpolationHigh];
+        }
+    }
+    con.imageToProcess = image;
+    [self.navigationController pushViewController:con animated:YES];
+}
+
+- (void)presentEditorViewControllerFromLastAsset
 {
     if (self.lastAsset == nil) {
         return;
     }
-    [self disableCamera];
-    PtViewControllerEditor* con = [[PtViewControllerEditor alloc] init];
     ALAssetRepresentation *representation = [self.lastAsset defaultRepresentation];
-    @autoreleasepool {
-        
-        UIImage *img = [UIImage imageWithCGImage:[representation fullResolutionImage]
-                                           scale:[representation scale]
-                                     orientation:[representation orientation]];
-        if (img == nil) {
-            return;
-        }
-        if ([PtSharedApp instance].useFullResolutionImage == NO) {
-            float length = MAX(img.size.width, img.size.height);
-            if (length > 1920.0f) {
-                float scale = img.size.width / 1920.0f;
-                if (img.size.height > img.size.width) {
-                    scale = img.size.height / 1920.0f;
-                }
-                img = [img resizedImage:CGSizeMake(img.size.width / scale, img.size.height / scale) interpolationQuality:kCGInterpolationHigh];
-            }
-        }
-        con.imageToProcess = img;
+    UIImage *img = [UIImage imageWithCGImage:[representation fullResolutionImage]
+                                       scale:[representation scale]
+                                 orientation:[representation orientation]];
+    if (img == nil) {
+        return;
     }
-    [self.navigationController pushViewController:con animated:YES];
+    [self presentEditorViewControllerWithImage:img];
 }
 
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    UIImage* imageOriginal = [info objectForKey:UIImagePickerControllerOriginalImage];
+    
+    if(imageOriginal){
+        if(picker.sourceType == UIImagePickerControllerSourceTypeCamera){
+            UIImageWriteToSavedPhotosAlbum(imageOriginal, nil, nil, nil);
+        }
+        //// Do your stuff
+        [self presentEditorViewControllerWithImage:imageOriginal];
+    }
+}
 
 #pragma mark camera roll
 
@@ -275,18 +290,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    [picker dismissViewControllerAnimated:YES completion:nil];
-    UIImage* imageOriginal = [info objectForKey:UIImagePickerControllerOriginalImage];
-    
-    if(imageOriginal){
-        if(picker.sourceType == UIImagePickerControllerSourceTypeCamera){
-            UIImageWriteToSavedPhotosAlbum(imageOriginal, nil, nil, nil);
-        }
-        //// Do your stuff
-    }
-}
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {

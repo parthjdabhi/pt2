@@ -51,7 +51,8 @@
 - (void)lastAssetDidLoad:(ALAsset*)asset;
 - (void)flashScreen;
 
-- (void)presentEditorViewController;
+- (void)presentEditorViewControllerFromLastAsset;
+- (void)presentEditorViewControllerWithImage:(UIImage*)image;
 
 - (void)imageDidSave:(ALAsset*)alAsset;
 

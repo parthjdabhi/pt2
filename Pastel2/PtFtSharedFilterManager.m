@@ -353,8 +353,6 @@ static PtFtSharedFilterManager* sharedPtFtSharedFilterManager = nil;
     item.previewColor = [UIColor colorWithRed:s255(255.0f) green:s255(245.0f) blue:s255(224.0f) alpha:1.0f];
     item.selectionColor = item.previewColor;
     [_overlayFilters addObject:item];
-    
-
 }
 
 

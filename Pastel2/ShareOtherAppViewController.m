@@ -12,7 +12,7 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    self.interactionController = [UIDocumentInteractionController interactionControllerWithURL:[VnCurrentImage lastSavedImageUrl]];
+    self.interactionController = [UIDocumentInteractionController interactionControllerWithURL:nil];
     self.interactionController.delegate = self;
     
     BOOL isValid;
