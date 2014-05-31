@@ -65,6 +65,27 @@ static PtSharedApp* sharedPtSharedApp = nil;
     }
 }
 
+
+//// エフェクトの購入
+- (BOOL)didBuyEffectsPack1
+{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    BOOL f = [ud boolForKey:@"buy_pack_1"];
+    if (f == YES) {
+        return YES;
+    }
+    return NO;
+}
+
+- (void)setDidBuyEffectsPack1:(BOOL)didBuyEffectsPack1
+{
+    if (didBuyEffectsPack1) {
+        NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+        [ud setBool:YES forKey:@"buy_pack_1"];
+        [ud synchronize];
+    }
+}
+
 //// 起動時にカメラモード
 
 - (BOOL)startInCameraMode

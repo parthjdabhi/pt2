@@ -172,6 +172,13 @@
 		58D1927B1937177C000FAFDB /* VnEffectColorRosyVintage.m in Sources */ = {isa = PBXBuildFile; fileRef = 58D1927A1937177C000FAFDB /* VnEffectColorRosyVintage.m */; };
 		58F57684193986B500B43095 /* PtViewImagePreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F57683193986B500B43095 /* PtViewImagePreview.m */; };
 		58F57687193986CC00B43095 /* PtViewImagePreviewScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F57686193986CC00B43095 /* PtViewImagePreviewScrollView.m */; };
+		58F5768D19399ECC00B43095 /* ShareInstagramViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F5768A19399ECC00B43095 /* ShareInstagramViewController.m */; };
+		58F5768E19399ECC00B43095 /* ShareOtherAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F5768C19399ECC00B43095 /* ShareOtherAppViewController.m */; };
+		58F5769119399F1600B43095 /* PtViewControllerForInstagramCrop.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F5769019399F1600B43095 /* PtViewControllerForInstagramCrop.m */; };
+		58F576951939AB5800B43095 /* PtFtSharedQueueManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F576941939AB5800B43095 /* PtFtSharedQueueManager.m */; };
+		58F576991939ABA300B43095 /* PtFtProcessQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F576981939ABA300B43095 /* PtFtProcessQueue.m */; };
+		58F5769C1939B4E700B43095 /* PtFtSharedFilterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F5769B1939B4E700B43095 /* PtFtSharedFilterManager.m */; };
+		58F576A01939D06F00B43095 /* PtFtObjectFilterItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F5769F1939D06F00B43095 /* PtFtObjectFilterItem.m */; };
 		58F8456F193704A000F413A6 /* VnEffectColorLittleBlueSecret.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F8456E193704A000F413A6 /* VnEffectColorLittleBlueSecret.m */; };
 		58F845751937051700F413A6 /* VnFilterToneCurve.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F845741937051700F413A6 /* VnFilterToneCurve.m */; };
 		58F84578193707AB00F413A6 /* VnFilterSolidColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F84577193707AB00F413A6 /* VnFilterSolidColor.m */; };
@@ -459,6 +466,20 @@
 		58F57683193986B500B43095 /* PtViewImagePreview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PtViewImagePreview.m; sourceTree = "<group>"; };
 		58F57685193986CC00B43095 /* PtViewImagePreviewScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PtViewImagePreviewScrollView.h; sourceTree = "<group>"; };
 		58F57686193986CC00B43095 /* PtViewImagePreviewScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PtViewImagePreviewScrollView.m; sourceTree = "<group>"; };
+		58F5768919399ECC00B43095 /* ShareInstagramViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareInstagramViewController.h; sourceTree = "<group>"; };
+		58F5768A19399ECC00B43095 /* ShareInstagramViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareInstagramViewController.m; sourceTree = "<group>"; };
+		58F5768B19399ECC00B43095 /* ShareOtherAppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareOtherAppViewController.h; sourceTree = "<group>"; };
+		58F5768C19399ECC00B43095 /* ShareOtherAppViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareOtherAppViewController.m; sourceTree = "<group>"; };
+		58F5768F19399F1600B43095 /* PtViewControllerForInstagramCrop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PtViewControllerForInstagramCrop.h; sourceTree = "<group>"; };
+		58F5769019399F1600B43095 /* PtViewControllerForInstagramCrop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PtViewControllerForInstagramCrop.m; sourceTree = "<group>"; };
+		58F576931939AB5800B43095 /* PtFtSharedQueueManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PtFtSharedQueueManager.h; sourceTree = "<group>"; };
+		58F576941939AB5800B43095 /* PtFtSharedQueueManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PtFtSharedQueueManager.m; sourceTree = "<group>"; };
+		58F576971939ABA300B43095 /* PtFtProcessQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PtFtProcessQueue.h; sourceTree = "<group>"; };
+		58F576981939ABA300B43095 /* PtFtProcessQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PtFtProcessQueue.m; sourceTree = "<group>"; };
+		58F5769A1939B4E700B43095 /* PtFtSharedFilterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PtFtSharedFilterManager.h; sourceTree = "<group>"; };
+		58F5769B1939B4E700B43095 /* PtFtSharedFilterManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PtFtSharedFilterManager.m; sourceTree = "<group>"; };
+		58F5769E1939D06F00B43095 /* PtFtObjectFilterItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PtFtObjectFilterItem.h; sourceTree = "<group>"; };
+		58F5769F1939D06F00B43095 /* PtFtObjectFilterItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PtFtObjectFilterItem.m; sourceTree = "<group>"; };
 		58F8456D193704A000F413A6 /* VnEffectColorLittleBlueSecret.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VnEffectColorLittleBlueSecret.h; sourceTree = "<group>"; };
 		58F8456E193704A000F413A6 /* VnEffectColorLittleBlueSecret.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VnEffectColorLittleBlueSecret.m; sourceTree = "<group>"; };
 		58F845731937051700F413A6 /* VnFilterToneCurve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VnFilterToneCurve.h; sourceTree = "<group>"; };
@@ -899,6 +920,9 @@
 			children = (
 				5819FA6B1938AF1B001826DF /* PtViewControllerFilters.h */,
 				5819FA6C1938AF1B001826DF /* PtViewControllerFilters.m */,
+				58F5769D1939B81C00B43095 /* Views */,
+				58F576961939AB8C00B43095 /* Objects */,
+				58F576921939AB0400B43095 /* Managers */,
 			);
 			name = FiltersModule;
 			sourceTree = "<group>";
@@ -1058,6 +1082,48 @@
 			name = Preview;
 			sourceTree = "<group>";
 		};
+		58F5768819399EBA00B43095 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				58F5768919399ECC00B43095 /* ShareInstagramViewController.h */,
+				58F5768A19399ECC00B43095 /* ShareInstagramViewController.m */,
+				58F5768B19399ECC00B43095 /* ShareOtherAppViewController.h */,
+				58F5768C19399ECC00B43095 /* ShareOtherAppViewController.m */,
+				58F5768F19399F1600B43095 /* PtViewControllerForInstagramCrop.h */,
+				58F5769019399F1600B43095 /* PtViewControllerForInstagramCrop.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		58F576921939AB0400B43095 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				58F576931939AB5800B43095 /* PtFtSharedQueueManager.h */,
+				58F576941939AB5800B43095 /* PtFtSharedQueueManager.m */,
+				58F5769A1939B4E700B43095 /* PtFtSharedFilterManager.h */,
+				58F5769B1939B4E700B43095 /* PtFtSharedFilterManager.m */,
+			);
+			name = Managers;
+			sourceTree = "<group>";
+		};
+		58F576961939AB8C00B43095 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				58F576971939ABA300B43095 /* PtFtProcessQueue.h */,
+				58F576981939ABA300B43095 /* PtFtProcessQueue.m */,
+				58F5769E1939D06F00B43095 /* PtFtObjectFilterItem.h */,
+				58F5769F1939D06F00B43095 /* PtFtObjectFilterItem.m */,
+			);
+			name = Objects;
+			sourceTree = "<group>";
+		};
+		58F5769D1939B81C00B43095 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		58F9ED411938854C0033DC00 /* Effects */ = {
 			isa = PBXGroup;
 			children = (
@@ -1072,6 +1138,7 @@
 			children = (
 				580F83CE1934D6140036A99F /* PtViewControllerEditor.h */,
 				580F83CF1934D6140036A99F /* PtViewControllerEditor.m */,
+				58F5768819399EBA00B43095 /* ViewControllers */,
 				5819FA6E1938B08B001826DF /* Shared */,
 				5819FA661938AD23001826DF /* Views */,
 			);
@@ -1286,10 +1353,13 @@
 				588EADAD19375ABB005C486E /* VnEffectColorSerenity.m in Sources */,
 				588EADDC19376426005C486E /* VnEffectOverlayLightBrightHaze.m in Sources */,
 				5800108F193491CA00B44C5F /* UIViewController+extend.m in Sources */,
+				58F5769119399F1600B43095 /* PtViewControllerForInstagramCrop.m in Sources */,
 				58D1927819371420000FAFDB /* VnEffectColorPurrr.m in Sources */,
 				5800CD2A1935C85E004BB438 /* VnEffect.m in Sources */,
 				58001097193491D800B44C5F /* MotionOrientation.m in Sources */,
+				58F5768D19399ECC00B43095 /* ShareInstagramViewController.m in Sources */,
 				58F57687193986CC00B43095 /* PtViewImagePreviewScrollView.m in Sources */,
+				58F5769C1939B4E700B43095 /* PtFtSharedFilterManager.m in Sources */,
 				58001090193491CB00B44C5F /* UIImagePickerController+extend.m in Sources */,
 				5800104D1934911200B44C5F /* LmCmViewFlashModeList.m in Sources */,
 				580010611934912C00B44C5F /* LmCmButtonShutter.m in Sources */,
@@ -1300,6 +1370,7 @@
 				580010591934912400B44C5F /* LmCmViewSettingsList.m in Sources */,
 				58F84578193707AB00F413A6 /* VnFilterSolidColor.m in Sources */,
 				58D192721937107B000FAFDB /* VnEffectColorPotion9.m in Sources */,
+				58F576951939AB5800B43095 /* PtFtSharedQueueManager.m in Sources */,
 				588EADF719376E41005C486E /* VnEffectOverlayPinkHaze.m in Sources */,
 				5800107A1934916900B44C5F /* LmCmSharedCamera.m in Sources */,
 				5800106B1934913500B44C5F /* UISliderThumbView.m in Sources */,
@@ -1319,6 +1390,7 @@
 				588EADFC19376E41005C486E /* VnEffectOverlaySunhazeRight.m in Sources */,
 				5819FA691938AE05001826DF /* PtViewTopBar.m in Sources */,
 				580010621934912C00B44C5F /* LmCmViewPreviewOverlay.m in Sources */,
+				58F576991939ABA300B43095 /* PtFtProcessQueue.m in Sources */,
 				580010531934911A00B44C5F /* LmCmViewCropList.m in Sources */,
 				580010751934915600B44C5F /* LmCmViewManagerPreview.m in Sources */,
 				58767A011934857100F01BBA /* main.m in Sources */,
@@ -1341,6 +1413,7 @@
 				5800CC831935C565004BB438 /* VnFilterLevels.m in Sources */,
 				580F847C1934EABE0036A99F /* VnAdjustmentLayerSelectiveColor.m in Sources */,
 				5819FA6D1938AF1B001826DF /* PtViewControllerFilters.m in Sources */,
+				58F576A01939D06F00B43095 /* PtFtObjectFilterItem.m in Sources */,
 				588EADB919375CED005C486E /* VnEffectColorUrbanCandy.m in Sources */,
 				588EADB319375B93005C486E /* VnEffectColorSummerSkin.m in Sources */,
 				5800CC841935C565004BB438 /* VnFilterTemperature.m in Sources */,
@@ -1360,6 +1433,7 @@
 				580010331934905900B44C5F /* LmCmCameraManager.m in Sources */,
 				58F9ED471938855D0033DC00 /* VnEffectBeachVintage.m in Sources */,
 				580010481934910A00B44C5F /* LmCmViewTopBar.m in Sources */,
+				58F5768E19399ECC00B43095 /* ShareOtherAppViewController.m in Sources */,
 				580010541934911A00B44C5F /* LmCmButtonCropListItem.m in Sources */,
 				580F847B1934EABE0036A99F /* VnAdjustmentLayerGradientMap.m in Sources */,
 				580010461934910A00B44C5F /* LmCmViewBarButton.m in Sources */,
