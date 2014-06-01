@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PtConfigFIlters : NSObject
+@interface PtConfigFilters : NSObject
 
 + (CGSize)toolBarButtonSize;
 + (CGSize)colorLayerButtonSize;

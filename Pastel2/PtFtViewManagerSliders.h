@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PtFtViewBarWrapper.h"
 
 @class PtViewControllerFilters;
 
@@ -14,6 +15,7 @@
 
 @property (nonatomic, weak) UIView* view;
 @property (nonatomic, weak) PtViewControllerFilters* delegate;
+@property (nonatomic, strong) PtFtViewBarWrapper* barWrapper;
 
 - (void)viewDidLoad;
 @end

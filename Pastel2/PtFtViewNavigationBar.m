@@ -15,18 +15,29 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [PtSharedApp bottomNavigationBarBgColor];
+        _titleLabel = [[VnViewLabel alloc] initWithFrame:self.bounds];
+        _titleLabel.fontSize = 18.0f;
+        [self addSubview:_titleLabel];
     }
     return self;
+}
+
+- (void)setTitle:(NSString *)title
+{
+    _titleLabel.text = title;
 }
 
 - (void)addDoneButton:(PtFtButtonNavigation *)button
 {
     
+    button.center = CGPointMake(self.width - button.width / 2.0f, self.height / 2.0f);
+    [self addSubview:button];
 }
 
 - (void)addCancelButton:(PtFtButtonNavigation *)button
 {
-    
+    button.center = CGPointMake(button.width / 2.0f, self.height / 2.0f);
+    [self addSubview:button];
 }
 
 @end

@@ -10,6 +10,9 @@
 #import "PtFtButtonNavigation.h"
 
 @interface PtFtViewNavigationBar : UIView
+{
+    VnViewLabel* _titleLabel;
+}
 
 @property (nonatomic, strong) NSString* title;
 

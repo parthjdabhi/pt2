@@ -20,9 +20,11 @@
     
     //// Navigation Button
     _cancelButton = [[PtFtButtonNavigation alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [PtSharedApp bottomNavigationBarHeight], [PtSharedApp bottomNavigationBarHeight])];
+    _cancelButton.type = PtFtButtonNavigationTypeCancel;
     [_cancelButton addTarget:self action:@selector(navigationCancelDidTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
     [_navigationBar addCancelButton:_cancelButton];
     _doneButton = [[PtFtButtonNavigation alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [PtSharedApp bottomNavigationBarHeight], [PtSharedApp bottomNavigationBarHeight])];
+    _doneButton.type = PtFtButtonNavigationTypeDone;
     [_doneButton addTarget:self action:@selector(navigationDoneDidTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
     [_navigationBar addDoneButton:_doneButton];
 }
@@ -31,7 +33,7 @@
 
 - (void)navigationCancelDidTouchUpInside:(PtFtButtonNavigation *)button
 {
-    
+    [self.delegate.navigationController popViewControllerAnimated:NO];
 }
 
 - (void)navigationDoneDidTouchUpInside:(PtFtButtonNavigation *)button

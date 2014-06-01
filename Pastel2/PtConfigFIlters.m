@@ -6,9 +6,9 @@
 //  Copyright (c) 2014年 SSC. All rights reserved.
 //
 
-#import "PtConfigFIlters.h"
+#import "PtConfigFilters.h"
 
-@implementation PtConfigFIlters
+@implementation PtConfigFilters
 
 #pragma mark sizes
 
@@ -43,7 +43,7 @@
 
 + (UIColor *)colorBarBgColor
 {
-    return [UIColor colorWithRed:s255(37.0f) green:s255(37.0f) blue:s255(37.0f) alpha:1.0f];
+    return [UIColor colorWithWhite:0.10f alpha:1.0f];
 }
 
 + (UIColor *)artisticBarBgColor
@@ -53,7 +53,7 @@
 
 + (UIColor *)overlayBarBgColor
 {
-    return [UIColor colorWithRed:s255(51.0f) green:s255(51.0f) blue:s255(51.0f) alpha:1.0f];
+    return [UIColor colorWithWhite:0.10f alpha:1.0f];
 }
 
 #pragma mark height
@@ -78,6 +78,10 @@
     return 70.0f;
 }
 
++ (float)overlayBarHeight
+{
+    return 50.0f;
+}
 
 
 @end

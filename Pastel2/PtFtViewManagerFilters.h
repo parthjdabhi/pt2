@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PtFtViewBarWrapper.h"
+#import "PtFtViewLayerBar.h"
 
 @class PtViewControllerFilters;
 
@@ -14,6 +16,10 @@
 
 @property (nonatomic, weak) UIView* view;
 @property (nonatomic, weak) PtViewControllerFilters* delegate;
+@property (nonatomic, strong) PtFtViewBarWrapper* barWrapper;
+@property (nonatomic, strong) PtFtViewLayerBar* overlayBar;
+@property (nonatomic, strong) PtFtViewLayerBar* artisticBar;
+@property (nonatomic, strong) PtFtViewLayerBar* colorBar;
 
 - (void)viewDidLoad;
 

@@ -162,6 +162,7 @@ typedef NS_ENUM(NSInteger, VnBlendingMode){
 #import "PtSharedApp.h"
 #import "LmCmSharedCamera.h"
 #import "PtConfigEditor.h"
+#import "PtConfigFilters.h"
 #import "PtFtSharedQueueManager.h"
 #import "PtFtSharedFilterManager.h"
 #import "MotionOrientation.h"

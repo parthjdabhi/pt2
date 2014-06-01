@@ -14,7 +14,6 @@
 {
     float _left;
     float _right;
-
 }
 @property (nonatomic, strong) UIScrollView* view;
 @property (nonatomic, weak) PtFtButtonLayerBar* currentOpeningButton;
