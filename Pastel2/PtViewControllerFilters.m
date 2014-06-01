@@ -152,6 +152,10 @@
         case PtFtProcessQueueTypePreset:
         {
             [_filtersManager setPresetImage:queue.image ToEffect:queue.effectId];
+            PtFtObjectProcessQueue* queue = [self shiftQueueFromPool];
+            if (queue) {
+                [[PtFtSharedQueueManager instance] addQueue:queue];
+            }
         }
             break;
         case PtFtProcessQueueTypeOriginal:

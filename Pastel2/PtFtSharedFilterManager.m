@@ -433,13 +433,11 @@ static PtFtSharedFilterManager* sharedPtFtSharedFilterManager = nil;
 {
     VnEffect* effect = [self effectByEffectId:effectId];
     if (effect) {
+        [effect makeFilterGroup];
         if (opacity == 1.0f) {
             return [VnEffect processImage:image WithStartFilter:effect.startFilter EndFilter:effect.endFilter];
         }
-        VnFilterNormal* normal = [[VnFilterNormal alloc] init];
-        normal.topLayerOpacity = opacity;
-        [effect.endFilter addTarget:normal];
-        return [VnEffect processImage:image WithStartFilter:effect.startFilter EndFilter:normal];
+        return [VnEffect processImage:image WithStartFilter:effect.startFilter EndFilter:effect.endFilter];
     }
     return nil;
 }

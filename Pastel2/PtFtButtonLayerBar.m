@@ -19,8 +19,6 @@
         
         float labelHeight = 15.0f;
         
-        LOG_SIZE(frame.size);
-        
         _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(1.0f, 1.0f, frame.size.width - 2.0f, frame.size.height - labelHeight - 2.0f)];
         _imageView.userInteractionEnabled = NO;
         [self addSubview:_imageView];
