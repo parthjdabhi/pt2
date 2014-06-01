@@ -23,6 +23,7 @@
 #import "VnEffectColorSummerSkin.h"
 #import "VnEffectColorSunnyLight.h"
 #import "VnEffectColorUrbanCandy.h"
+#import "VnEffectColorVintageMatte.h"
 #import "VnEffectColorWarmHaze.h"
 #import "VnEffectColorWildHoney.h"
 
@@ -38,8 +39,8 @@
 @property (nonatomic, strong) NSMutableArray* colorFilters;
 
 + (PtFtSharedFilterManager*)instance;
-+ (UIImage*)applyEffect:(VnEffectId)effect ToImage:(UIImage*)image;
-+ (NSMutableArray*)availableEffectQueues;
++ (UIImage*)applyEffect:(VnEffectId)effectId ToImage:(UIImage*)image WithOpacity:(float)opacity;
++ (VnEffect*)effectByEffectId:(VnEffectId)effectId;
 
 - (void)commonInit;
 - (void)initColorFilters;

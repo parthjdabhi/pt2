@@ -355,25 +355,56 @@ static PtFtSharedFilterManager* sharedPtFtSharedFilterManager = nil;
     [_overlayFilters addObject:item];
 }
 
+#pragma mark getter
 
-#pragma mark queue
-
-+ (NSMutableArray *)availableEffectQueues
++ (VnEffect *)effectByEffectId:(VnEffectId)effectId
 {
-    NSMutableArray* array;
-    PtFtObjectProcessQueue* queue;
+    VnEffect* effect;
     
-    queue = [PtFtObjectProcessQueue new];
-    queue.effectId = VnEffectIdNone;
-    [array addObject:queue];
-    
-    queue = [PtFtObjectProcessQueue new];
-    queue.effectId = VnEffectIdNone;
-    [array addObject:queue];
-    
-    
-    return array;
+    switch (effectId) {
+            //// Color
+        case VnEffectIdColorPurrr:
+            return [VnEffectColorPurrr new];
+        case VnEffectIdColorBronze:
+            return [VnEffectColorBronze new];
+        case VnEffectIdColorOphelia:
+            return [VnEffectColorOphelia new];
+        case VnEffectIdColorPotion9:
+            return [VnEffectColorPotion9 new];
+        case VnEffectIdColorPinkMilk:
+            return [VnEffectColorPinkMilk new];
+        case VnEffectIdColorSerenity:
+            return [VnEffectColorSerenity new];
+        case VnEffectIdColorWarmHaze:
+            return [VnEffectColorWarmHaze new];
+        case VnEffectIdColorPurePeach:
+            return [VnEffectColorPurePeach new];
+        case VnEffectIdColorWildHoney:
+            return [VnEffectColorWildHoney new];
+        case VnEffectIdColorSummerSkin:
+            return [VnEffectColorSummerSkin new];
+        case VnEffectIdColorSunnyLight:
+            return [VnEffectColorSunnyLight new];
+        case VnEffectIdColorUrbanCandy:
+            return [VnEffectColorUrbanCandy new];
+        case VnEffectIdColorRosyVintage:
+            return [VnEffectColorRosyVintage new];
+        case VnEffectIdColorVintageMatte:
+            return [VnEffectColorVintageMatte new];
+        case VnEffectIdColorLittleBlueSecret:
+            return [VnEffectColorLittleBlueSecret new];
+            //// Overlay
+        default:
+            break;
+    }
+    return nil;
 }
 
+#pragma mark process
+
++ (UIImage *)applyEffect:(VnEffectId)effect ToImage:(UIImage *)image WithOpacity:(float)opacity
+{
+    return nil;
+}
 
 @end

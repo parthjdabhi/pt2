@@ -133,7 +133,7 @@
             });
             
         });
-    }else{
+    }else if(_state == LmCmViewControllerStatePresentedEditorController){
         [self.cameraPreview blackOut:NO];
     }
     _state = LmCmViewControllerStateDefault;
@@ -241,7 +241,7 @@
     }
     self.isPresenting = YES;
     [self.cameraPreview blackOut:YES];
-        __block __weak LmCmViewController* _self = self;
+    __block __weak LmCmViewController* _self = self;
     
     if ([PtSharedApp instance].useFullResolutionImage) {
         dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
@@ -350,11 +350,13 @@
 
 - (void)openCameraRoll
 {
+    [_cameraPreview blackOut:YES];
+    _state = LmCmViewControllerStatePhotoLibraryIsOpening;
+    _toolsManager.camerarollButton.selected = NO;
     UIImagePickerController *pickerController = [[UIImagePickerController alloc] init];
     pickerController.delegate = self;
     [pickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
     [self presentViewController:pickerController animated:YES completion:nil];
-    _state = LmCmViewControllerStatePhotoLibraryIsOpening;
 }
 
 - (void)didReceiveMemoryWarning

@@ -202,6 +202,7 @@
 		58F9ED4B193885CE0033DC00 /* VnFilterNormal.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F9ED4A193885CE0033DC00 /* VnFilterNormal.m */; };
 		58F9ED5119388E580033DC00 /* PtViewControllerSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F9ED5019388E580033DC00 /* PtViewControllerSettings.m */; };
 		58FD75E4193B5CA6001FCF0F /* PtFtConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 58FD75E3193B5CA6001FCF0F /* PtFtConfig.m */; };
+		58FD75E7193B8BB1001FCF0F /* VnEffectColorVintageMatte.m in Sources */ = {isa = PBXBuildFile; fileRef = 58FD75E6193B8BB1001FCF0F /* VnEffectColorVintageMatte.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -542,6 +543,8 @@
 		58F9ED5019388E580033DC00 /* PtViewControllerSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PtViewControllerSettings.m; sourceTree = "<group>"; };
 		58FD75E2193B5CA6001FCF0F /* PtFtConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PtFtConfig.h; sourceTree = "<group>"; };
 		58FD75E3193B5CA6001FCF0F /* PtFtConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PtFtConfig.m; sourceTree = "<group>"; };
+		58FD75E5193B8BB1001FCF0F /* VnEffectColorVintageMatte.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VnEffectColorVintageMatte.h; sourceTree = "<group>"; };
+		58FD75E6193B8BB1001FCF0F /* VnEffectColorVintageMatte.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VnEffectColorVintageMatte.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -887,6 +890,8 @@
 				588EADB519375C35005C486E /* VnEffectColorSunnyLight.m */,
 				588EADB719375CED005C486E /* VnEffectColorUrbanCandy.h */,
 				588EADB819375CED005C486E /* VnEffectColorUrbanCandy.m */,
+				58FD75E5193B8BB1001FCF0F /* VnEffectColorVintageMatte.h */,
+				58FD75E6193B8BB1001FCF0F /* VnEffectColorVintageMatte.m */,
 				588EADBA19375E89005C486E /* VnEffectColorWarmHaze.h */,
 				588EADBB19375E89005C486E /* VnEffectColorWarmHaze.m */,
 				588EADBD193761C2005C486E /* VnEffectColorWildHoney.h */,
@@ -1532,6 +1537,7 @@
 				580010741934915600B44C5F /* LmCmViewManagerZoom.m in Sources */,
 				5800108A193491CA00B44C5F /* UIDevice+extend.m in Sources */,
 				5834113D193A3F010042729D /* PtFtViewLayerBarWrapper.m in Sources */,
+				58FD75E7193B8BB1001FCF0F /* VnEffectColorVintageMatte.m in Sources */,
 				588EADF819376E41005C486E /* VnEffectOverlayRetroSun.m in Sources */,
 				588EADB619375C35005C486E /* VnEffectColorSunnyLight.m in Sources */,
 				580010471934910A00B44C5F /* LmCmViewBottomBar.m in Sources */,
