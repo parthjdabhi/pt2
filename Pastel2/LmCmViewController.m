@@ -238,31 +238,38 @@
     self.isPresenting = YES;
     [self.cameraPreview blackOut:YES];
     
-    __block __weak LmCmViewController* _self = self;
-    __block UIImage* _image = image;
-    dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_queue_t q_main = dispatch_get_main_queue();
-    dispatch_async(q_global, ^{
-        @autoreleasepool {
-            [_self disableCamera];
-            if ([PtSharedApp instance].useFullResolutionImage == NO) {
-                float length = MAX(_image.size.width, _image.size.height);
-                if (length > 1920.0f) {
-                    float scale = _image.size.width / 1920.0f;
-                    if (_image.size.height > _image.size.width) {
-                        scale = image.size.height / 1920.0f;
+    if ([PtSharedApp instance].useFullResolutionImage) {
+        [PtSharedApp instance].imageToProcess = image;
+        PtViewControllerEditor* con = [[PtViewControllerEditor alloc] init];
+        [self.navigationController pushViewController:con animated:NO];
+    }else{
+        __block __weak LmCmViewController* _self = self;
+        __block UIImage* _image = image;
+        dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        dispatch_queue_t q_main = dispatch_get_main_queue();
+        dispatch_async(q_global, ^{
+            @autoreleasepool {
+                [_self disableCamera];
+                if ([PtSharedApp instance].useFullResolutionImage == NO) {
+                    float length = MAX(_image.size.width, _image.size.height);
+                    if (length > 1920.0f) {
+                        float scale = _image.size.width / 1920.0f;
+                        if (_image.size.height > _image.size.width) {
+                            scale = image.size.height / 1920.0f;
+                        }
+                        _image = [_image resizedImage:CGSizeMake(_image.size.width / scale, _image.size.height / scale) interpolationQuality:kCGInterpolationHigh];
                     }
-                    _image = [_image resizedImage:CGSizeMake(_image.size.width / scale, _image.size.height / scale) interpolationQuality:kCGInterpolationHigh];
                 }
+                [PtSharedApp instance].imageToProcess = _image;
             }
-        }
-        dispatch_async(q_main, ^{
-            PtViewControllerEditor* con = [[PtViewControllerEditor alloc] init];
-            con.imageToProcess = _image;
-            [self.navigationController pushViewController:con animated:NO];
+            dispatch_async(q_main, ^{
+                PtViewControllerEditor* con = [[PtViewControllerEditor alloc] init];
+                [self.navigationController pushViewController:con animated:NO];
+            });
+            
         });
-        
-    });
+    }
+    
     
 }
 

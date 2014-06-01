@@ -14,19 +14,27 @@
 
 @implementation PtViewControllerFilters
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.view.backgroundColor = [PtConfigEditor bgColor];
+    
+    //// Managers
+    _filtersManager = [[PtFtViewManagerFilters alloc] init];
+    _filtersManager.delegate = self;
+    _filtersManager.view = self.view;
+    _slidersManager = [[PtFtViewManagerSliders alloc] init];
+    _slidersManager.delegate = self;
+    _slidersManager.view = self.view;
+    _navigationManager = [[PtFtViewManagerNavigation alloc] init];
+    _navigationManager.delegate = self;
+    _navigationManager.view = self.view;
+    
+    [_filtersManager viewDidLoad];
+    [_slidersManager viewDidLoad];
+    [_navigationManager viewDidLoad];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -35,15 +43,5 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

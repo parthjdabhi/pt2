@@ -6,9 +6,9 @@
 //  Copyright (c) 2014年 SSC. All rights reserved.
 //
 
-#import "PtFtViewLayerBarButton.h"
+#import "PtFtButtonLayerBar.h"
 
-@implementation PtFtViewLayerBarButton
+@implementation PtFtButtonLayerBar
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -25,7 +25,7 @@
         _imageView.userInteractionEnabled = NO;
         [self addSubview:_imageView];
         
-        _maskView = [[PtFtViewLayerBarButtonMaskView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, frame.size.width, frame.size.height - labelHeight)];
+        _maskView = [[PtFtViewLayerBarButtonMask alloc] initWithFrame:CGRectMake(0.0f, 0.0f, frame.size.width, frame.size.height - labelHeight)];
         _maskView.userInteractionEnabled = NO;
         [self addSubview:_maskView];
         
@@ -110,7 +110,7 @@
     [_maskView setNeedsDisplay];
 }
 
-- (void)didTouchUpInside:(PtFtViewLayerBarButton *)sender
+- (void)didTouchUpInside:(PtFtButtonLayerBar *)sender
 {
     [self.delegate didLayerBarButtonTouchUpInside:self];
 }

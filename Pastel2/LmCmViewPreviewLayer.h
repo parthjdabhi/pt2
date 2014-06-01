@@ -11,6 +11,7 @@
 @interface LmCmViewPreviewLayer : UIView
 {
     UIToolbar* blurView;
+    UIView* opaqueView;
 }
 
 - (void)blackOut:(BOOL)enable;

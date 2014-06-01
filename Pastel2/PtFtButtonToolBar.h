@@ -12,22 +12,20 @@ typedef NS_ENUM(NSInteger, PtFtViewToolBarButtonType){
     PtFtViewToolBarButtonTypeShuffle = 1,
     PtFtViewToolBarButtonTypeSlider,
     PtFtViewToolBarButtonTypeFavorites,
-    PtFtViewToolBarButtonTypeAddToFavorites,
-    PtFtViewToolBarButtonTypeCancel,
-    PtFtViewToolBarButtonTypeDone
+    PtFtViewToolBarButtonTypeAddToFavorites
 };
 
-@class PtFtViewToolBarButton;
+@class PtFtButtonToolBar;
 
 @protocol VnViewEditorToolBarButtonDelegate
-- (void)didToolBarButtonTouchUpInside:(PtFtViewToolBarButton*)button;
+- (void)didToolBarButtonTouchUpInside:(PtFtButtonToolBar*)button;
 @end
 
-@interface PtFtViewToolBarButton : UIButton
+@interface PtFtButtonToolBar : UIButton
 
 @property (nonatomic, weak) id<VnViewEditorToolBarButtonDelegate> delegate;
 @property (nonatomic, assign) PtFtViewToolBarButtonType type;
 
-- (void)didTouchUpInside:(PtFtViewToolBarButton*)sender;
+- (void)didTouchUpInside:(PtFtButtonToolBar*)sender;
 
 @end

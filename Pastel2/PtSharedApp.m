@@ -43,6 +43,20 @@ static PtSharedApp* sharedPtSharedApp = nil;
     return self;
 }
 
+#pragma mark ui
+
+
++ (float)bottomNavigationBarHeight
+{
+    return 44.0f;
+}
+
++ (UIColor*)bottomNavigationBarBgColor
+{
+    return [UIColor blackColor];
+}
+
+
 #pragma mark settings
 
 //// エフェクトのアンロック

@@ -6,9 +6,9 @@
 //  Copyright (c) 2014年 SSC. All rights reserved.
 //
 
-#import "PtFtViewLayerBarButtonMaskView.h"
+#import "PtFtViewLayerBarButtonMask.h"
 
-@implementation PtFtViewLayerBarButtonMaskView
+@implementation PtFtViewLayerBarButtonMask
 
 - (id)initWithFrame:(CGRect)frame
 {

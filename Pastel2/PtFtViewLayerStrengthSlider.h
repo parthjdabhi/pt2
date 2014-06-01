@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "PtFtViewSlider.h"
-#import "PtFtViewLayerBarButton.h"
+#import "PtFtButtonLayerBar.h"
 
 @class PtFtViewLayerStrengthSlider;
 
@@ -26,7 +26,7 @@
 }
 
 @property (nonatomic, strong) PtFtViewSlider* sliderView;
-@property (nonatomic, weak) PtFtViewLayerBarButton* button;
+@property (nonatomic, weak) PtFtButtonLayerBar* button;
 @property (nonatomic, assign) CGFloat value;
 @property (nonatomic, assign) CGFloat defaultValue;
 @property (nonatomic, assign) CGFloat alpha;

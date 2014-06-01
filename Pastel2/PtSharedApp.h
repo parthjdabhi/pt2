@@ -23,6 +23,10 @@ typedef NS_ENUM(NSInteger, PtSharedAppThemeColor){
 @property (nonatomic, assign) BOOL useFullResolutionImage;
 @property (nonatomic, assign) PtSharedAppThemeColor themeColor;
 
+@property (nonatomic, strong) UIImage* imageToProcess;
+
 + (PtSharedApp*)instance;
++ (float)bottomNavigationBarHeight;
++ (UIColor*)bottomNavigationBarBgColor;
 
 @end

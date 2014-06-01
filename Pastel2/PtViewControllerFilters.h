@@ -7,28 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PtFtViewNavigationBar.h"
+#import "PtFtViewManagerFilters.h"
+#import "PtFtViewManagerSliders.h"
+#import "PtFtViewManagerNavigation.h"
 
-#import "VnEffectColorBronze.h"
-#import "VnEffectColorLittleBlueSecret.h"
-#import "VnEffectColorPurrr.h"
-#import "VnEffectColorBronze.h"
-#import "VnEffectColorOphelia.h"
-#import "VnEffectColorPotion9.h"
-#import "VnEffectColorPinkMilk.h"
-#import "VnEffectColorPurePeach.h"
-#import "VnEffectColorRosyVintage.h"
-#import "VnEffectColorSerenity.h"
-#import "VnEffectColorSummerSkin.h"
-#import "VnEffectColorSunnyLight.h"
-#import "VnEffectColorUrbanCandy.h"
-#import "VnEffectColorWarmHaze.h"
-#import "VnEffectColorWildHoney.h"
-
-#import "VnEffectOverlayBlueHaze.h"
-#import "VnEffectOverlayHazyLightWarmPink.h"
-#import "VnEffectOverlayHazyLightWarmPink2.h"
-#import "VnEffectOverlayLightBrightHaze.h"
 
 @interface PtViewControllerFilters : UIViewController
+
+@property (nonatomic, strong) PtFtViewManagerFilters* filtersManager;
+@property (nonatomic, strong) PtFtViewManagerSliders* slidersManager;
+@property (nonatomic, strong) PtFtViewManagerNavigation* navigationManager;
 
 @end

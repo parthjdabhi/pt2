@@ -25,7 +25,7 @@
     
     //// Preview
     _imagePreview = [[PtViewImagePreview  alloc] initWithFrame:CGRectMake(0.0f, _topBar.height, [UIScreen width], [UIScreen height] - _topBar.height - _bottomBar.height)];
-    _imagePreview.image = self.imageToProcess;
+    _imagePreview.image = [PtSharedApp instance].imageToProcess;
     [self.view addSubview:_imagePreview];
     
     [self.view addSubview:_topBar];
@@ -118,7 +118,8 @@
 
 - (void)buttonFiltersDidTouchUpInside:(PtViewBarButton *)button
 {
-    
+    PtViewControllerFilters* con = [[PtViewControllerFilters alloc] init];
+    [self.navigationController pushViewController:con animated:NO];
 }
 
 - (void)buttonSlidersDidTouchUpInside:(PtViewBarButton *)button

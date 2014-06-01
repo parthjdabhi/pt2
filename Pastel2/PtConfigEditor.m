@@ -71,7 +71,7 @@ static PtConfigEditor* sharedPtSharedEditor = nil;
 
 + (UIColor *)bgColor
 {
-    return [UIColor colorWithWhite:0.08f alpha:1.0f];
+    return [UIColor colorWithWhite:0.1f alpha:1.0f];
 }
 
 @end

@@ -7,17 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PtFtViewLayerBarButtonMaskView.h"
+#import "PtFtViewLayerBarButtonMask.h"
 
-@class PtFtViewLayerBarButton;
+@class PtFtButtonLayerBar;
 
 @protocol PtFtViewLayerBarButtonDelegate
-- (void)didLayerBarButtonTouchUpInside:(PtFtViewLayerBarButton*)button;
+- (void)didLayerBarButtonTouchUpInside:(PtFtButtonLayerBar*)button;
 @end
 
-@interface PtFtViewLayerBarButton : UIButton
+@interface PtFtButtonLayerBar : UIButton
 {
-    PtFtViewLayerBarButtonMaskView* _maskView;
+    PtFtViewLayerBarButtonMask* _maskView;
     UIImageView* _imageView;
     VnViewLabel* _titleLabel;
 }
@@ -36,6 +36,6 @@
 @property (nonatomic, assign) BOOL locked;
 
 
-- (void)didTouchUpInside:(PtFtViewLayerBarButton*)sender;
+- (void)didTouchUpInside:(PtFtButtonLayerBar*)sender;
 
 @end

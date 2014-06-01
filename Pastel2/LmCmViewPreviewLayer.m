@@ -22,11 +22,13 @@
 - (void)blackOut:(BOOL)enable
 {
     if ([UIDevice isIOS6]) {
-        if (enable) {
-            self.backgroundColor = [UIColor blackColor];
-        }else{
-            self.backgroundColor = [UIColor clearColor];
+        if (opaqueView == nil) {
+            opaqueView = [[UIView alloc] initWithFrame:self.bounds];
+            opaqueView.hidden = YES;
+            opaqueView.layer.backgroundColor = [UIColor blackColor].CGColor;
+            [self addSubview:opaqueView];
         }
+        opaqueView.hidden = !enable;
     }else{
         if (blurView == nil) {
             blurView = [[UIToolbar alloc] initWithFrame:self.bounds];

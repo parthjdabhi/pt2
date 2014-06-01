@@ -30,7 +30,7 @@
     return self;
 }
 
-- (void)appendLayerButton:(PtFtViewLayerBarButton *)button
+- (void)appendLayerButton:(PtFtButtonLayerBar *)button
 {
     if (!button) {
         return;
@@ -43,7 +43,7 @@
     }
 }
 
-- (void)appendToolButton:(PtFtViewToolBarButton *)button
+- (void)appendToolButton:(PtFtButtonToolBar *)button
 {
     if (!button) {
         return;
@@ -56,7 +56,7 @@
     }
 }
 
-- (void)appendToolButtonRight:(PtFtViewToolBarButton *)button
+- (void)appendToolButtonRight:(PtFtButtonToolBar *)button
 {
     if (!button) {
         return;
@@ -66,7 +66,7 @@
     _right = button.frame.origin.x;
 }
 
-- (void)scrollToLayerButton:(PtFtViewLayerBarButton *)button
+- (void)scrollToLayerButton:(PtFtButtonLayerBar *)button
 {
     CGPoint cp = _view.contentOffset;
     float bx = button.frame.origin.x;

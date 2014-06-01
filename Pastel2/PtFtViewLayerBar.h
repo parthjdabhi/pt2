@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PtFtViewLayerBarButton.h"
-#import "PtFtViewToolBarButton.h"
+#import "PtFtButtonLayerBar.h"
+#import "PtFtButtonToolBar.h"
 
 @interface PtFtViewLayerBar : UIView
 {
@@ -17,13 +17,13 @@
 
 }
 @property (nonatomic, strong) UIScrollView* view;
-@property (nonatomic, weak) PtFtViewLayerBarButton* currentOpeningButton;
+@property (nonatomic, weak) PtFtButtonLayerBar* currentOpeningButton;
 @property (nonatomic, assign) BOOL locked;
 
-- (void)appendLayerButton:(PtFtViewLayerBarButton*)button;
-- (void)appendToolButton:(PtFtViewToolBarButton*)button;
-- (void)appendToolButtonRight:(PtFtViewToolBarButton*)button;
+- (void)appendLayerButton:(PtFtButtonLayerBar*)button;
+- (void)appendToolButton:(PtFtButtonToolBar*)button;
+- (void)appendToolButtonRight:(PtFtButtonToolBar*)button;
 
-- (void)scrollToLayerButton:(PtFtViewLayerBarButton*)button;
+- (void)scrollToLayerButton:(PtFtButtonLayerBar*)button;
 
 @end

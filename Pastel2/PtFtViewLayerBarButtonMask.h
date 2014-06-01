@@ -13,7 +13,7 @@ typedef NS_ENUM(NSInteger, VnViewEditorLayerBarButtonMaskSelectionType){
     VnViewEditorLayerBarButtonMaskSelectionTypePhoto
 };
 
-@interface PtFtViewLayerBarButtonMaskView : UIView
+@interface PtFtViewLayerBarButtonMask : UIView
 
 @property (nonatomic, strong) UIColor* maskColor;
 @property (nonatomic, strong) UIColor* selectionColor;

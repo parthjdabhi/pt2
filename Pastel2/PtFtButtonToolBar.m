@@ -6,9 +6,9 @@
 //  Copyright (c) 2014年 SSC. All rights reserved.
 //
 
-#import "PtFtViewToolBarButton.h"
+#import "PtFtButtonToolBar.h"
 
-@implementation PtFtViewToolBarButton
+@implementation PtFtButtonToolBar
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -26,7 +26,7 @@
     [self setNeedsDisplay];
 }
 
-- (void)didTouchUpInside:(PtFtViewToolBarButton *)sender
+- (void)didTouchUpInside:(PtFtButtonToolBar *)sender
 {
     [self.delegate didToolBarButtonTouchUpInside:self];
 }
@@ -192,63 +192,7 @@
             [bezier4Path fill];
         }
             break;
-        case PtFtViewToolBarButtonTypeCancel:
-        {
-            //// Bezier Drawing
-            UIBezierPath* bezierPath = [UIBezierPath bezierPath];
-            [bezierPath moveToPoint: CGPointMake(17.76, 14.93)];
-            [bezierPath addLineToPoint: CGPointMake(22, 19.17)];
-            [bezierPath addLineToPoint: CGPointMake(26.24, 14.93)];
-            [bezierPath addCurveToPoint: CGPointMake(29.07, 14.93) controlPoint1: CGPointMake(27.02, 14.15) controlPoint2: CGPointMake(28.29, 14.15)];
-            [bezierPath addCurveToPoint: CGPointMake(29.07, 17.76) controlPoint1: CGPointMake(29.85, 15.71) controlPoint2: CGPointMake(29.85, 16.98)];
-            [bezierPath addLineToPoint: CGPointMake(24.83, 22)];
-            [bezierPath addLineToPoint: CGPointMake(29.07, 26.24)];
-            [bezierPath addCurveToPoint: CGPointMake(29.07, 29.07) controlPoint1: CGPointMake(29.85, 27.02) controlPoint2: CGPointMake(29.85, 28.29)];
-            [bezierPath addCurveToPoint: CGPointMake(26.24, 29.07) controlPoint1: CGPointMake(28.29, 29.85) controlPoint2: CGPointMake(27.02, 29.85)];
-            [bezierPath addLineToPoint: CGPointMake(22, 24.83)];
-            [bezierPath addLineToPoint: CGPointMake(17.76, 29.07)];
-            [bezierPath addCurveToPoint: CGPointMake(14.93, 29.07) controlPoint1: CGPointMake(16.98, 29.85) controlPoint2: CGPointMake(15.71, 29.85)];
-            [bezierPath addCurveToPoint: CGPointMake(14.93, 26.24) controlPoint1: CGPointMake(14.15, 28.29) controlPoint2: CGPointMake(14.15, 27.02)];
-            [bezierPath addLineToPoint: CGPointMake(19.17, 22)];
-            [bezierPath addLineToPoint: CGPointMake(14.93, 17.76)];
-            [bezierPath addCurveToPoint: CGPointMake(14.93, 14.93) controlPoint1: CGPointMake(14.15, 16.98) controlPoint2: CGPointMake(14.15, 15.71)];
-            [bezierPath addCurveToPoint: CGPointMake(17.76, 14.93) controlPoint1: CGPointMake(15.71, 14.15) controlPoint2: CGPointMake(16.98, 14.15)];
-            [bezierPath closePath];
-            [color setFill];
-            [bezierPath fill];
-        }
-            break;
-        case PtFtViewToolBarButtonTypeDone:
-        {
-            
-            //// Bezier Drawing
-            UIBezierPath* bezierPath = [UIBezierPath bezierPath];
-            [bezierPath moveToPoint: CGPointMake(11, 30)];
-            [bezierPath addLineToPoint: CGPointMake(20, 30)];
-            [bezierPath addLineToPoint: CGPointMake(20, 25)];
-            [bezierPath addLineToPoint: CGPointMake(17, 25)];
-            [bezierPath addLineToPoint: CGPointMake(22.5, 19)];
-            [bezierPath addLineToPoint: CGPointMake(28, 25)];
-            [bezierPath addLineToPoint: CGPointMake(25, 25)];
-            [bezierPath addLineToPoint: CGPointMake(25, 30)];
-            [bezierPath addLineToPoint: CGPointMake(33, 30)];
-            [bezierPath addCurveToPoint: CGPointMake(30.8, 23.4) controlPoint1: CGPointMake(36.26, 28.85) controlPoint2: CGPointMake(35.4, 21.58)];
-            [bezierPath addCurveToPoint: CGPointMake(27.61, 13.61) controlPoint1: CGPointMake(32.5, 19.06) controlPoint2: CGPointMake(32.06, 15.26)];
-            [bezierPath addCurveToPoint: CGPointMake(18.04, 19.37) controlPoint1: CGPointMake(23.02, 11.91) controlPoint2: CGPointMake(18.48, 13.75)];
-            [bezierPath addCurveToPoint: CGPointMake(12.15, 17.76) controlPoint1: CGPointMake(17.11, 16.15) controlPoint2: CGPointMake(14.06, 16.14)];
-            [bezierPath addCurveToPoint: CGPointMake(12.7, 24.39) controlPoint1: CGPointMake(10.04, 19.57) controlPoint2: CGPointMake(10.89, 22.4)];
-            [bezierPath addCurveToPoint: CGPointMake(9.08, 26.43) controlPoint1: CGPointMake(11.74, 23.61) controlPoint2: CGPointMake(9.61, 24.05)];
-            [bezierPath addCurveToPoint: CGPointMake(11, 30) controlPoint1: CGPointMake(8.51, 29.02) controlPoint2: CGPointMake(11, 30)];
-            [bezierPath closePath];
-            bezierPath.miterLimit = 4;
-            
-            bezierPath.usesEvenOddFillRule = YES;
-            
-            [color setFill];
-            [bezierPath fill];
-
-        }
-            break;
+        
         default:
             break;
     }
