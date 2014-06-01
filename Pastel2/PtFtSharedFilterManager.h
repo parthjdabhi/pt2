@@ -32,11 +32,10 @@
 #import "VnEffectOverlayLightBrightHaze.h"
 
 @interface PtFtSharedFilterManager : NSObject
-{
-    NSMutableArray* _artisticFilters;
-    NSMutableArray* _overlayFilters;
-    NSMutableArray* _colorFilters;
-}
+
+@property (nonatomic, strong) NSMutableArray* artisticFilters;
+@property (nonatomic, strong) NSMutableArray* overlayFilters;
+@property (nonatomic, strong) NSMutableArray* colorFilters;
 
 + (PtFtSharedFilterManager*)instance;
 + (UIImage*)applyEffect:(VnEffectId)effect ToImage:(UIImage*)image;

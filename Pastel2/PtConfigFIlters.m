@@ -43,7 +43,7 @@
 
 + (UIColor *)colorBarBgColor
 {
-    return [UIColor colorWithWhite:0.10f alpha:1.0f];
+    return [UIColor colorWithWhite:0.12f alpha:1.0f];
 }
 
 + (UIColor *)artisticBarBgColor
@@ -53,7 +53,7 @@
 
 + (UIColor *)overlayBarBgColor
 {
-    return [UIColor colorWithWhite:0.10f alpha:1.0f];
+    return [UIColor colorWithWhite:0.12f alpha:1.0f];
 }
 
 #pragma mark height
@@ -68,10 +68,6 @@
     return 50.0f;
 }
 
-+ (float)colorLayerButtonMaskRadius
-{
-    return 10.0f;
-}
 
 + (float)artisticBarHeight
 {
@@ -81,6 +77,23 @@
 + (float)overlayBarHeight
 {
     return 50.0f;
+}
+
+#pragma mark mask
+
++ (float)colorLayerButtonMaskRadius
+{
+    return 10.0f;
+}
+
++ (float)effectLayerButtonMaskRadius
+{
+    return 20.0f;
+}
+
++ (float)overlayLayerButtonMaskRadius
+{
+    return 10.0f;
 }
 
 

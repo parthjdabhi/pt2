@@ -18,5 +18,6 @@
 @property (nonatomic, strong) PtFtViewManagerFilters* filtersManager;
 @property (nonatomic, strong) PtFtViewManagerSliders* slidersManager;
 @property (nonatomic, strong) PtFtViewManagerNavigation* navigationManager;
+@property (nonatomic, strong) UIImageView* previewImageView;
 
 @end

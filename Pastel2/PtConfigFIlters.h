@@ -25,4 +25,8 @@
 + (UIColor*)artisticBarBgColor;
 + (UIColor*)overlayBarBgColor;
 
++ (float)colorLayerButtonMaskRadius;
++ (float)effectLayerButtonMaskRadius;
++ (float)overlayLayerButtonMaskRadius;
+
 @end

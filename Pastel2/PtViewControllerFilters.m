@@ -30,6 +30,22 @@
     _navigationManager.delegate = self;
     _navigationManager.view = self.view;
     
+    //// Preview
+    float restHeight = self.view.height - [PtConfigFilters colorBarHeight] - [PtConfigFilters overlayBarHeight] - [PtConfigFilters artisticBarHeight] - [PtSharedApp bottomNavigationBarHeight];
+    float w, h;
+    UIImage* image = [PtSharedApp instance].imageToProcess;
+    if (image.size.width > image.size.height) {
+        w = self.view.width;
+        h = image.size.height * w / image.size.width;
+    }else{
+        h = restHeight - 40.0f;
+        w = image.size.width * h / image.size.height;
+    }
+    _previewImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, w, h)];
+    _previewImageView.center = CGPointMake(self.view.width / 2.0f, restHeight / 2.0f + 20.0f);
+    _previewImageView.image = image;
+    [self.view addSubview:_previewImageView];
+    
     [_filtersManager viewDidLoad];
     [_slidersManager viewDidLoad];
     [_navigationManager viewDidLoad];

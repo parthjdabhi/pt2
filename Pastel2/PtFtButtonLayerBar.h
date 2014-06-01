@@ -11,7 +11,7 @@
 
 @class PtFtButtonLayerBar;
 
-@protocol PtFtViewLayerBarButtonDelegate
+@protocol PtFtButtonLayerBarDelegate
 - (void)didLayerBarButtonTouchUpInside:(PtFtButtonLayerBar*)button;
 @end
 
@@ -31,7 +31,7 @@
 @property (nonatomic, strong) NSString* title;
 @property (nonatomic, assign) float maskRadius;
 @property (nonatomic, assign) VnViewEditorLayerBarButtonMaskSelectionType selectionType;
-@property (nonatomic, weak) id<PtFtViewLayerBarButtonDelegate> delegate;
+@property (nonatomic, weak) id<PtFtButtonLayerBarDelegate> delegate;
 @property (nonatomic, assign) VnEffectId effectId;
 @property (nonatomic, assign) BOOL locked;
 

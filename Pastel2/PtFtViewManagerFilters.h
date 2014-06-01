@@ -12,7 +12,7 @@
 
 @class PtViewControllerFilters;
 
-@interface PtFtViewManagerFilters : NSObject
+@interface PtFtViewManagerFilters : NSObject <PtFtButtonLayerBarDelegate>
 
 @property (nonatomic, weak) UIView* view;
 @property (nonatomic, weak) PtViewControllerFilters* delegate;
@@ -21,6 +21,14 @@
 @property (nonatomic, strong) PtFtViewLayerBar* artisticBar;
 @property (nonatomic, strong) PtFtViewLayerBar* colorBar;
 
+@property (nonatomic, strong) NSMutableDictionary* overlayButtonsDictionary;
+@property (nonatomic, strong) NSMutableDictionary* artisticButtonsDictionary;
+@property (nonatomic, strong) NSMutableDictionary* colorButtonsDictionary;
+
 - (void)viewDidLoad;
+- (void)layoutButtons;
+- (void)layoutOverlayButtons;
+- (void)layoutColorButtons;
+- (void)layoutArtisticButtons;
 
 @end
