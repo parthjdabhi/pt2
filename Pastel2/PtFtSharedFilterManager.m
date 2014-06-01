@@ -394,6 +394,33 @@ static PtFtSharedFilterManager* sharedPtFtSharedFilterManager = nil;
         case VnEffectIdColorLittleBlueSecret:
             return [VnEffectColorLittleBlueSecret new];
             //// Overlay
+        case VnEffectIdOverlayBlueHaze:
+            return [VnEffectOverlayBlueHaze new];
+        case VnEffectIdOverlayPinkHaze:
+            return [VnEffectOverlayPinkHaze new];
+        case VnEffectIdOverlayRetroSun:
+            return [VnEffectOverlayRetroSun new];
+        case VnEffectIdOverlayCandyHaze:
+            return [VnEffectOverlayCandyHaze new];
+        case VnEffectIdOverlaySunhazeLeft:
+            return [VnEffectOverlaySunhazeLeft new];
+        case VnEffectIdOverlayWarmVintage:
+            return [VnEffectOverlayWarmVintage new];
+        case VnEffectIdOverlaySunhazeRight:
+            return [VnEffectOverlaySunhazeRight new];
+        case VnEffectIdOverlayLightBrightPop:
+            return [VnEffectOverlayLightBrightPop new];
+        case VnEffectIdOverlayLightBrightHaze:
+            return [VnEffectOverlayLightBrightHaze new];
+        case VnEffectIdOverlayLightBrightMatte:
+            return [VnEffectOverlayLightBrightMatte new];
+        case VnEffectIdOverlayHazyLightWarmPink:
+            return [VnEffectOverlayHazyLightWarmPink new];
+        case VnEffectIdOverlayHazyLightWarmPink2:
+            return [VnEffectOverlayHazyLightWarmPink2 new];
+            //// Artistic
+        case VnEffectIdBeachVintage:
+            return [VnEffectBeachVintage new];
         default:
             break;
     }
@@ -402,9 +429,39 @@ static PtFtSharedFilterManager* sharedPtFtSharedFilterManager = nil;
 
 #pragma mark process
 
-+ (UIImage *)applyEffect:(VnEffectId)effect ToImage:(UIImage *)image WithOpacity:(float)opacity
++ (UIImage *)applyEffect:(VnEffectId)effectId ToImage:(UIImage *)image WithOpacity:(float)opacity
 {
+    VnEffect* effect = [self effectByEffectId:effectId];
+    if (effect) {
+        if (opacity == 1.0f) {
+            return [VnEffect processImage:image WithStartFilter:effect.startFilter EndFilter:effect.endFilter];
+        }
+        VnFilterNormal* normal = [[VnFilterNormal alloc] init];
+        normal.topLayerOpacity = opacity;
+        [effect.endFilter addTarget:normal];
+        return [VnEffect processImage:image WithStartFilter:effect.startFilter EndFilter:normal];
+    }
     return nil;
+}
+
+#pragma mark opacity
+
++ (float)defaultOpacityOfEffect:(VnEffectId)effectId
+{
+    VnEffect* effect = [self effectByEffectId:effectId];
+    if (effect) {
+        return effect.defaultOpacity;
+    }
+    return 0.0f;
+}
+
++ (float)faceOpacityOfEffect:(VnEffectId)effectId
+{
+    VnEffect* effect = [self effectByEffectId:effectId];
+    if (effect) {
+        return effect.faceOpacity;
+    }
+    return 0.0f;
 }
 
 @end

@@ -31,6 +31,16 @@
 #import "VnEffectOverlayHazyLightWarmPink.h"
 #import "VnEffectOverlayHazyLightWarmPink2.h"
 #import "VnEffectOverlayLightBrightHaze.h"
+#import "VnEffectOverlayLightBrightPop.h"
+#import "VnEffectOverlayLightBrightMatte.h"
+#import "VnEffectOverlayPinkHaze.h"
+#import "VnEffectOverlayRetroSun.h"
+#import "VnEffectOverlayWarmVintage.h"
+#import "VnEffectOverlayCandyHaze.h"
+#import "VnEffectOverlaySunhazeLeft.h"
+#import "VnEffectOverlaySunhazeRight.h"
+
+#import "VnEffectBeachVintage.h"
 
 @interface PtFtSharedFilterManager : NSObject
 
@@ -41,6 +51,9 @@
 + (PtFtSharedFilterManager*)instance;
 + (UIImage*)applyEffect:(VnEffectId)effectId ToImage:(UIImage*)image WithOpacity:(float)opacity;
 + (VnEffect*)effectByEffectId:(VnEffectId)effectId;
+
++ (float)defaultOpacityOfEffect:(VnEffectId)effectId;
++ (float)faceOpacityOfEffect:(VnEffectId)effectId;
 
 - (void)commonInit;
 - (void)initColorFilters;

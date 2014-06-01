@@ -44,7 +44,6 @@
     }
     _previewImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, w, h)];
     _previewImageView.center = CGPointMake(self.view.width / 2.0f, restHeight / 2.0f + 20.0f);
-    _previewImageView.image = image;
     [self.view addSubview:_previewImageView];
     
     [_filtersManager viewDidLoad];
@@ -77,7 +76,28 @@
             image = [image croppedImage:CGRectMake(x, y, presetImageSize.width, presetImageSize.height)];
             _self.presetOriginalImage = image;
         }
+        @autoreleasepool {
+            UIImage* image = [PtSharedApp instance].imageToProcess;
+            CGSize size = CGSizeMake(_self.previewImageView.width * [[UIScreen mainScreen] scale], _self.previewImageView.height * [[UIScreen mainScreen] scale]);
+            image = [image resizedImage:size interpolationQuality:kCGInterpolationHigh];
+            _self.previewImage = image;
+        }
+        @autoreleasepool {
+            //// Detect faces
+            NSDictionary *options = [NSDictionary dictionaryWithObject:CIDetectorAccuracyHigh forKey:CIDetectorAccuracy];
+            CIDetector *detector = [CIDetector detectorOfType:CIDetectorTypeFace context:nil options:options];
+            CIImage *ciImage = [[CIImage alloc] initWithCGImage:_self.previewImage.CGImage];
+            NSDictionary *imageOptions = [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:1] forKey:CIDetectorImageOrientation];
+            NSArray *array = [detector featuresInImage:ciImage options:imageOptions];
+            
+            if([array count] > 0){
+                LOG(@"Face detected!");
+                _self.faceDetected = YES;
+            }
+
+        }
         dispatch_async(q_main, ^{
+            _self.previewImageView.image = _self.previewImage;
             [_self initPresetQueuePool];
             [PtFtSharedQueueManager instance].delegate = self;
             [[PtFtSharedQueueManager instance] addQueue:[_self shiftQueueFromPool]];
@@ -99,6 +119,10 @@
             queue.type = PtFtProcessQueueTypePreset;
             queue.effectId = item.effectId;
             queue.image = self.presetOriginalImage;
+            queue.opacity = [PtFtSharedFilterManager defaultOpacityOfEffect:queue.effectId];
+            if (self.faceDetected) {
+                queue.opacity = [PtFtSharedFilterManager faceOpacityOfEffect:queue.effectId];
+            }
             [_presetQueuePool addObject:queue];
         }
     }

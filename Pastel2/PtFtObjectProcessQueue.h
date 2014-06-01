@@ -19,5 +19,6 @@ typedef NS_ENUM(NSInteger, PtFtProcessQueueType){
 @property (nonatomic, assign) PtFtProcessQueueType type;
 @property (nonatomic, strong) UIImage* image;
 @property (nonatomic, assign) VnEffectId effectId;
+@property (nonatomic, assign) float opacity;
 
 @end

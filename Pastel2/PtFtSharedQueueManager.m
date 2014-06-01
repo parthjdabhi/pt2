@@ -119,11 +119,11 @@ static PtFtSharedQueueManager* sharedPtFtSharedQueueManager = nil;
     if (queue.effectId == VnEffectIdNone) {
         return;
     }
+    queue.image = [PtFtSharedFilterManager applyEffect:queue.effectId ToImage:queue.image WithOpacity:queue.opacity];
 }
 
 - (void)processQueueTypePreview:(PtFtObjectProcessQueue *)queue
 {
-    
 }
 
 - (void)processQueueTypeOriginal:(PtFtObjectProcessQueue *)queue

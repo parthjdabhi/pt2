@@ -24,6 +24,7 @@
 @property (nonatomic, strong) NSMutableArray* presetQueuePool;
 @property (nonatomic, strong) UIImage* previewImage;
 @property (nonatomic, strong) UIImage* presetOriginalImage;
+@property (nonatomic, assign) BOOL faceDetected;
 
 - (void)initPresetQueuePool;
 - (PtFtObjectProcessQueue*)shiftQueueFromPool;
