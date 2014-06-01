@@ -192,7 +192,7 @@
 		58F5768E19399ECC00B43095 /* ShareOtherAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F5768C19399ECC00B43095 /* ShareOtherAppViewController.m */; };
 		58F5769119399F1600B43095 /* PtViewControllerForInstagramCrop.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F5769019399F1600B43095 /* PtViewControllerForInstagramCrop.m */; };
 		58F576951939AB5800B43095 /* PtFtSharedQueueManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F576941939AB5800B43095 /* PtFtSharedQueueManager.m */; };
-		58F576991939ABA300B43095 /* PtFtProcessQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F576981939ABA300B43095 /* PtFtProcessQueue.m */; };
+		58F576991939ABA300B43095 /* PtFtObjectProcessQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F576981939ABA300B43095 /* PtFtObjectProcessQueue.m */; };
 		58F5769C1939B4E700B43095 /* PtFtSharedFilterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F5769B1939B4E700B43095 /* PtFtSharedFilterManager.m */; };
 		58F576A01939D06F00B43095 /* PtFtObjectFilterItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F5769F1939D06F00B43095 /* PtFtObjectFilterItem.m */; };
 		58F8456F193704A000F413A6 /* VnEffectColorLittleBlueSecret.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F8456E193704A000F413A6 /* VnEffectColorLittleBlueSecret.m */; };
@@ -522,8 +522,8 @@
 		58F5769019399F1600B43095 /* PtViewControllerForInstagramCrop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PtViewControllerForInstagramCrop.m; sourceTree = "<group>"; };
 		58F576931939AB5800B43095 /* PtFtSharedQueueManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PtFtSharedQueueManager.h; sourceTree = "<group>"; };
 		58F576941939AB5800B43095 /* PtFtSharedQueueManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PtFtSharedQueueManager.m; sourceTree = "<group>"; };
-		58F576971939ABA300B43095 /* PtFtProcessQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PtFtProcessQueue.h; sourceTree = "<group>"; };
-		58F576981939ABA300B43095 /* PtFtProcessQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PtFtProcessQueue.m; sourceTree = "<group>"; };
+		58F576971939ABA300B43095 /* PtFtObjectProcessQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PtFtObjectProcessQueue.h; sourceTree = "<group>"; };
+		58F576981939ABA300B43095 /* PtFtObjectProcessQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PtFtObjectProcessQueue.m; sourceTree = "<group>"; };
 		58F5769A1939B4E700B43095 /* PtFtSharedFilterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PtFtSharedFilterManager.h; sourceTree = "<group>"; };
 		58F5769B1939B4E700B43095 /* PtFtSharedFilterManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PtFtSharedFilterManager.m; sourceTree = "<group>"; };
 		58F5769E1939D06F00B43095 /* PtFtObjectFilterItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PtFtObjectFilterItem.h; sourceTree = "<group>"; };
@@ -1226,8 +1226,8 @@
 		58F576961939AB8C00B43095 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
-				58F576971939ABA300B43095 /* PtFtProcessQueue.h */,
-				58F576981939ABA300B43095 /* PtFtProcessQueue.m */,
+				58F576971939ABA300B43095 /* PtFtObjectProcessQueue.h */,
+				58F576981939ABA300B43095 /* PtFtObjectProcessQueue.m */,
 				58F5769E1939D06F00B43095 /* PtFtObjectFilterItem.h */,
 				58F5769F1939D06F00B43095 /* PtFtObjectFilterItem.m */,
 			);
@@ -1518,7 +1518,7 @@
 				588EADFC19376E41005C486E /* VnEffectOverlaySunhazeRight.m in Sources */,
 				5819FA691938AE05001826DF /* PtViewTopBar.m in Sources */,
 				580010621934912C00B44C5F /* LmCmViewPreviewOverlay.m in Sources */,
-				58F576991939ABA300B43095 /* PtFtProcessQueue.m in Sources */,
+				58F576991939ABA300B43095 /* PtFtObjectProcessQueue.m in Sources */,
 				58341135193A39250042729D /* PtConfigFilters.m in Sources */,
 				58F4C389193A4E6900DB4E23 /* PtFtViewLayerStrengthSlider.m in Sources */,
 				580010531934911A00B44C5F /* LmCmViewCropList.m in Sources */,

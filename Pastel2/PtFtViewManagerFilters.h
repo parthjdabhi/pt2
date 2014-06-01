@@ -25,10 +25,21 @@
 @property (nonatomic, strong) NSMutableDictionary* artisticButtonsDictionary;
 @property (nonatomic, strong) NSMutableDictionary* colorButtonsDictionary;
 
+@property (nonatomic, weak) PtFtButtonLayerBar* currentColorButton;
+@property (nonatomic, weak) PtFtButtonLayerBar* currentArtisticButton;
+@property (nonatomic, weak) PtFtButtonLayerBar* currentOverlayButton;
+
 - (void)viewDidLoad;
 - (void)layoutButtons;
 - (void)layoutOverlayButtons;
 - (void)layoutColorButtons;
 - (void)layoutArtisticButtons;
+
+- (void)setPresetImage:(UIImage*)image ToEffect:(VnEffectId)effectId;
+- (PtFtButtonLayerBar*)buttonByEffectId:(VnEffectId)effectId;
+- (void)selectLayerButtonWithButton:(PtFtButtonLayerBar*)button;
+- (void)selectLayerButtonWithEffectId:(VnEffectId)effectId;
+
+- (void)didLayerBarButtonTouchUpInside:(PtFtButtonLayerBar*)button;
 
 @end

@@ -6,8 +6,8 @@
 //  Copyright (c) 2014年 SSC. All rights reserved.
 //
 
-#import "PtFtProcessQueue.h"
+#import "PtFtObjectProcessQueue.h"
 
-@implementation PtFtProcessQueue
+@implementation PtFtObjectProcessQueue
 
 @end

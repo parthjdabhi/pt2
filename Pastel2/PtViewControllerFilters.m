@@ -53,6 +53,59 @@
     
 }
 
+#pragma mark queue
+#pragma mark pool
+
+- (void)initPresetQueuePool
+{
+    _presetQueuePool = [NSMutableArray array];
+    NSMutableArray* filters = [PtFtSharedFilterManager instance].artisticFilters;
+    for (int i = 0; i < filters.count; i++) {
+        PtFtObjectFilterItem* item = (PtFtObjectFilterItem*)[filters objectAtIndex:i];
+        PtFtObjectProcessQueue* queue = [[PtFtObjectProcessQueue alloc] init];
+        if (item) {
+            queue.type = PtFtProcessQueueTypePreset;
+            queue.effectId = item.effectId;
+            [_presetQueuePool addObject:queue];
+        }
+    }
+}
+
+- (PtFtObjectProcessQueue *)shiftQueueFromPool
+{
+    if (_presetQueuePool.count == 0) {
+        return nil;
+    }
+    PtFtObjectProcessQueue* queue = [_presetQueuePool objectAtIndex:0];
+    [_presetQueuePool removeObjectAtIndex:0];
+    return queue;
+}
+
+#pragma mark delegate
+
+- (void)queueDidFinished:(PtFtObjectProcessQueue *)queue
+{
+    LOG(@"Queue did finished.");
+    switch (queue.type) {
+        case PtFtProcessQueueTypePreview:
+        {
+
+        }
+            break;
+        case PtFtProcessQueueTypePreset:
+        {
+            [_filtersManager setPresetImage:queue.image ToEffect:queue.effectId];
+        }
+            break;
+        case PtFtProcessQueueTypeOriginal:
+        {
+        }
+            break;
+        default:
+            break;
+    }
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

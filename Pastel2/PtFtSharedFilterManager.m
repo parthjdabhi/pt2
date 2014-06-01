@@ -361,13 +361,13 @@ static PtFtSharedFilterManager* sharedPtFtSharedFilterManager = nil;
 + (NSMutableArray *)availableEffectQueues
 {
     NSMutableArray* array;
-    PtFtProcessQueue* queue;
+    PtFtObjectProcessQueue* queue;
     
-    queue = [PtFtProcessQueue new];
+    queue = [PtFtObjectProcessQueue new];
     queue.effectId = VnEffectIdNone;
     [array addObject:queue];
     
-    queue = [PtFtProcessQueue new];
+    queue = [PtFtObjectProcessQueue new];
     queue.effectId = VnEffectIdNone;
     [array addObject:queue];
     

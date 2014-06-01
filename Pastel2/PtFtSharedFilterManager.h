@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PtFtProcessQueue.h"
+#import "PtFtObjectProcessQueue.h"
 #import "PtFtObjectFilterItem.h"
 
 #import "VnEffectColorBronze.h"

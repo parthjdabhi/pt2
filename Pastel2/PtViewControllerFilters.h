@@ -11,13 +11,18 @@
 #import "PtFtViewManagerFilters.h"
 #import "PtFtViewManagerSliders.h"
 #import "PtFtViewManagerNavigation.h"
+#import "PtFtObjectProcessQueue.h"
 
 
-@interface PtViewControllerFilters : UIViewController
+@interface PtViewControllerFilters : UIViewController <PtFtSharedQueueManagerDelegate>
 
 @property (nonatomic, strong) PtFtViewManagerFilters* filtersManager;
 @property (nonatomic, strong) PtFtViewManagerSliders* slidersManager;
 @property (nonatomic, strong) PtFtViewManagerNavigation* navigationManager;
 @property (nonatomic, strong) UIImageView* previewImageView;
+@property (nonatomic, strong) NSMutableArray* presetQueuePool;
+
+- (void)initPresetQueuePool;
+- (PtFtObjectProcessQueue*)shiftQueueFromPool;
 
 @end

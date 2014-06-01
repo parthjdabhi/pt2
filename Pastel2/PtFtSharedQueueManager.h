@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PtFtProcessQueue.h"
+#import "PtFtObjectProcessQueue.h"
 
 @protocol PtFtSharedQueueManagerDelegate
-- (void)queueDidFinished:(PtFtProcessQueue*)queue;
+- (void)queueDidFinished:(PtFtObjectProcessQueue*)queue;
 - (void)dispatchPreviewprogress:(float)progress;
 @end
 
@@ -28,13 +28,13 @@
 
 + (PtFtSharedQueueManager*)instance;
 
-- (PtFtProcessQueue*)shiftQueue;
-- (void)addQueue:(PtFtProcessQueue*)queue;
+- (PtFtObjectProcessQueue*)shiftQueue;
+- (void)addQueue:(PtFtObjectProcessQueue*)queue;
 
 - (void)processQueue;
-- (void)processQueueTypePreset:(PtFtProcessQueue*)queue;
-- (void)processQueueTypePreview:(PtFtProcessQueue*)queue;
-- (void)processQueueTypeOriginal:(PtFtProcessQueue*)queue;
+- (void)processQueueTypePreset:(PtFtObjectProcessQueue*)queue;
+- (void)processQueueTypePreview:(PtFtObjectProcessQueue*)queue;
+- (void)processQueueTypeOriginal:(PtFtObjectProcessQueue*)queue;
 
 - (void)commonInit;
 - (void)cancelAllQueue;

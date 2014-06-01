@@ -14,7 +14,7 @@ typedef NS_ENUM(NSInteger, PtFtProcessQueueType){
     PtFtProcessQueueTypeOriginal
 };
 
-@interface PtFtProcessQueue : NSObject
+@interface PtFtObjectProcessQueue : NSObject
 
 @property (nonatomic, assign) PtFtProcessQueueType type;
 @property (nonatomic, strong) UIImage* image;
