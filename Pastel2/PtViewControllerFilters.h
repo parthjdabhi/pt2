@@ -13,6 +13,7 @@
 #import "PtFtViewManagerNavigation.h"
 #import "PtFtObjectProcessQueue.h"
 
+@class PtViewControllerEditor;
 
 @interface PtViewControllerFilters : UIViewController <PtFtSharedQueueManagerDelegate>
 

@@ -57,7 +57,6 @@
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self selector:@selector(orientationDidChange) name:@"MotionOrientationChangedNotification" object:nil];
     
-    
     _zoomViewManager = [[LmCmViewManagerZoom alloc] init];
     _zoomViewManager.view = self.view;
     _zoomViewManager.delegate = self;
@@ -122,7 +121,7 @@
     self.isPresenting = NO;
     
     __block __weak LmCmViewController* _self = self;
-    if (_cameraManager.isRunning == NO) {
+    if (_cameraManager.isRunning == NO && _state == LmCmViewControllerStatePresentedEditorController) {
         dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         dispatch_queue_t q_main = dispatch_get_main_queue();
         dispatch_async(q_global, ^{
@@ -137,6 +136,7 @@
     }else{
         [self.cameraPreview blackOut:NO];
     }
+    _state = LmCmViewControllerStateDefault;
 }
 
 #pragma mark shutter
@@ -235,6 +235,10 @@
     if (self.isCameraInitializing) {
         return;
     }
+    if (image == nil) {
+        [self.cameraPreview blackOut:NO];
+        return;
+    }
     self.isPresenting = YES;
     [self.cameraPreview blackOut:YES];
         __block __weak LmCmViewController* _self = self;
@@ -248,7 +252,8 @@
         });
         [PtSharedApp instance].imageToProcess = image;
         PtViewControllerEditor* con = [[PtViewControllerEditor alloc] init];
-        [self.navigationController pushViewController:con animated:NO];
+        [self.navigationController pushViewController:con animated:YES];
+        _state = LmCmViewControllerStatePresentedEditorController;
     }else{
         __block UIImage* _image = image;
         dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
@@ -270,7 +275,8 @@
             }
             dispatch_async(q_main, ^{
                 PtViewControllerEditor* con = [[PtViewControllerEditor alloc] init];
-                [self.navigationController pushViewController:con animated:NO];
+                [_self.navigationController pushViewController:con animated:YES];
+                _self.state = LmCmViewControllerStatePresentedEditorController;
             });
             
         });
@@ -284,14 +290,30 @@
     if (self.lastAsset == nil) {
         return;
     }
-    ALAssetRepresentation *representation = [self.lastAsset defaultRepresentation];
-    UIImage *img = [UIImage imageWithCGImage:[representation fullResolutionImage]
-                                       scale:[representation scale]
-                                 orientation:[representation orientation]];
-    if (img == nil) {
+    if (self.isPresenting) {
         return;
     }
-    [self presentEditorViewControllerWithImage:img];
+    if (self.isCameraInitializing) {
+        return;
+    }
+    [self.cameraPreview blackOut:YES];
+    __block __weak LmCmViewController* _self = self;
+    __block UIImage* image;
+    dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_queue_t q_main = dispatch_get_main_queue();
+    dispatch_async(q_global, ^{
+        @autoreleasepool {
+            ALAssetRepresentation *representation = [self.lastAsset defaultRepresentation];
+            image = [UIImage imageWithCGImage:[representation fullResolutionImage]
+                                               scale:[representation scale]
+                                         orientation:[representation orientation]];
+        }
+        dispatch_async(q_main, ^{
+            [_self presentEditorViewControllerWithImage:image];
+        });
+        
+    });
+    
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
@@ -332,6 +354,7 @@
     pickerController.delegate = self;
     [pickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
     [self presentViewController:pickerController animated:YES completion:nil];
+    _state = LmCmViewControllerStatePhotoLibraryIsOpening;
 }
 
 - (void)didReceiveMemoryWarning

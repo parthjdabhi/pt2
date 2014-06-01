@@ -22,13 +22,22 @@
 #import "LmCmViewCropBlackRect.h"
 #import "PtViewControllerEditor.h"
 
+typedef NS_ENUM(NSInteger, LmCmViewControllerState){
+    LmCmViewControllerStateDefault = 1,
+    LmCmViewControllerStatePhotoLibraryIsOpening,
+    LmCmViewControllerStatePresentedEditorController
+};
+
+
 @interface LmCmViewController : UIViewController <CameraManagerDelegate, UIGestureRecognizerDelegate, LmCmViewManagerZoomDelegate, LmCmViewManagerPreviewDelegate, LmCmViewManagerToolsDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 {
     float initialVolume;
 }
 
+@property (nonatomic, assign) LmCmViewControllerState state;
 @property (nonatomic, assign) BOOL isPresenting;
 @property (nonatomic, assign) BOOL isCameraInitializing;
+@property (nonatomic, assign) BOOL isKeepingDisabled;
 
 @property (nonatomic, strong) LmCmCameraManager* cameraManager;
 @property (nonatomic, strong) LmCmViewPreviewLayer* cameraPreview;

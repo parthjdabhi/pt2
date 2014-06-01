@@ -7,6 +7,7 @@
 //
 
 #import "PtViewControllerFilters.h"
+#import "PtViewControllerEditor.h"
 
 @interface PtViewControllerFilters ()
 
@@ -78,6 +79,7 @@
         }
         dispatch_async(q_main, ^{
             [_self initPresetQueuePool];
+            [PtFtSharedQueueManager instance].delegate = self;
             [[PtFtSharedQueueManager instance] addQueue:[_self shiftQueueFromPool]];
         });
     });
