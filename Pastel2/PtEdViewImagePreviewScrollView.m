@@ -6,9 +6,9 @@
 //  Copyright (c) 2014年 SSC. All rights reserved.
 //
 
-#import "PtViewImagePreviewScrollView.h"
+#import "PtEdViewImagePreviewScrollView.h"
 
-@implementation PtViewImagePreviewScrollView
+@implementation PtEdViewImagePreviewScrollView
 
 - (id)initWithFrame:(CGRect)frame
 {

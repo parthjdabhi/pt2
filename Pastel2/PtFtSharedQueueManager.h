@@ -36,6 +36,8 @@
 - (void)processQueueTypePreview:(PtFtObjectProcessQueue*)queue;
 - (void)processQueueTypeOriginal:(PtFtObjectProcessQueue*)queue;
 
+- (void)didFinishProcessingQueue:(PtFtObjectProcessQueue*)queue;
+
 - (void)commonInit;
 - (void)cancelAllQueue;
 

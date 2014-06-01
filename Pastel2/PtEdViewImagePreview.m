@@ -6,16 +6,16 @@
 //  Copyright (c) 2014年 SSC. All rights reserved.
 //
 
-#import "PtViewImagePreview.h"
+#import "PtEdViewImagePreview.h"
 
-@implementation PtViewImagePreview
+@implementation PtEdViewImagePreview
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         self.clipsToBounds = NO;
-        _scrollView = [[PtViewImagePreviewScrollView alloc] initWithFrame:self.bounds];
+        _scrollView = [[PtEdViewImagePreviewScrollView alloc] initWithFrame:self.bounds];
         [self addSubview:_scrollView];
     }
     return self;

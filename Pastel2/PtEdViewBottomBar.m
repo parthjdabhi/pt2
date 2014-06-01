@@ -6,32 +6,32 @@
 //  Copyright (c) 2014年 SSC. All rights reserved.
 //
 
-#import "PtViewBottomBar.h"
+#import "PtEdViewBottomBar.h"
 
-@implementation PtViewBottomBar
+@implementation PtEdViewBottomBar
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [PtConfigEditor bottomBarColor];
+        self.backgroundColor = [PtEdConfig bottomBarColor];
     }
     return self;
 }
 
-- (void)addBackToCameraButton:(PtViewBarButton*)button
+- (void)addBackToCameraButton:(PtEdViewBarButton*)button
 {
     float x = button.width / 2.0f * 1.0f;
     button.center = CGPointMake(x, self.height / 2.0f);
     [self addSubview:button];
 }
-- (void)addFiltersButton:(PtViewBarButton*)button
+- (void)addFiltersButton:(PtEdViewBarButton*)button
 {
     float x = button.width / 2.0f * 3.0f;
     button.center = CGPointMake(x, self.height / 2.0f);
     [self addSubview:button];
 }
-- (void)addSlidersButton:(PtViewBarButton*)button
+- (void)addSlidersButton:(PtEdViewBarButton*)button
 {
     float x = button.width / 2.0f * 5.0f;
     button.center = CGPointMake(x, self.height / 2.0f);

@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PtViewImagePreviewScrollView.h"
+#import "PtEdViewImagePreviewScrollView.h"
 
-@interface PtViewImagePreview : UIView <UIScrollViewDelegate>
+@interface PtEdViewImagePreview : UIView <UIScrollViewDelegate>
 
-@property (nonatomic, strong) PtViewImagePreviewScrollView* scrollView;
+@property (nonatomic, strong) PtEdViewImagePreviewScrollView* scrollView;
 @property (nonatomic, weak) UIImage* image;
 @property (nonatomic, strong) UIImageView* imageView;
 

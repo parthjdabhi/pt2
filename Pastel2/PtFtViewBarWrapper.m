@@ -29,14 +29,14 @@
 
 - (void)addColorBar:(PtFtViewLayerBar *)bar
 {
-    [bar setY:[PtConfigFilters overlayBarHeight] + [PtConfigFilters artisticBarHeight]];
+    [bar setY:[PtFtConfig overlayBarHeight] + [PtFtConfig artisticBarHeight]];
     [self addSubview:bar];
 }
 
 - (void)addArtisticBar:(PtFtViewLayerBar *)bar
 {
     
-    [bar setY:[PtConfigFilters overlayBarHeight]];
+    [bar setY:[PtFtConfig overlayBarHeight]];
     [self addSubview:bar];
 }
 

@@ -6,13 +6,13 @@
 //  Copyright (c) 2014年 SSC. All rights reserved.
 //
 
-#import "PtConfigEditor.h"
+#import "PtEdConfig.h"
 
-@implementation PtConfigEditor
+@implementation PtEdConfig
 
-static PtConfigEditor* sharedPtSharedEditor = nil;
+static PtEdConfig* sharedPtSharedEditor = nil;
 
-+ (PtConfigEditor*)instance {
++ (PtEdConfig*)instance {
 	@synchronized(self) {
 		if (sharedPtSharedEditor == nil) {
 			sharedPtSharedEditor = [[self alloc] init];

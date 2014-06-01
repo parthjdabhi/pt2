@@ -237,13 +237,19 @@
     }
     self.isPresenting = YES;
     [self.cameraPreview blackOut:YES];
+        __block __weak LmCmViewController* _self = self;
     
     if ([PtSharedApp instance].useFullResolutionImage) {
+        dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        dispatch_async(q_global, ^{
+            @autoreleasepool {
+                [_self disableCamera];
+            }
+        });
         [PtSharedApp instance].imageToProcess = image;
         PtViewControllerEditor* con = [[PtViewControllerEditor alloc] init];
         [self.navigationController pushViewController:con animated:NO];
     }else{
-        __block __weak LmCmViewController* _self = self;
         __block UIImage* _image = image;
         dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         dispatch_queue_t q_main = dispatch_get_main_queue();

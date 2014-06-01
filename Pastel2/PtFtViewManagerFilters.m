@@ -15,19 +15,19 @@
 {
     
     //// Wrapper
-    _barWrapper = [[PtFtViewBarWrapper alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.width, [PtConfigFilters overlayBarHeight] + [PtConfigFilters artisticBarHeight] + [PtConfigFilters colorBarHeight])];
+    _barWrapper = [[PtFtViewBarWrapper alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.width, [PtFtConfig overlayBarHeight] + [PtFtConfig artisticBarHeight] + [PtFtConfig colorBarHeight])];
     [_barWrapper setY:self.view.height - _barWrapper.height - [PtSharedApp bottomNavigationBarHeight]];
     [self.view addSubview:_barWrapper];
     
     /// Bar
-    _overlayBar = [[PtFtViewLayerBar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.width, [PtConfigFilters overlayBarHeight])];
-    _overlayBar.backgroundColor = [PtConfigFilters overlayBarBgColor];
+    _overlayBar = [[PtFtViewLayerBar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.width, [PtFtConfig overlayBarHeight])];
+    _overlayBar.backgroundColor = [PtFtConfig overlayBarBgColor];
     [_barWrapper addOverlayBar:_overlayBar];
-    _artisticBar = [[PtFtViewLayerBar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.width, [PtConfigFilters artisticBarHeight])];
-    _artisticBar.backgroundColor = [PtConfigFilters artisticBarBgColor];
+    _artisticBar = [[PtFtViewLayerBar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.width, [PtFtConfig artisticBarHeight])];
+    _artisticBar.backgroundColor = [PtFtConfig artisticBarBgColor];
     [_barWrapper addArtisticBar:_artisticBar];
-    _colorBar = [[PtFtViewLayerBar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.width, [PtConfigFilters colorBarHeight])];
-    _colorBar.backgroundColor = [PtConfigFilters colorBarBgColor];
+    _colorBar = [[PtFtViewLayerBar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.width, [PtFtConfig colorBarHeight])];
+    _colorBar.backgroundColor = [PtFtConfig colorBarBgColor];
     [_barWrapper addColorBar:_colorBar];
     
     [self layoutButtons];
@@ -51,7 +51,7 @@
 {
     
     PtFtObjectFilterItem* item;
-    CGSize size = [PtConfigFilters colorLayerButtonSize];
+    CGSize size = [PtFtConfig colorLayerButtonSize];
     
     _overlayButtonsDictionary = [NSMutableDictionary dictionary];
     NSMutableArray* items = [PtFtSharedFilterManager instance].overlayFilters;
@@ -62,7 +62,7 @@
             button.maskColor = _overlayBar.backgroundColor;
             button.previewColor = item.previewColor;
             button.title = item.name;
-            button.maskRadius = [PtConfigFilters colorLayerButtonMaskRadius];
+            button.maskRadius = [PtFtConfig colorLayerButtonMaskRadius];
             button.delegate = self;
             button.titleColor = [UIColor whiteColor];
             button.selectionColor = item.selectionColor;
@@ -79,7 +79,7 @@
 {
     
     PtFtObjectFilterItem* item;
-    CGSize size = [PtConfigFilters colorLayerButtonSize];
+    CGSize size = [PtFtConfig colorLayerButtonSize];
     
     _colorButtonsDictionary = [NSMutableDictionary dictionary];
     NSMutableArray* items = [PtFtSharedFilterManager instance].colorFilters;
@@ -90,7 +90,7 @@
             button.maskColor = _colorBar.backgroundColor;
             button.previewColor = item.previewColor;
             button.title = item.name;
-            button.maskRadius = [PtConfigFilters colorLayerButtonMaskRadius];
+            button.maskRadius = [PtFtConfig colorLayerButtonMaskRadius];
             button.delegate = self;
             button.titleColor = [UIColor whiteColor];
             button.selectionColor = item.selectionColor;
@@ -107,7 +107,7 @@
 {
     
     PtFtObjectFilterItem* item;
-    CGSize size = [PtConfigFilters artisticLayerButtonSize];
+    CGSize size = [PtFtConfig artisticLayerButtonSize];
     
     _artisticButtonsDictionary = [NSMutableDictionary dictionary];
     NSMutableArray* items = [PtFtSharedFilterManager instance].artisticFilters;
@@ -118,7 +118,7 @@
             button.maskColor = _artisticBar.backgroundColor;
             button.previewColor = _artisticBar.backgroundColor;
             button.title = item.name;
-            button.maskRadius = [PtConfigFilters artisticLayerButtonMaskRadius];
+            button.maskRadius = [PtFtConfig artisticLayerButtonMaskRadius];
             button.delegate = self;
             button.titleColor = [UIColor whiteColor];
             button.selectionColor = [UIColor whiteColor];
@@ -140,7 +140,10 @@
 
 - (void)setPresetImage:(UIImage *)image ToEffect:(VnEffectId)effectId
 {
-    
+    PtFtButtonLayerBar* button = [self buttonByEffectId:effectId];
+    if (button) {
+        button.previewImage = image;
+    }
 }
 
 - (PtFtButtonLayerBar*)buttonByEffectId:(VnEffectId)effectId

@@ -17,7 +17,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [PtConfigEditor bgColor];
+    self.view.backgroundColor = [PtEdConfig bgColor];
     
     //// Managers
     _filtersManager = [[PtFtViewManagerFilters alloc] init];
@@ -31,7 +31,7 @@
     _navigationManager.view = self.view;
     
     //// Preview
-    float restHeight = self.view.height - [PtConfigFilters colorBarHeight] - [PtConfigFilters overlayBarHeight] - [PtConfigFilters artisticBarHeight] - [PtSharedApp bottomNavigationBarHeight];
+    float restHeight = self.view.height - [PtFtConfig colorBarHeight] - [PtFtConfig overlayBarHeight] - [PtFtConfig artisticBarHeight] - [PtSharedApp bottomNavigationBarHeight];
     float w, h;
     UIImage* image = [PtSharedApp instance].imageToProcess;
     if (image.size.width > image.size.height) {
@@ -51,6 +51,36 @@
     [_navigationManager viewDidLoad];
     
     
+    __block __weak PtViewControllerFilters* _self = self;
+    dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_queue_t q_main = dispatch_get_main_queue();
+    dispatch_async(q_global, ^{
+        @autoreleasepool {
+            UIImage* image = [PtSharedApp instance].imageToProcess;
+            //// for preset image
+            CGSize presetImageSizeWithAspect = [PtFtConfig presetBaseImageSize];
+            if (image.size.width > image.size.height) {
+                presetImageSizeWithAspect.width = image.size.width * presetImageSizeWithAspect.height / image.size.height;
+            } else {
+                presetImageSizeWithAspect.height = image.size.height * presetImageSizeWithAspect.width / image.size.width;
+            }
+            image = [image resizedImage:presetImageSizeWithAspect interpolationQuality:kCGInterpolationHigh];
+            float x = 0.0f;
+            float y = 0.0f;
+            CGSize presetImageSize = [PtFtConfig presetBaseImageSize];
+            if (image.size.width > image.size.height) {
+                x = (image.size.width - presetImageSize.width) / 2.0f;
+            } else {
+                y = (image.size.height - presetImageSize.height) / 2.0f;
+            }
+            image = [image croppedImage:CGRectMake(x, y, presetImageSize.width, presetImageSize.height)];
+            _self.presetOriginalImage = image;
+        }
+        dispatch_async(q_main, ^{
+            [_self initPresetQueuePool];
+            [[PtFtSharedQueueManager instance] addQueue:[_self shiftQueueFromPool]];
+        });
+    });
 }
 
 #pragma mark queue
@@ -66,6 +96,7 @@
         if (item) {
             queue.type = PtFtProcessQueueTypePreset;
             queue.effectId = item.effectId;
+            queue.image = self.presetOriginalImage;
             [_presetQueuePool addObject:queue];
         }
     }

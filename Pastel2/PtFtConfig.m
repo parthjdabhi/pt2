@@ -1,14 +1,14 @@
 //
-//  PtConfigFIlters.m
+//  PtConfigFilter.m
 //  Pastel2
 //
 //  Created by SSC on 2014/06/01.
 //  Copyright (c) 2014年 SSC. All rights reserved.
 //
 
-#import "PtConfigFilters.h"
+#import "PtFtConfig.h"
 
-@implementation PtConfigFilters
+@implementation PtFtConfig
 
 #pragma mark sizes
 
@@ -33,27 +33,40 @@
     return CGSizeMake(54.0f, [self overlayBarHeight]);
 }
 
+#pragma mark preset
+
++ (CGRect)presetImageBounds
+{
+    return CGRectMake(0.0f, 0.0f, [self artisticBarHeight] - 20.0f, [self artisticBarHeight] - 20.0f);
+}
+
++ (CGSize)presetBaseImageSize
+{
+    CGRect bounds = [self presetImageBounds];
+    return CGSizeMake(bounds.size.width * [[UIScreen mainScreen] scale], bounds.size.height * [[UIScreen mainScreen] scale]);
+}
+
 #pragma mark color
 
 
 + (UIColor *)toolBarBgColor
 {
-    return [PtConfigEditor bgColor];
+    return [PtEdConfig bgColor];
 }
 
 + (UIColor *)colorBarBgColor
 {
-    return [UIColor colorWithWhite:0.12f alpha:1.0f];
+    return [UIColor colorWithWhite:0.10f alpha:1.0f];
 }
 
 + (UIColor *)artisticBarBgColor
 {
-    return [UIColor colorWithRed:s255(245.0f) green:s255(245.0f) blue:s255(245.0f) alpha:1.0f];
+    return [UIColor colorWithWhite:0.05f alpha:1.0f];
 }
 
 + (UIColor *)overlayBarBgColor
 {
-    return [UIColor colorWithWhite:0.12f alpha:1.0f];
+    return [UIColor colorWithWhite:0.10f alpha:1.0f];
 }
 
 #pragma mark height
@@ -67,7 +80,6 @@
 {
     return 50.0f;
 }
-
 
 + (float)artisticBarHeight
 {
@@ -86,7 +98,7 @@
     return 10.0f;
 }
 
-+ (float)effectLayerButtonMaskRadius
++ (float)artisticLayerButtonMaskRadius
 {
     return 20.0f;
 }
@@ -95,6 +107,5 @@
 {
     return 10.0f;
 }
-
 
 @end

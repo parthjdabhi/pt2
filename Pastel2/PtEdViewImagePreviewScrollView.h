@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PtViewImagePreviewScrollView : UIScrollView
+@interface PtEdViewImagePreviewScrollView : UIScrollView
 
 @end

@@ -8,34 +8,34 @@
 
 #import <UIKit/UIKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>
-#import "PtViewTopBar.h"
-#import "PtViewBottomBar.h"
-#import "PtViewBarButton.h"
-#import "PtViewImagePreview.h"
+#import "PtEdViewTopBar.h"
+#import "PtEdViewBottomBar.h"
+#import "PtEdViewBarButton.h"
+#import "PtEdViewImagePreview.h"
 #import "PtViewControllerFilters.h"
 
 @interface PtViewControllerEditor : UIViewController
 
-@property (nonatomic, strong) PtViewBottomBar* bottomBar;
-@property (nonatomic, strong) PtViewTopBar* topBar;
-@property (nonatomic, strong) PtViewImagePreview* imagePreview;
+@property (nonatomic, strong) PtEdViewBottomBar* bottomBar;
+@property (nonatomic, strong) PtEdViewTopBar* topBar;
+@property (nonatomic, strong) PtEdViewImagePreview* imagePreview;
 
-@property (nonatomic, strong) PtViewBarButton* camerarollButton;
-@property (nonatomic, strong) PtViewBarButton* instagramButton;
-@property (nonatomic, strong) PtViewBarButton* twitterButton;
-@property (nonatomic, strong) PtViewBarButton* facebookButton;
-@property (nonatomic, strong) PtViewBarButton* otherButton;
-@property (nonatomic, strong) PtViewBarButton* cameraButton;
-@property (nonatomic, strong) PtViewBarButton* filtersButton;
-@property (nonatomic, strong) PtViewBarButton* slidersButton;
+@property (nonatomic, strong) PtEdViewBarButton* camerarollButton;
+@property (nonatomic, strong) PtEdViewBarButton* instagramButton;
+@property (nonatomic, strong) PtEdViewBarButton* twitterButton;
+@property (nonatomic, strong) PtEdViewBarButton* facebookButton;
+@property (nonatomic, strong) PtEdViewBarButton* otherButton;
+@property (nonatomic, strong) PtEdViewBarButton* cameraButton;
+@property (nonatomic, strong) PtEdViewBarButton* filtersButton;
+@property (nonatomic, strong) PtEdViewBarButton* slidersButton;
 
-- (void)buttonCamerarollDidTouchUpInside:(PtViewBarButton*)button;
-- (void)buttonInstagramDidTouchUpInside:(PtViewBarButton*)button;
-- (void)buttonTwitterDidTouchUpInside:(PtViewBarButton*)button;
-- (void)buttonFacebookDidTouchUpInside:(PtViewBarButton*)button;
-- (void)buttonOtherDidTouchUpInside:(PtViewBarButton*)button;
-- (void)buttonCameraDidTouchUpInside:(PtViewBarButton*)button;
-- (void)buttonFiltersDidTouchUpInside:(PtViewBarButton*)button;
-- (void)buttonSlidersDidTouchUpInside:(PtViewBarButton*)button;
+- (void)buttonCamerarollDidTouchUpInside:(PtEdViewBarButton*)button;
+- (void)buttonInstagramDidTouchUpInside:(PtEdViewBarButton*)button;
+- (void)buttonTwitterDidTouchUpInside:(PtEdViewBarButton*)button;
+- (void)buttonFacebookDidTouchUpInside:(PtEdViewBarButton*)button;
+- (void)buttonOtherDidTouchUpInside:(PtEdViewBarButton*)button;
+- (void)buttonCameraDidTouchUpInside:(PtEdViewBarButton*)button;
+- (void)buttonFiltersDidTouchUpInside:(PtEdViewBarButton*)button;
+- (void)buttonSlidersDidTouchUpInside:(PtEdViewBarButton*)button;
 
 @end

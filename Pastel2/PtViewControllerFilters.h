@@ -21,6 +21,8 @@
 @property (nonatomic, strong) PtFtViewManagerNavigation* navigationManager;
 @property (nonatomic, strong) UIImageView* previewImageView;
 @property (nonatomic, strong) NSMutableArray* presetQueuePool;
+@property (nonatomic, strong) UIImage* previewImage;
+@property (nonatomic, strong) UIImage* presetOriginalImage;
 
 - (void)initPresetQueuePool;
 - (PtFtObjectProcessQueue*)shiftQueueFromPool;

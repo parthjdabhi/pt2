@@ -6,13 +6,13 @@
 //  Copyright (c) 2014年 SSC. All rights reserved.
 //
 
-#import "PtViewBarButton.h"
+#import "PtEdViewBarButton.h"
 
-@implementation PtViewBarButton
+@implementation PtEdViewBarButton
 
-- (id)initWithType:(PtViewBarButtonType)type
+- (id)initWithType:(PtEdViewBarButtonType)type
 {
-    float length = [PtConfigEditor topBarHeight];
+    float length = [PtEdConfig topBarHeight];
     CGRect frame = CGRectMake(0.0f, 0.0f, length, length);
     self = [super initWithFrame:frame];
     if (self) {
@@ -38,7 +38,7 @@
     
     UIColor* color = [UIColor colorWithWhite:0.95f alpha:1.0f];
     switch (_type) {
-        case PtViewBarButtonTypeOther:
+        case PtEdViewBarButtonTypeOther:
         {
             
             //// Other Drawing
@@ -72,7 +72,7 @@
 
         }
             break;
-        case PtViewBarButtonTypeFilters:
+        case PtEdViewBarButtonTypeFilters:
         {
             
             //// Filters Drawing
@@ -100,7 +100,7 @@
             [filtersPath fill];
         }
             break;
-        case PtViewBarButtonTypeSliders:
+        case PtEdViewBarButtonTypeSliders:
         {
             
             //// Sliders Drawing
@@ -157,7 +157,7 @@
 
         }
             break;
-        case PtViewBarButtonTypeTwitter:
+        case PtEdViewBarButtonTypeTwitter:
         {
             //// Twitter Drawing
             UIBezierPath* twitterPath = [UIBezierPath bezierPath];
@@ -191,7 +191,7 @@
             [twitterPath fill];
         }
             break;
-        case PtViewBarButtonTypeFacebook:
+        case PtEdViewBarButtonTypeFacebook:
         {
             
             //// Facebook Drawing
@@ -231,7 +231,7 @@
 
         }
             break;
-        case PtViewBarButtonTypeInstagram:
+        case PtEdViewBarButtonTypeInstagram:
         {
             
             //// Instagram Drawing
@@ -281,7 +281,7 @@
             [instagramPath fill];
         }
             break;
-        case PtViewBarButtonTypeBackToCamera:
+        case PtEdViewBarButtonTypeBackToCamera:
         {
             
             
@@ -329,7 +329,7 @@
 
         }
             break;
-        case PtViewBarButtonTypeSaveToCameraRoll:
+        case PtEdViewBarButtonTypeSaveToCameraRoll:
         {
             
             //// Cameraroll Drawing

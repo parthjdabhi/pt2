@@ -53,7 +53,7 @@ static PtSharedApp* sharedPtSharedApp = nil;
 
 + (UIColor*)bottomNavigationBarBgColor
 {
-    return [PtConfigEditor bgColor];
+    return [PtEdConfig bgColor];
 }
 
 
