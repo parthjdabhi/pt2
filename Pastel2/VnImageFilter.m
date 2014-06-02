@@ -177,10 +177,7 @@ NSString* kVnImageFilterFragmentShaderString = SHADER_STRING
      } else{
          rs.b = 2.0 * base.b * (1.0 - overlay.b) + sqrt(base.b) * (2.0 * overlay.b - 1.0);
      }
-     
-     rs.r = rs.r * overlay.a + base.r * (1.0 - overlay.a);
-     rs.g = rs.g * overlay.a + base.g * (1.0 - overlay.a);
-     rs.b = rs.b * overlay.a + base.b * (1.0 - overlay.a);
+     rs.rgb = rs.rgb * overlay.a + base.rgb * (1.0 - overlay.a);
      return rs;
  }
  // Lighten

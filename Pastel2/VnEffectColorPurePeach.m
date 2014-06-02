@@ -63,13 +63,12 @@
     colorBalance.preserveLuminosity = YES;
     colorBalance.topLayerOpacity = 0.04f;
     
-    
     // Levels
     VnFilterLevels* levelsFilter3 = [[VnFilterLevels alloc] init];
     [levelsFilter3 setMin:s255(75.0f) gamma:1.40f max:s255(254.0f) minOut:s255(0.0f) maxOut:s255(209.0f)];
     levelsFilter3.topLayerOpacity = 0.35f;
     levelsFilter3.blendingMode = VnBlendingModeSoftLight;
-   
+    
     self.startFilter = levelsFilter1;
     [levelsFilter1 addTarget:levelsFilter2];
     [levelsFilter2 addTarget:solidColor];

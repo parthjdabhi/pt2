@@ -143,8 +143,7 @@ NSString *const kGPUImageColorBalanceFragmentShaderString = SHADER_STRING
      if (preserveLuminosity != 0) {
          mediump vec3 newHSL = RGBToHSL(newColor);
          mediump float oldLum = RGBToL(textureColor.rgb);
-         textureColor.rgb = HSLToRGB(vec3(newHSL.x, newHSL.y, oldLum));
-         rs = textureColor;
+         rs.rgb = HSLToRGB(vec3(newHSL.x, newHSL.y, oldLum));
      } else {
          rs = vec4(newColor.rgb, textureColor.w);
      }

@@ -14,6 +14,8 @@
 {
     self = [super init];
     if(self){
+        self.defaultOpacity = 0.70f;
+        self.faceOpacity = 0.70f;
         self.effectId = VnEffectIdColorWildHoney;
     }
     return self;
