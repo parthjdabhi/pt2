@@ -38,7 +38,7 @@
 
 - (void)navigationDoneDidTouchUpInside:(PtFtButtonNavigation *)button
 {
-    
+    [self.delegate applyFiltersToOriginalImage];
 }
 
 @end

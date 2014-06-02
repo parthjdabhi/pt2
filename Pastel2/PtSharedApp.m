@@ -43,6 +43,15 @@ static PtSharedApp* sharedPtSharedApp = nil;
     return self;
 }
 
+- (void)setImageToProcess:(UIImage *)imageToProcess
+{
+    _imageToProcess = imageToProcess;
+    if (imageToProcess == nil) {
+        return;
+    }
+    self.sizeOfImageToProcess = _imageToProcess.size;
+}
+
 #pragma mark ui
 
 
@@ -216,5 +225,6 @@ static PtSharedApp* sharedPtSharedApp = nil;
     [ud setInteger:(int)themeColor forKey:@"themeColor"];
     [ud synchronize];
 }
+
 
 @end

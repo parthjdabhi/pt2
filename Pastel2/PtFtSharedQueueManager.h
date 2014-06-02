@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "PtFtObjectProcessQueue.h"
+#import "VnImageFilter.h"
 #import "VnImageNormalBlendFilter.h"
 
 @class PtViewControllerFilters;
@@ -28,6 +29,8 @@
 @property (nonatomic, weak) UIImage* originalImage;
 @property (nonatomic, weak) UIImage* previewImage;
 @property (nonatomic, weak) UIImage* presetImage;
+@property (nonatomic, strong) VnImageFilter* startFilter;
+@property (nonatomic, strong) VnImageFilter* endFilter;
 
 + (PtFtSharedQueueManager*)instance;
 
@@ -41,6 +44,7 @@
 
 - (void)didFinishProcessingQueue:(PtFtObjectProcessQueue*)queue;
 
+- (void)setStartAndEndFiltersWithQueue:(PtFtObjectProcessQueue*)queue;
 - (void)commonInit;
 - (void)cancelAllQueue;
 

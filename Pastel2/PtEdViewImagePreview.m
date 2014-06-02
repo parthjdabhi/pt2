@@ -23,6 +23,10 @@
 
 - (void)setImage:(UIImage *)image
 {
+    if (image == nil) {
+        _image = nil;
+        return;
+    }
     _image = image;
     
     _scrollView.delegate = self;
@@ -66,6 +70,10 @@
 - (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(CGFloat)scale
 {
     
+}
+- (void)dealloc
+{
+    LOG(@"Preview dealloc.");
 }
 
 /*

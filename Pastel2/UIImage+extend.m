@@ -571,4 +571,10 @@
     return image;
 }
 
+
+- (void)dealloc
+{
+    LOG(@"UIImage dealloc: %fx%f", self.size.width, self.size.height);
+}
+
 @end

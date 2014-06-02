@@ -23,11 +23,6 @@
     _topBar = [[PtEdViewTopBar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [UIScreen width], [PtEdConfig topBarHeight])];
     _bottomBar = [[PtEdViewBottomBar alloc] initWithFrame:CGRectMake(0.0f, [UIScreen height] - [PtEdConfig bottomBarHeight], [UIScreen width], [PtEdConfig bottomBarHeight])];
     
-    //// Preview
-    _imagePreview = [[PtEdViewImagePreview  alloc] initWithFrame:CGRectMake(0.0f, _topBar.height, [UIScreen width], [UIScreen height] - _topBar.height - _bottomBar.height)];
-    _imagePreview.image = [PtSharedApp instance].imageToProcess;
-    [self.view addSubview:_imagePreview];
-    
     [self.view addSubview:_topBar];
     [self.view addSubview:_bottomBar];
     
@@ -65,6 +60,8 @@
     [_slidersButton addTarget:self action:@selector(buttonSlidersDidTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
     [_bottomBar addSlidersButton:_slidersButton];
     
+    //// Preview
+    [self initPreview];
 }
 
 - (void)didReceiveMemoryWarning
@@ -82,6 +79,32 @@
         return UIInterfaceOrientationMaskLandscapeLeft;
     }
     return UIInterfaceOrientationMaskPortrait;
+}
+
+- (void)reloadImage
+{
+    _imagePreview.image = [PtSharedApp instance].imageToProcess;
+}
+
+- (void)deallocImage
+{
+    [_imagePreview removeFromSuperview];
+    _imagePreview.image = nil;
+    _imagePreview = nil;
+}
+
+- (void)initPreview
+{
+    if (_imagePreview) {
+        [_imagePreview removeFromSuperview];
+        _imagePreview.image = nil;
+        _imagePreview = nil;
+    }
+    _imagePreview = [[PtEdViewImagePreview  alloc] initWithFrame:CGRectMake(0.0f, _topBar.height, [UIScreen width], [UIScreen height] - _topBar.height - _bottomBar.height)];
+    _imagePreview.image = [PtSharedApp instance].imageToProcess;
+    [self.view addSubview:_imagePreview];
+    [self.view bringSubviewToFront:_topBar];
+    [self.view bringSubviewToFront:_bottomBar];
 }
 
 #pragma mark button
@@ -120,6 +143,7 @@
 - (void)buttonFiltersDidTouchUpInside:(PtEdViewBarButton *)button
 {
     PtViewControllerFilters* con = [[PtViewControllerFilters alloc] init];
+    con.editorController = self;
     [self.navigationController pushViewController:con animated:NO];
 }
 

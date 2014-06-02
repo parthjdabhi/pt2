@@ -28,10 +28,15 @@
 @property (nonatomic, strong) VnViewProgress* progressView;
 @property (nonatomic, strong) PtFtViewBlur* blurView;
 @property (nonatomic, assign) BOOL faceDetected;
+@property (nonatomic, strong) NSMutableArray* originalImageParts;
+@property (nonatomic, weak) PtViewControllerEditor* editorController;
 
 - (void)initPresetQueuePool;
 - (PtFtObjectProcessQueue*)shiftQueueFromPool;
 
 - (void)filterButtonDidTouchUpInside:(PtFtButtonLayerBar*)button;
+- (void)applyFiltersToOriginalImage;
+
+- (void)didFinishProcessingOriginalImage;
 
 @end

@@ -24,6 +24,7 @@ typedef NS_ENUM(NSInteger, PtSharedAppThemeColor){
 @property (nonatomic, assign) PtSharedAppThemeColor themeColor;
 
 @property (nonatomic, strong) UIImage* imageToProcess;
+@property (nonatomic, assign) CGSize sizeOfImageToProcess;
 
 + (PtSharedApp*)instance;
 + (float)bottomNavigationBarHeight;

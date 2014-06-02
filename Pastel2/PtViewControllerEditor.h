@@ -29,6 +29,11 @@
 @property (nonatomic, strong) PtEdViewBarButton* filtersButton;
 @property (nonatomic, strong) PtEdViewBarButton* slidersButton;
 
+- (void)initPreview;
+
+- (void)reloadImage;
+- (void)deallocImage;
+
 - (void)buttonCamerarollDidTouchUpInside:(PtEdViewBarButton*)button;
 - (void)buttonInstagramDidTouchUpInside:(PtEdViewBarButton*)button;
 - (void)buttonTwitterDidTouchUpInside:(PtEdViewBarButton*)button;

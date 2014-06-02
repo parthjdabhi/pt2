@@ -46,13 +46,13 @@
 #define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
 
 
+#import "UIImage+extend.h"
 #import "UIDevice+extend.h"
 #import "UIScreen+extend.h"
 #import "UIView+extend.h"
 #import "UIScrollView+extend.h"
 #import "UIViewController+extend.h"
 #import "UIImagePickerController+extend.h"
-#import "UIImage+extend.h"
 #import "UIImagePickerController+extend.h"
 
 #define IS_IOS7_AND_UP ([[UIDevice currentDevice].systemVersion floatValue] >= 7.0)

@@ -68,6 +68,15 @@
     dispatch_async(q_global, ^{
         @autoreleasepool {
             UIImage* image = [PtSharedApp instance].imageToProcess;
+            CGSize size = CGSizeMake(_self.previewImageView.width * [[UIScreen mainScreen] scale], _self.previewImageView.height * [[UIScreen mainScreen] scale]);
+            image = [image resizedImage:size interpolationQuality:kCGInterpolationHigh];
+            _self.previewImage = image;
+        }
+        dispatch_async(q_main, ^{
+            [_self.progressView setProgress:0.60f];
+        });
+        @autoreleasepool {
+            UIImage* image = _self.previewImage;
             //// for preset image
             CGSize presetImageSizeWithAspect = [PtFtConfig presetBaseImageSize];
             if (image.size.width > image.size.height) {
@@ -86,15 +95,6 @@
             }
             image = [image croppedImage:CGRectMake(x, y, presetImageSize.width, presetImageSize.height)];
             _self.presetOriginalImage = image;
-        }
-        dispatch_async(q_main, ^{
-            [_self.progressView setProgress:0.60f];
-        });
-        @autoreleasepool {
-            UIImage* image = [PtSharedApp instance].imageToProcess;
-            CGSize size = CGSizeMake(_self.previewImageView.width * [[UIScreen mainScreen] scale], _self.previewImageView.height * [[UIScreen mainScreen] scale]);
-            image = [image resizedImage:size interpolationQuality:kCGInterpolationHigh];
-            _self.previewImage = image;
         }
         dispatch_async(q_main, ^{
             [_self.progressView setProgress:0.90f];
@@ -181,12 +181,26 @@
             break;
         case PtFtProcessQueueTypeOriginal:
         {
-            self.view.userInteractionEnabled = YES;
+            [self didFinishProcessingOriginalImage];
         }
             break;
         default:
             break;
     }
+}
+
+- (void)didFinishProcessingOriginalImage
+{
+    PtSharedApp* app = [PtSharedApp instance];
+    @autoreleasepool {
+        app.imageToProcess = [UIImage mergeSplitImage9:self.originalImageParts WithSize:app.sizeOfImageToProcess];
+        [self.originalImageParts removeAllObjects];
+    }
+    self.view.userInteractionEnabled = YES;
+    self.progressView.hidden = YES;
+    self.blurView.isBlurred = NO;
+    [self.editorController initPreview];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 #pragma mark filter button
@@ -231,6 +245,35 @@
     queue.type = PtFtProcessQueueTypePreview;
     queue.image = self.previewImage;
     [[PtFtSharedQueueManager instance] addQueue:queue];
+}
+
+#pragma mark processing
+
+- (void)applyFiltersToOriginalImage
+{
+    self.view.userInteractionEnabled = NO;
+    self.blurView.isBlurred = YES;
+    self.progressView.hidden = NO;
+    [self.progressView resetProgress];
+    
+    [self.editorController deallocImage];
+    
+    __block __weak PtViewControllerFilters* _self = self;
+    dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_queue_t q_main = dispatch_get_main_queue();
+    dispatch_async(q_global, ^{
+        @autoreleasepool {
+            _self.originalImageParts = [UIImage splitImageIn9Parts:[PtSharedApp instance].imageToProcess];
+            [PtSharedApp instance].imageToProcess = nil;
+        }
+        dispatch_async(q_main, ^{
+            [_self.progressView setProgress:0.10f];
+            PtFtObjectProcessQueue* queue = [[PtFtObjectProcessQueue alloc] init];
+            queue.type = PtFtProcessQueueTypeOriginal;
+            [[PtFtSharedQueueManager instance] addQueue:queue];
+        });
+    });
+
 }
 
 - (void)didReceiveMemoryWarning
