@@ -240,6 +240,7 @@
     }
     self.isPresenting = YES;
     [self.cameraPreview blackOut:YES];
+    [PtSharedApp instance].assetToProcess = self.lastAsset;
     __block __weak LmCmViewController* _self = self;
     
     if ([PtSharedApp instance].useFullResolutionImage) {
@@ -318,15 +319,26 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     [picker dismissViewControllerAnimated:YES completion:nil];
-    UIImage* imageOriginal = [info objectForKey:UIImagePickerControllerOriginalImage];
+    self.loadedImageFromPickerController = [info objectForKey:UIImagePickerControllerOriginalImage];
+    NSURL* url = [info objectForKey:UIImagePickerControllerReferenceURL];
     
-    if(imageOriginal){
-        if(picker.sourceType == UIImagePickerControllerSourceTypeCamera){
-            UIImageWriteToSavedPhotosAlbum(imageOriginal, nil, nil, nil);
-        }
-        //// Do your stuff
-        [self presentEditorViewControllerWithImage:imageOriginal];
+    UIImage* imageOriginal = [info objectForKey:UIImagePickerControllerOriginalImage];
+    self.loadedImageFromPickerController = imageOriginal;
+    
+    if(picker.sourceType == UIImagePickerControllerSourceTypeCamera){
+        UIImageWriteToSavedPhotosAlbum(imageOriginal, nil, nil, nil);
     }
+    
+    __block __weak LmCmViewController* _self = self;
+    [self.assetLibrary assetForURL:url resultBlock:^(ALAsset *asset) {
+        if(_self.loadedImageFromPickerController){
+            _self.lastAsset = asset;
+            //// Do your stuff
+            [_self presentEditorViewControllerWithImage:_self.loadedImageFromPickerController];
+        }
+    } failureBlock:^(NSError *error) {
+        [_self showAlertViewWithTitle:NSLocalizedString(@"Error", nil) Message:NSLocalizedString(@"Coudn't open the photo.", nil)];
+    }];
 }
 
 #pragma mark camera roll

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AssetsLibrary/AssetsLibrary.h>
 
 typedef NS_ENUM(NSInteger, PtSharedAppThemeColor){
     PtSharedAppThemeColorDefault = 1,
@@ -25,6 +26,7 @@ typedef NS_ENUM(NSInteger, PtSharedAppThemeColor){
 
 @property (nonatomic, strong) UIImage* imageToProcess;
 @property (nonatomic, assign) CGSize sizeOfImageToProcess;
+@property (nonatomic, strong) ALAsset* assetToProcess;
 
 + (PtSharedApp*)instance;
 + (float)bottomNavigationBarHeight;

@@ -185,6 +185,8 @@ static PtSharedApp* sharedPtSharedApp = nil;
 
 - (BOOL)useFullResolutionImage
 {
+    LOG(@"MUST DELETE LINE");
+    return YES;
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     NSInteger f = [ud integerForKey:@"useFullResolutionImage"];
     if (f == 2) {

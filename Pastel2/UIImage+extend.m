@@ -123,6 +123,30 @@
     return newImage;
 }
 
+#pragma mark low memory
+
++ (UIImage *)resizedImageUrl:(NSURL *)url ToScale:(float)scale
+{
+    NSLog(@"%@", url);
+    CGImageSourceRef imageSource = CGImageSourceCreateWithURL((__bridge CFURLRef)url, NULL);
+    if (!imageSource)
+        return nil;
+    
+    CFDictionaryRef options = (__bridge CFDictionaryRef)[NSDictionary dictionaryWithObjectsAndKeys:
+                                                (id)kCFBooleanTrue, (id)kCGImageSourceCreateThumbnailWithTransform,
+                                                (id)kCFBooleanTrue, (id)kCGImageSourceCreateThumbnailFromImageIfAbsent,
+                                                (id)[NSNumber numberWithFloat:scale], (id)kCGImageSourceThumbnailMaxPixelSize,
+                                                nil];
+    CGImageRef imgRef = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, options);
+    
+    UIImage* scaled = [UIImage imageWithCGImage:imgRef];
+    
+    CGImageRelease(imgRef);
+    CFRelease(imageSource);
+    
+    return scaled;
+}
+
 // Returns an affine transform that takes into account the image orientation when drawing a scaled image
 - (CGAffineTransform)transformForOrientation:(CGSize)newSize {
     CGAffineTransform transform = CGAffineTransformIdentity;

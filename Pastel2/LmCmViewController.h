@@ -54,6 +54,8 @@ typedef NS_ENUM(NSInteger, LmCmViewControllerState){
 @property (nonatomic, strong) ALAssetsLibrary* assetLibrary;
 @property (nonatomic, strong) ALAsset* lastAsset;
 
+@property (nonatomic, strong) UIImage* loadedImageFromPickerController;
+
 - (void)initCameraManager;
 - (void)didShutterButtonTouchUpInside:(id)sender;
 - (void)didShutterButtonTouchCancel:(id)sender;

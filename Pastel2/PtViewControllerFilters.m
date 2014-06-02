@@ -100,16 +100,20 @@
             [_self.progressView setProgress:0.90f];
         });
         @autoreleasepool {
-            //// Detect faces
-            NSDictionary *options = [NSDictionary dictionaryWithObject:CIDetectorAccuracyHigh forKey:CIDetectorAccuracy];
-            CIDetector *detector = [CIDetector detectorOfType:CIDetectorTypeFace context:nil options:options];
-            CIImage *ciImage = [[CIImage alloc] initWithCGImage:_self.previewImage.CGImage];
-            NSDictionary *imageOptions = [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:1] forKey:CIDetectorImageOrientation];
-            NSArray *array = [detector featuresInImage:ciImage options:imageOptions];
-            
-            if([array count] > 0){
-                LOG(@"Face detected!");
-                _self.faceDetected = YES;
+            if ([UIDevice underIPhone5]) {
+                
+            }else{
+                //// Detect faces
+                NSDictionary *options = [NSDictionary dictionaryWithObject:CIDetectorAccuracyHigh forKey:CIDetectorAccuracy];
+                CIDetector *detector = [CIDetector detectorOfType:CIDetectorTypeFace context:nil options:options];
+                CIImage *ciImage = [[CIImage alloc] initWithCGImage:_self.previewImage.CGImage];
+                NSDictionary *imageOptions = [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:1] forKey:CIDetectorImageOrientation];
+                NSArray *array = [detector featuresInImage:ciImage options:imageOptions];
+                
+                if([array count] > 0){
+                    LOG(@"Face detected!");
+                    _self.faceDetected = YES;
+                }
             }
         }
         dispatch_async(q_main, ^{
