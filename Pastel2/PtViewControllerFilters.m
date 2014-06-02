@@ -46,11 +46,22 @@
     _previewImageView.center = CGPointMake(self.view.width / 2.0f, restHeight / 2.0f + 20.0f);
     [self.view addSubview:_previewImageView];
     
+    //// Blur
+    _blurView = [[PtFtViewBlur alloc] initWithFrame:_previewImageView.bounds];
+    _blurView.center = _previewImageView.center;
+    [self.view addSubview:_blurView];
+    
+    //// Progress
+    _progressView = [[VnViewProgress alloc] initWithFrame:_previewImageView.frame Radius:16.0f];
+    _progressView.center = _previewImageView.center;
+    [_progressView resetProgress];
+    [self.view addSubview:_progressView];
+    
     [_filtersManager viewDidLoad];
     [_slidersManager viewDidLoad];
     [_navigationManager viewDidLoad];
     
-    
+    [_progressView setProgress:0.10f];
     __block __weak PtViewControllerFilters* _self = self;
     dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_queue_t q_main = dispatch_get_main_queue();
@@ -76,12 +87,18 @@
             image = [image croppedImage:CGRectMake(x, y, presetImageSize.width, presetImageSize.height)];
             _self.presetOriginalImage = image;
         }
+        dispatch_async(q_main, ^{
+            [_self.progressView setProgress:0.60f];
+        });
         @autoreleasepool {
             UIImage* image = [PtSharedApp instance].imageToProcess;
             CGSize size = CGSizeMake(_self.previewImageView.width * [[UIScreen mainScreen] scale], _self.previewImageView.height * [[UIScreen mainScreen] scale]);
             image = [image resizedImage:size interpolationQuality:kCGInterpolationHigh];
             _self.previewImage = image;
         }
+        dispatch_async(q_main, ^{
+            [_self.progressView setProgress:1.0f];
+        });
         @autoreleasepool {
             //// Detect faces
             NSDictionary *options = [NSDictionary dictionaryWithObject:CIDetectorAccuracyHigh forKey:CIDetectorAccuracy];
@@ -94,13 +111,13 @@
                 LOG(@"Face detected!");
                 _self.faceDetected = YES;
             }
-
         }
         dispatch_async(q_main, ^{
             _self.previewImageView.image = _self.previewImage;
             [_self initPresetQueuePool];
             [PtFtSharedQueueManager instance].delegate = self;
             [[PtFtSharedQueueManager instance] addQueue:[_self shiftQueueFromPool]];
+            [_self.progressView setHidden:YES];
         });
     });
 }
@@ -139,6 +156,7 @@
 }
 
 #pragma mark delegate
+#pragma mark queue
 
 - (void)queueDidFinished:(PtFtObjectProcessQueue *)queue
 {
@@ -146,7 +164,10 @@
     switch (queue.type) {
         case PtFtProcessQueueTypePreview:
         {
-
+            _previewImageView.image = queue.image;
+            self.progressView.hidden = YES;
+            self.blurView.isBlurred = NO;
+            self.view.userInteractionEnabled = YES;
         }
             break;
         case PtFtProcessQueueTypePreset:
@@ -160,11 +181,26 @@
             break;
         case PtFtProcessQueueTypeOriginal:
         {
+            self.view.userInteractionEnabled = YES;
         }
             break;
         default:
             break;
     }
+}
+
+#pragma mark filter button
+
+- (void)filterButtonDidTouchUpInside:(PtFtButtonLayerBar *)button
+{
+    self.view.userInteractionEnabled = NO;
+    self.blurView.isBlurred = YES;
+    self.progressView.hidden = NO;
+    [self.progressView resetProgress];
+    PtFtObjectProcessQueue* queue = [[PtFtObjectProcessQueue alloc] init];
+    queue.type = PtFtProcessQueueTypePreview;
+    queue.image = self.previewImage;
+    [[PtFtSharedQueueManager instance] addQueue:queue];
 }
 
 - (void)didReceiveMemoryWarning

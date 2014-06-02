@@ -12,6 +12,7 @@
 #import "PtFtViewManagerSliders.h"
 #import "PtFtViewManagerNavigation.h"
 #import "PtFtObjectProcessQueue.h"
+#import "PtFtViewBlur.h"
 
 @class PtViewControllerEditor;
 
@@ -24,9 +25,13 @@
 @property (nonatomic, strong) NSMutableArray* presetQueuePool;
 @property (nonatomic, strong) UIImage* previewImage;
 @property (nonatomic, strong) UIImage* presetOriginalImage;
+@property (nonatomic, strong) VnViewProgress* progressView;
+@property (nonatomic, strong) PtFtViewBlur* blurView;
 @property (nonatomic, assign) BOOL faceDetected;
 
 - (void)initPresetQueuePool;
 - (PtFtObjectProcessQueue*)shiftQueueFromPool;
+
+- (void)filterButtonDidTouchUpInside:(PtFtButtonLayerBar*)button;
 
 @end

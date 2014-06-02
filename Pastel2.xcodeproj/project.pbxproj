@@ -109,6 +109,11 @@
 		5800CCF91935C724004BB438 /* dnt.acv in Resources */ = {isa = PBXBuildFile; fileRef = 5800CCBF1935C724004BB438 /* dnt.acv */; };
 		5800CD191935C73B004BB438 /* VnEffectColorBronze.m in Sources */ = {isa = PBXBuildFile; fileRef = 5800CCFC1935C73B004BB438 /* VnEffectColorBronze.m */; };
 		5800CD2A1935C85E004BB438 /* VnEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = 5800CD291935C85E004BB438 /* VnEffect.m */; };
+		58030DF6193C3EB400E82160 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 58030DF3193C3EB400E82160 /* SVProgressHUD.bundle */; };
+		58030DF7193C3EB400E82160 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 58030DF5193C3EB400E82160 /* SVProgressHUD.m */; };
+		58030DFF193C401F00E82160 /* EVCircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58030DFC193C401F00E82160 /* EVCircularProgressView.m */; };
+		58030E00193C401F00E82160 /* VnViewProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 58030DFE193C401F00E82160 /* VnViewProgress.m */; };
+		58030E04193C445100E82160 /* PtFtViewBlur.m in Sources */ = {isa = PBXBuildFile; fileRef = 58030E03193C445100E82160 /* PtFtViewBlur.m */; };
 		580F83BD1934B1800036A99F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 580F83BF1934B1800036A99F /* Localizable.strings */; };
 		580F83C51934B66B0036A99F /* Aller_Bd.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 580F83C21934B66B0036A99F /* Aller_Bd.ttf */; };
 		580F83C61934B66B0036A99F /* ClearSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 580F83C31934B66B0036A99F /* ClearSans-Bold.ttf */; };
@@ -376,6 +381,15 @@
 		5800CCFC1935C73B004BB438 /* VnEffectColorBronze.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VnEffectColorBronze.m; sourceTree = "<group>"; };
 		5800CD281935C85E004BB438 /* VnEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VnEffect.h; sourceTree = "<group>"; };
 		5800CD291935C85E004BB438 /* VnEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VnEffect.m; sourceTree = "<group>"; };
+		58030DF3193C3EB400E82160 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
+		58030DF4193C3EB400E82160 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		58030DF5193C3EB400E82160 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
+		58030DFB193C401F00E82160 /* EVCircularProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EVCircularProgressView.h; sourceTree = "<group>"; };
+		58030DFC193C401F00E82160 /* EVCircularProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EVCircularProgressView.m; sourceTree = "<group>"; };
+		58030DFD193C401F00E82160 /* VnViewProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VnViewProgress.h; sourceTree = "<group>"; };
+		58030DFE193C401F00E82160 /* VnViewProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VnViewProgress.m; sourceTree = "<group>"; };
+		58030E02193C445100E82160 /* PtFtViewBlur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PtFtViewBlur.h; sourceTree = "<group>"; };
+		58030E03193C445100E82160 /* PtFtViewBlur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PtFtViewBlur.m; sourceTree = "<group>"; };
 		580F83B91934B16D0036A99F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
 		580F83BA1934B16D0036A99F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main_iPad.strings; sourceTree = "<group>"; };
 		580F83BB1934B16D0036A99F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -738,10 +752,17 @@
 		58001091193491CE00B44C5F /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				58030DF3193C3EB400E82160 /* SVProgressHUD.bundle */,
+				58030DF4193C3EB400E82160 /* SVProgressHUD.h */,
+				58030DF5193C3EB400E82160 /* SVProgressHUD.m */,
 				58001092193491D800B44C5F /* VnViewLabel.h */,
 				58001093193491D800B44C5F /* VnViewLabel.m */,
 				58001094193491D800B44C5F /* MotionOrientation.h */,
 				58001095193491D800B44C5F /* MotionOrientation.m */,
+				58030DFB193C401F00E82160 /* EVCircularProgressView.h */,
+				58030DFC193C401F00E82160 /* EVCircularProgressView.m */,
+				58030DFD193C401F00E82160 /* VnViewProgress.h */,
+				58030DFE193C401F00E82160 /* VnViewProgress.m */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -898,6 +919,15 @@
 				588EADBE193761C2005C486E /* VnEffectColorWildHoney.m */,
 			);
 			name = Color;
+			sourceTree = "<group>";
+		};
+		58030E01193C443700E82160 /* General */ = {
+			isa = PBXGroup;
+			children = (
+				58030E02193C445100E82160 /* PtFtViewBlur.h */,
+				58030E03193C445100E82160 /* PtFtViewBlur.m */,
+			);
+			name = General;
 			sourceTree = "<group>";
 		};
 		580F83C11934B6560036A99F /* Fonts */ = {
@@ -1242,6 +1272,7 @@
 		58F5769D1939B81C00B43095 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				58030E01193C443700E82160 /* General */,
 				58341148193A42860042729D /* Slider */,
 				5834113E193A3F140042729D /* Button */,
 				58341137193A3EE50042729D /* Bar */,
@@ -1443,6 +1474,7 @@
 				5800CCC81935C724004BB438 /* clbs.acv in Resources */,
 				5800CCDF1935C724004BB438 /* gm4.acv in Resources */,
 				5800CCE61935C724004BB438 /* hzlp2.acv in Resources */,
+				58030DF6193C3EB400E82160 /* SVProgressHUD.bundle in Resources */,
 				5800CCC51935C724004BB438 /* brzfd.acv in Resources */,
 				580F83C71934B66B0036A99F /* mplus-1c-bold.ttf in Resources */,
 				5800CCCF1935C724004BB438 /* dv1.acv in Resources */,
@@ -1484,6 +1516,8 @@
 				58002F27193AE477008C9291 /* PtFtViewNavigationBar.m in Sources */,
 				5800CD2A1935C85E004BB438 /* VnEffect.m in Sources */,
 				58001097193491D800B44C5F /* MotionOrientation.m in Sources */,
+				58030DF7193C3EB400E82160 /* SVProgressHUD.m in Sources */,
+				58030E04193C445100E82160 /* PtFtViewBlur.m in Sources */,
 				58F5768D19399ECC00B43095 /* ShareInstagramViewController.m in Sources */,
 				58F57687193986CC00B43095 /* PtEdViewImagePreviewScrollView.m in Sources */,
 				58F4C388193A4E6900DB4E23 /* PtFtViewSliderThumb.m in Sources */,
@@ -1556,6 +1590,7 @@
 				588EADB919375CED005C486E /* VnEffectColorUrbanCandy.m in Sources */,
 				588EADB319375B93005C486E /* VnEffectColorSummerSkin.m in Sources */,
 				58341146193A3F410042729D /* PtFtViewLayerBarButtonMask.m in Sources */,
+				58030DFF193C401F00E82160 /* EVCircularProgressView.m in Sources */,
 				5800CC841935C565004BB438 /* VnFilterTemperature.m in Sources */,
 				588EADF519376E41005C486E /* VnEffectOverlayLightBrightMatte.m in Sources */,
 				588EADF919376E41005C486E /* VnEffectOverlayWarmVintage.m in Sources */,
@@ -1581,6 +1616,7 @@
 				580010461934910A00B44C5F /* LmCmViewBarButton.m in Sources */,
 				58D19275193711C3000FAFDB /* VnEffectColorPurePeach.m in Sources */,
 				580F84791934EABE0036A99F /* VnAdjustmentLayerHueSaturation.m in Sources */,
+				58030E00193C401F00E82160 /* VnViewProgress.m in Sources */,
 				5800CD191935C73B004BB438 /* VnEffectColorBronze.m in Sources */,
 				588EADF619376E41005C486E /* VnEffectOverlayLightBrightPop.m in Sources */,
 				58F8456F193704A000F413A6 /* VnEffectColorLittleBlueSecret.m in Sources */,

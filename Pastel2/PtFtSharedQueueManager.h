@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "PtFtObjectProcessQueue.h"
 
+@class PtViewControllerFilters;
+
 @protocol PtFtSharedQueueManagerDelegate
 - (void)queueDidFinished:(PtFtObjectProcessQueue*)queue;
 - (void)dispatchPreviewprogress:(float)progress;
@@ -19,7 +21,7 @@
     NSMutableArray* _queueList;
 }
 
-@property (nonatomic, weak) id<PtFtSharedQueueManagerDelegate> delegate;
+@property (nonatomic, weak) PtViewControllerFilters<PtFtSharedQueueManagerDelegate>* delegate;
 @property (nonatomic, assign) BOOL processing;
 @property (nonatomic, assign) BOOL canceled;
 @property (nonatomic, weak) UIImage* originalImage;

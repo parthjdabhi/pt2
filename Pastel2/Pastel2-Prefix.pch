@@ -159,6 +159,7 @@ typedef NS_ENUM(NSInteger, VnBlendingMode){
     VnBlendingModeDifference
 };
 
+#import "SVProgressHUD.h"
 #import "PtSharedApp.h"
 #import "LmCmSharedCamera.h"
 #import "PtEdConfig.h"
@@ -167,7 +168,7 @@ typedef NS_ENUM(NSInteger, VnBlendingMode){
 #import "PtFtSharedFilterManager.h"
 #import "MotionOrientation.h"
 #import "VnViewLabel.h"
-
+#import "VnViewProgress.h"
 
 
 

@@ -70,6 +70,9 @@
     opacityFilter.opacity = 0.10f;
     ////
     
+    VnFilterNormal* outputFilter = [[VnFilterNormal alloc] init];
+    
+    
     self.startFilter = curveFilter;
     [curveFilter addTarget:levelsFilter1];
     [levelsFilter1 addTarget:photoFilter];
@@ -79,8 +82,9 @@
     [solidColor addTarget:levelsFilter3];
     [levelsFilter3 addTarget:levelsFilter4];
     [levelsFilter4 addTarget:opacityFilter];
-    [opacityFilter addTarget:normalFilter];
-    self.endFilter = normalFilter;
+    [opacityFilter addTarget:normalFilter atTextureLocation:1];
+    [normalFilter addTarget:outputFilter];
+    self.endFilter = outputFilter;
 }
 
 @end

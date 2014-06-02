@@ -36,6 +36,8 @@
     VnAdjustmentLayerGradientMap* gradientMap = [[VnAdjustmentLayerGradientMap alloc] init];
     [gradientMap addColorRed:49.0f Green:15.0f Blue:10.0f Opacity:100.0f Location:0 Midpoint:50];
     [gradientMap addColorRed:249.0f Green:228.0f Blue:198.0f Opacity:100.0f Location:4096 Midpoint:50];
+    gradientMap.blendingMode = VnBlendingModeSoftLight;
+    gradientMap.topLayerOpacity = 0.05f;
     
     self.startFilter = levelsFilter1;
     [levelsFilter1 addTarget:levelsFilter2];

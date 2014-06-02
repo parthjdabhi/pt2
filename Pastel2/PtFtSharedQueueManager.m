@@ -7,6 +7,7 @@
 //
 
 #import "PtFtSharedQueueManager.h"
+#import "PtViewControllerFilters.h"
 
 @implementation PtFtSharedQueueManager
 
@@ -124,6 +125,63 @@ static PtFtSharedQueueManager* sharedPtFtSharedQueueManager = nil;
 
 - (void)processQueueTypePreview:(PtFtObjectProcessQueue *)queue
 {
+    VnImageFilter* startFilter;
+    VnImageFilter* endFilter;
+    PtFtViewManagerFilters* man = self.delegate.filtersManager;
+    __block __weak PtViewControllerFilters* _con = self.delegate;
+    
+    if (man.currentColorButton) {
+        PtFtButtonLayerBar* button = man.currentColorButton;
+        VnEffect* effect = [PtFtSharedFilterManager effectByEffectId:button.effectId];
+        if (effect) {
+            [effect makeFilterGroup];
+            if (startFilter) {
+                [endFilter addTarget:effect.startFilter];
+                endFilter = effect.endFilter;
+            }else{
+                startFilter = effect.startFilter;
+                endFilter = effect.endFilter;
+            }
+        }
+    }
+    
+    if (man.currentArtisticButton) {
+        PtFtButtonLayerBar* button = man.currentArtisticButton;
+        VnEffect* effect = [PtFtSharedFilterManager effectByEffectId:button.effectId];
+        if (effect) {
+            [effect makeFilterGroup];
+            if (startFilter) {
+                [endFilter addTarget:effect.startFilter];
+                endFilter = effect.endFilter;
+            }else{
+                startFilter = effect.startFilter;
+                endFilter = effect.endFilter;
+            }
+        }
+    }
+    
+    if (man.currentOverlayButton) {
+        PtFtButtonLayerBar* button = man.currentOverlayButton;
+        VnEffect* effect = [PtFtSharedFilterManager effectByEffectId:button.effectId];
+        if (effect) {
+            [effect makeFilterGroup];
+            if (startFilter) {
+                [endFilter addTarget:effect.startFilter];
+                endFilter = effect.endFilter;
+            }else{
+                startFilter = effect.startFilter;
+                endFilter = effect.endFilter;
+            }
+        }
+    }
+    dispatch_queue_t q_main = dispatch_get_main_queue();
+    dispatch_async(q_main, ^{
+        [_con.progressView setProgress:0.90f];
+    });
+    if (startFilter&&endFilter) {
+        queue.image = [VnEffect processImage:queue.image WithStartFilter:startFilter EndFilter:endFilter];
+    }
+
 }
 
 - (void)processQueueTypeOriginal:(PtFtObjectProcessQueue *)queue

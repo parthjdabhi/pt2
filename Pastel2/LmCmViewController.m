@@ -121,7 +121,7 @@
     self.isPresenting = NO;
     
     __block __weak LmCmViewController* _self = self;
-    if (_cameraManager.isRunning == NO && _state == LmCmViewControllerStatePresentedEditorController) {
+    if (_cameraManager.isRunning == NO && _state != LmCmViewControllerStatePhotoLibraryIsOpening) {
         dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         dispatch_queue_t q_main = dispatch_get_main_queue();
         dispatch_async(q_global, ^{
@@ -131,9 +131,8 @@
             dispatch_async(q_main, ^{
                 [_self.cameraPreview blackOut:NO];
             });
-            
         });
-    }else if(_state == LmCmViewControllerStatePresentedEditorController){
+    }else if(_state != LmCmViewControllerStatePhotoLibraryIsOpening){
         [self.cameraPreview blackOut:NO];
     }
     _state = LmCmViewControllerStateDefault;
@@ -368,6 +367,8 @@
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
+    _state = LmCmViewControllerStateDefault;
+    _isKeepingDisabled = NO;
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 

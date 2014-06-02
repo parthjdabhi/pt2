@@ -21,6 +21,13 @@
 
 - (void)makeFilterGroup
 {
+    
+    
+    VnFilterNormal* inputFilter = [[VnFilterNormal alloc] init];
+    GPUImageNormalBlendFilter* normalFilter = [[GPUImageNormalBlendFilter alloc] init];
+    GPUImageOpacityFilter* opacity = [[GPUImageOpacityFilter alloc] init];
+    opacity.opacity = 0.70f;
+    
     // Levels
     VnFilterLevels* levelsFilter1 = [[VnFilterLevels alloc] init];
     [levelsFilter1 setRedMin:s255(6.0f) gamma:1.13f max:s255(252.0f) minOut:s255(15.0f) maxOut:s255(255.0f)];
@@ -35,13 +42,20 @@
     VnAdjustmentLayerGradientMap* gradientMap = [[VnAdjustmentLayerGradientMap alloc] init];
     [gradientMap addColorRed:0.0f Green:0.0f Blue:0.0f Opacity:100.0f Location:0 Midpoint:50];
     [gradientMap addColorRed:229.0f Green:229.0f Blue:229.0f Opacity:100.0f Location:4096 Midpoint:50];
+    gradientMap.blendingMode = VnBlendingModeLuminotisy;
+    gradientMap.topLayerOpacity = 0.60f;
     
     // Curve
     VnFilterToneCurve* curveFilter = [[VnFilterToneCurve alloc] initWithACV:@"cvm"];
+    curveFilter.topLayerOpacity = 0.85f;
     
-    self.startFilter = levelsFilter1;
+    self.startFilter = inputFilter;
+    [inputFilter addTarget:normalFilter];
+    [inputFilter addTarget:levelsFilter1];
     [levelsFilter1 addTarget:levelsFilter2];
-    [levelsFilter2 addTarget:gradientMap];
+    [levelsFilter2 addTarget:opacity];
+    [opacity addTarget:normalFilter atTextureLocation:1];
+    [normalFilter addTarget:gradientMap];
     [gradientMap addTarget:curveFilter];
     self.endFilter = curveFilter;
     

@@ -136,6 +136,7 @@
 - (void)didLayerBarButtonTouchUpInside:(PtFtButtonLayerBar *)button
 {
     [self selectLayerButtonWithButton:button];
+    [self.delegate filterButtonDidTouchUpInside:button];
 }
 
 - (void)setPresetImage:(UIImage *)image ToEffect:(VnEffectId)effectId
