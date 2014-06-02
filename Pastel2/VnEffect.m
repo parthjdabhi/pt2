@@ -10,6 +10,16 @@
 
 @implementation VnEffect
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        _defaultOpacity = 1.0f;
+        _faceOpacity = 1.0f;
+    }
+    return self;
+}
+
 + (UIImage*)processImage:(UIImage *)image WithStartFilter:(VnImageFilter *)startFilter EndFilter:(VnImageFilter *)endFilter
 {
     @autoreleasepool {

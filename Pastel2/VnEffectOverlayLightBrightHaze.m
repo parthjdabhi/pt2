@@ -70,7 +70,7 @@
     opacityFilter.opacity = 0.10f;
     ////
     
-    VnFilterNormal* outputFilter = [[VnFilterNormal alloc] init];
+    VnFilterDuplicate* outputFilter = [[VnFilterDuplicate alloc] init];
     
     
     self.startFilter = curveFilter;

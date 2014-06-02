@@ -6,7 +6,7 @@
 //  Copyright (c) 2014年 SSC. All rights reserved.
 //
 
-#import "VnFilterNormal.h"
+#import "VnFilterDuplicate.h"
 
 NSString *const kVnFilterNormalFragmentShaderString = SHADER_STRING
 (
@@ -22,7 +22,7 @@ NSString *const kVnFilterNormalFragmentShaderString = SHADER_STRING
      gl_FragColor = blendWithBlendingMode(textureColor, vec4(rs.r, rs.g, rs.b, topLayerOpacity), blendingMode);
  }
  );
-@implementation VnFilterNormal
+@implementation VnFilterDuplicate
 
 - (id)init;
 {

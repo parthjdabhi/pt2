@@ -127,50 +127,76 @@ static PtFtSharedQueueManager* sharedPtFtSharedQueueManager = nil;
 {
     VnImageFilter* startFilter;
     VnImageFilter* endFilter;
-    PtFtViewManagerFilters* man = self.delegate.filtersManager;
+    PtFtViewManagerFilters* fm = self.delegate.filtersManager;
+    PtFtViewManagerSliders* sm = self.delegate.slidersManager;
     __block __weak PtViewControllerFilters* _con = self.delegate;
     
-    if (man.currentColorButton) {
-        PtFtButtonLayerBar* button = man.currentColorButton;
+    if (fm.currentColorButton) {
+        PtFtButtonLayerBar* button = fm.currentColorButton;
         VnEffect* effect = [PtFtSharedFilterManager effectByEffectId:button.effectId];
         if (effect) {
             [effect makeFilterGroup];
+            effect.imageSize = queue.image.size;
+            VnFilterDuplicate* inputFilter = [[VnFilterDuplicate alloc] init];
+            VnImageNormalBlendFilter* blendFilter = [[VnImageNormalBlendFilter alloc] init];
+            [inputFilter addTarget:blendFilter];
+            [inputFilter addTarget:effect.startFilter];
+            [effect.endFilter addTarget:blendFilter];
+            blendFilter.topLayerOpacity = sm.colorOpacity;
+            startFilter = inputFilter;
+            endFilter = blendFilter;
+            
+        }
+    }
+    
+    if (fm.currentArtisticButton) {
+        PtFtButtonLayerBar* button = fm.currentArtisticButton;
+        VnEffect* effect = [PtFtSharedFilterManager effectByEffectId:button.effectId];
+        if (effect) {
+            [effect makeFilterGroup];
+            effect.imageSize = queue.image.size;
             if (startFilter) {
+                VnImageNormalBlendFilter* blendFilter = [[VnImageNormalBlendFilter alloc] init];
+                [endFilter addTarget:blendFilter];
                 [endFilter addTarget:effect.startFilter];
-                endFilter = effect.endFilter;
+                [effect.endFilter addTarget:blendFilter];
+                blendFilter.topLayerOpacity = sm.artisticOpacity;
+                endFilter = blendFilter;
             }else{
-                startFilter = effect.startFilter;
-                endFilter = effect.endFilter;
+                VnFilterDuplicate* inputFilter = [[VnFilterDuplicate alloc] init];
+                VnImageNormalBlendFilter* blendFilter = [[VnImageNormalBlendFilter alloc] init];
+                [inputFilter addTarget:blendFilter];
+                [inputFilter addTarget:effect.startFilter];
+                [effect.endFilter addTarget:blendFilter];
+                blendFilter.topLayerOpacity = sm.artisticOpacity;
+                startFilter = inputFilter;
+                endFilter = blendFilter;
             }
         }
     }
     
-    if (man.currentArtisticButton) {
-        PtFtButtonLayerBar* button = man.currentArtisticButton;
+    if (fm.currentOverlayButton) {
+        PtFtButtonLayerBar* button = fm.currentOverlayButton;
         VnEffect* effect = [PtFtSharedFilterManager effectByEffectId:button.effectId];
         if (effect) {
             [effect makeFilterGroup];
+            effect.imageSize = queue.image.size;
             if (startFilter) {
+                VnImageNormalBlendFilter* blendFilter = [[VnImageNormalBlendFilter alloc] init];
+                [endFilter addTarget:blendFilter];
                 [endFilter addTarget:effect.startFilter];
-                endFilter = effect.endFilter;
+                [effect.endFilter addTarget:blendFilter];
+                blendFilter.topLayerOpacity = sm.overlayOpacity;
+                endFilter = blendFilter;
             }else{
-                startFilter = effect.startFilter;
-                endFilter = effect.endFilter;
-            }
-        }
-    }
-    
-    if (man.currentOverlayButton) {
-        PtFtButtonLayerBar* button = man.currentOverlayButton;
-        VnEffect* effect = [PtFtSharedFilterManager effectByEffectId:button.effectId];
-        if (effect) {
-            [effect makeFilterGroup];
-            if (startFilter) {
-                [endFilter addTarget:effect.startFilter];
-                endFilter = effect.endFilter;
-            }else{
-                startFilter = effect.startFilter;
-                endFilter = effect.endFilter;
+                VnFilterDuplicate* inputFilter = [[VnFilterDuplicate alloc] init];
+                VnImageNormalBlendFilter* blendFilter = [[VnImageNormalBlendFilter alloc] init];
+                [inputFilter addTarget:blendFilter];
+                [inputFilter addTarget:effect.startFilter];
+                [effect.endFilter addTarget:blendFilter];
+                blendFilter.topLayerOpacity = sm.overlayOpacity;
+                startFilter = inputFilter;
+                endFilter = blendFilter;
             }
         }
     }

@@ -8,6 +8,6 @@
 
 #import "VnImageFilter.h"
 
-@interface VnFilterNormal : VnImageFilter
+@interface VnFilterDuplicate : VnImageFilter
 
 @end

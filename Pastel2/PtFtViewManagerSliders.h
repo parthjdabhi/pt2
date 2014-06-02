@@ -17,5 +17,9 @@
 @property (nonatomic, weak) PtViewControllerFilters* delegate;
 @property (nonatomic, strong) PtFtViewBarWrapper* barWrapper;
 
+@property (nonatomic, assign) float overlayOpacity;
+@property (nonatomic, assign) float colorOpacity;
+@property (nonatomic, assign) float artisticOpacity;
+
 - (void)viewDidLoad;
 @end

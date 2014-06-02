@@ -24,7 +24,7 @@
 - (void)makeFilterGroup
 {
     // Duplicate
-    VnFilterNormal* normalFilter1 = [[VnFilterNormal alloc] init];
+    VnFilterDuplicate* normalFilter1 = [[VnFilterDuplicate alloc] init];
     normalFilter1.blendingMode = VnBlendingModeOverlay;
     normalFilter1.topLayerOpacity = 0.40f;
     
@@ -57,7 +57,7 @@
     
     
     // Duplicate
-    VnFilterNormal* normalFilter2 = [[VnFilterNormal alloc] init];
+    VnFilterDuplicate* normalFilter2 = [[VnFilterDuplicate alloc] init];
     normalFilter2.blendingMode = VnBlendingModeOverlay;
     normalFilter2.topLayerOpacity = 0.40f;
     

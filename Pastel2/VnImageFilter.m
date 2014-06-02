@@ -10,7 +10,7 @@
 
 @implementation VnImageFilter
 
-NSString* kVnImageFilterFragmentShaderString = SHADER_STRING
+NSString* const kVnImageFilterFragmentShaderString = SHADER_STRING
 (
  
  uniform int blendingMode;

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "PtFtObjectProcessQueue.h"
+#import "VnImageNormalBlendFilter.h"
 
 @class PtViewControllerFilters;
 

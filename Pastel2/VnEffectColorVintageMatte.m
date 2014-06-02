@@ -23,7 +23,7 @@
 {
     
     
-    VnFilterNormal* inputFilter = [[VnFilterNormal alloc] init];
+    VnFilterDuplicate* inputFilter = [[VnFilterDuplicate alloc] init];
     GPUImageNormalBlendFilter* normalFilter = [[GPUImageNormalBlendFilter alloc] init];
     GPUImageOpacityFilter* opacity = [[GPUImageOpacityFilter alloc] init];
     opacity.opacity = 0.70f;

@@ -24,13 +24,10 @@
     // Curve
     VnFilterToneCurve* curveFilter = [[VnFilterToneCurve alloc] initWithACV:@"olbp"];
     
-    
-    
     // Levels
     VnFilterLevels* levelsFilter = [[VnFilterLevels alloc] init];
     [levelsFilter setMin:s255(40.0f) gamma:1.05f max:s255(250.0f) minOut:s255(0.0f) maxOut:s255(255.0f)];
     levelsFilter.topLayerOpacity = 0.70f;
-    
     
     // Photo Filter
     VnAdjustmentLayerPhotoFilter* photoFilter = [[VnAdjustmentLayerPhotoFilter alloc] init];

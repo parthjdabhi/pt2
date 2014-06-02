@@ -8,6 +8,8 @@
 
 #import "GPUImageFilter.h"
 
+extern NSString* const kVnImageFilterFragmentShaderString;
+
 @interface VnImageFilter : GPUImageFilter
 
 @property (nonatomic, assign) float topLayerOpacity;
