@@ -37,5 +37,6 @@
 
 
 - (void)didTouchUpInside:(PtFtButtonLayerBar*)sender;
+- (void)deallocImage;
 
 @end

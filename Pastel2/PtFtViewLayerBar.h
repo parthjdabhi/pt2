@@ -24,5 +24,6 @@
 - (void)appendToolButtonRight:(PtFtButtonToolBar*)button;
 
 - (void)scrollToLayerButton:(PtFtButtonLayerBar*)button;
+- (void)deallocAllButtons;
 
 @end

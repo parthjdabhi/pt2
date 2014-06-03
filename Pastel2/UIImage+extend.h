@@ -23,6 +23,7 @@
 - (UIImage *)croppedImage:(CGRect)bounds;
 - (UIImage *)resizedImage:(CGSize)newSize
      interpolationQuality:(CGInterpolationQuality)quality;
+- (UIImage*)resizeImageAndConvertJpeg:(CGSize)size;
 - (UIImage *)resizedImageWithContentMode:(UIViewContentMode)contentMode
                                   bounds:(CGSize)bounds
                     interpolationQuality:(CGInterpolationQuality)quality;

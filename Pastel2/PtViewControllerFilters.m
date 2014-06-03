@@ -62,6 +62,7 @@
     [_navigationManager viewDidLoad];
     
     [_progressView setProgress:0.10f];
+    
     __block __weak PtViewControllerFilters* _self = self;
     dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_queue_t q_main = dispatch_get_main_queue();
@@ -69,7 +70,8 @@
         @autoreleasepool {
             UIImage* image = [PtSharedApp instance].imageToProcess;
             CGSize size = CGSizeMake(_self.previewImageView.width * [[UIScreen mainScreen] scale], _self.previewImageView.height * [[UIScreen mainScreen] scale]);
-            image = [image resizedImage:size interpolationQuality:kCGInterpolationHigh];
+            //image = [image resizedImage:size interpolationQuality:kCGInterpolationHigh];
+            image = [image resizeImageAndConvertJpeg:size];
             _self.previewImage = image;
         }
         dispatch_async(q_main, ^{
@@ -100,7 +102,8 @@
             [_self.progressView setProgress:0.90f];
         });
         @autoreleasepool {
-            if ([UIDevice underIPhone5]) {
+            /*
+            if (YES) {
                 
             }else{
                 //// Detect faces
@@ -115,6 +118,7 @@
                     _self.faceDetected = YES;
                 }
             }
+             */
         }
         dispatch_async(q_main, ^{
             _self.previewImageView.image = _self.previewImage;
@@ -168,6 +172,10 @@
     switch (queue.type) {
         case PtFtProcessQueueTypePreview:
         {
+            if (_releasePreviewImage) {
+                CGImageRelease(_previewImageView.image.CGImage);
+            }
+            _releasePreviewImage = YES;
             _previewImageView.image = queue.image;
             self.progressView.hidden = YES;
             self.blurView.isBlurred = NO;
@@ -198,6 +206,9 @@
     PtSharedApp* app = [PtSharedApp instance];
     @autoreleasepool {
         app.imageToProcess = [UIImage mergeSplitImage9:self.originalImageParts WithSize:app.sizeOfImageToProcess];
+        for (UIImage* imge in self.originalImageParts) {
+            CGImageRelease(imge.CGImage);
+        }
         [self.originalImageParts removeAllObjects];
     }
     self.view.userInteractionEnabled = YES;
@@ -278,6 +289,11 @@
         });
     });
 
+}
+
+- (void)deallocImages
+{
+    
 }
 
 - (void)didReceiveMemoryWarning

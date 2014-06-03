@@ -184,6 +184,7 @@ NSString *const kGPUImageGradientColorGeneratorFragmentShaderString = SHADER_STR
      } else{
          rs = pixel;
      }
+     rs.a *= topLayerOpacity;
      gl_FragColor = blendWithBlendingMode(pixel, rs, blendingMode);
  }
  );

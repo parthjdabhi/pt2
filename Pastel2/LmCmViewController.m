@@ -16,6 +16,7 @@
 
 - (void)initCameraManager
 {
+    self.view.userInteractionEnabled = NO;
     _isCameraInitializing = YES;
     if (_cameraManager) {
         [_cameraManager deallocCamera];
@@ -40,6 +41,7 @@
             [_self.cameraManager setPreview:_self.cameraPreview];
             _self.isCameraInitializing = NO;
             [_self.cameraPreview blackOut:NO];
+            _self.view.userInteractionEnabled = YES;
             LOG(@"Camera is ready");
         });
         
@@ -122,6 +124,7 @@
     
     __block __weak LmCmViewController* _self = self;
     if (_cameraManager.isRunning == NO && _state != LmCmViewControllerStatePhotoLibraryIsOpening) {
+        self.view.userInteractionEnabled = NO;
         dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         dispatch_queue_t q_main = dispatch_get_main_queue();
         dispatch_async(q_global, ^{
@@ -130,10 +133,12 @@
             }
             dispatch_async(q_main, ^{
                 [_self.cameraPreview blackOut:NO];
+                _self.view.userInteractionEnabled = YES;
             });
         });
     }else if(_state != LmCmViewControllerStatePhotoLibraryIsOpening){
         [self.cameraPreview blackOut:NO];
+        self.view.userInteractionEnabled = YES;
     }
     _state = LmCmViewControllerStateDefault;
 }
@@ -150,6 +155,7 @@
     if (_isCameraInitializing) {
         return;
     }
+    self.view.userInteractionEnabled = NO;
     _shutterButton.holding = NO;
     _shutterButton.shooting = YES;
     if ([LmCmSharedCamera instance].soundEnabled) {
@@ -161,6 +167,7 @@
 - (void)didShutterButtonTouchCancel:(id)sender
 {
     _shutterButton.holding = NO;
+    self.view.userInteractionEnabled = YES;
 }
 
 #pragma mark delegate
@@ -309,6 +316,7 @@
                                          orientation:[representation orientation]];
         }
         dispatch_async(q_main, ^{
+            [PtSharedApp instance].assetToProcess = _self.lastAsset;
             [_self presentEditorViewControllerWithImage:image];
         });
         
@@ -332,7 +340,8 @@
     __block __weak LmCmViewController* _self = self;
     [self.assetLibrary assetForURL:url resultBlock:^(ALAsset *asset) {
         if(_self.loadedImageFromPickerController){
-            _self.lastAsset = asset;
+            //_self.lastAsset = asset;
+            [PtSharedApp instance].assetToProcess = asset;
             //// Do your stuff
             [_self presentEditorViewControllerWithImage:_self.loadedImageFromPickerController];
         }

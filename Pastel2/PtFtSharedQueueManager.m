@@ -141,6 +141,9 @@ static PtFtSharedQueueManager* sharedPtFtSharedQueueManager = nil;
 - (void)processQueueTypeOriginal:(PtFtObjectProcessQueue *)queue
 {
     [self setStartAndEndFiltersWithQueue:queue];
+    if (self.startFilter == nil) {
+        return;
+    }
     __block __weak PtViewControllerFilters* _con = self.delegate;
     dispatch_queue_t q_main = dispatch_get_main_queue();
     NSMutableArray* parts = self.delegate.originalImageParts;
@@ -156,6 +159,8 @@ static PtFtSharedQueueManager* sharedPtFtSharedQueueManager = nil;
             [_con.progressView setProgress:0.10f + _con.progressView.progress];
         });
     }
+    self.startFilter = nil;
+    self.endFilter = nil;
 }
 
 - (void)setStartAndEndFiltersWithQueue:(PtFtObjectProcessQueue *)queue
@@ -164,7 +169,6 @@ static PtFtSharedQueueManager* sharedPtFtSharedQueueManager = nil;
     VnImageFilter* endFilter;
     PtFtViewManagerFilters* fm = self.delegate.filtersManager;
     PtFtViewManagerSliders* sm = self.delegate.slidersManager;
-    __block __weak PtViewControllerFilters* _con = self.delegate;
     
     if (fm.currentColorButton) {
         PtFtButtonLayerBar* button = fm.currentColorButton;

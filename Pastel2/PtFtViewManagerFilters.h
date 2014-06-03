@@ -41,5 +41,6 @@
 - (void)selectLayerButtonWithEffectId:(VnEffectId)effectId;
 
 - (void)didLayerBarButtonTouchUpInside:(PtFtButtonLayerBar*)button;
+- (void)deallocArtisticButtonImages;
 
 @end

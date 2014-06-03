@@ -41,6 +41,7 @@
 #import "VnEffectOverlaySunhazeRight.h"
 
 #import "VnEffectBeachVintage.h"
+#import "VnEffectBellerina.h"
 
 @interface PtFtSharedFilterManager : NSObject
 

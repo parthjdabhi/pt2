@@ -73,6 +73,50 @@
     return [self resizedImage:newSize interpolationQuality:quality];
 }
 
+#pragma mark resizing
+
+- (UIImage *)resizeImageAndConvertJpeg:(CGSize)size
+{
+    
+    size_t width = size.width;
+    size_t height = size.height;
+    size_t bitsPerComponent = 8;
+    size_t bytesPerRow = 4 * width;
+    size_t bytesSize = bytesPerRow * height;
+    uint8_t *bytes = malloc(bytesSize);
+    
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    CGBitmapInfo bitmapInfo = kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrderDefault;
+    
+    CGContextRef context = CGBitmapContextCreate(bytes, width, height, bitsPerComponent, bytesPerRow, colorSpace, bitmapInfo);
+    CGContextSetBlendMode(context, kCGBlendModeCopy);
+    CGContextSetInterpolationQuality(context, kCGInterpolationNone);
+    CGContextDrawImage(context, CGRectMake(0, 0, width, height), self.CGImage);
+    
+    CGContextRelease(context);
+    
+    CGDataProviderRef dataProvider = CGDataProviderCreateWithData(NULL, bytes, bytesSize, bufferFree);
+    size_t bitsPerPixel = 32;
+    CGImageRef rasterImage = CGImageCreate(width,
+                                           height,
+                                           bitsPerComponent,
+                                           bitsPerPixel,
+                                           bytesPerRow,
+                                           colorSpace,
+                                           kCGBitmapAlphaInfoMask | kCGImageAlphaPremultipliedFirst,
+                                           dataProvider,
+                                           NULL,
+                                           NO,
+                                           kCGRenderingIntentDefault);
+    NSData* data = UIImageJPEGRepresentation([UIImage imageWithCGImage:rasterImage], 0.99);
+    UIImage* resultImage = [UIImage imageWithData:data];
+    CGDataProviderRelease(dataProvider);
+    CGColorSpaceRelease(colorSpace);
+    CGImageRelease(rasterImage);
+    free(bytes);
+    return resultImage;
+}
+
 #pragma mark -
 #pragma mark Private helper methods
 
@@ -82,7 +126,8 @@
 - (UIImage *)resizedImage:(CGSize)newSize
                 transform:(CGAffineTransform)transform
            drawTransposed:(BOOL)transpose
-     interpolationQuality:(CGInterpolationQuality)quality {
+     interpolationQuality:(CGInterpolationQuality)quality
+{
     CGFloat scale = MAX(1.0f, self.scale);
     CGRect newRect = CGRectIntegral(CGRectMake(0, 0, newSize.width*scale, newSize.height*scale));
     CGRect transposedRect = CGRectMake(0, 0, newRect.size.height, newRect.size.width);
@@ -115,12 +160,13 @@
     // Get the resized image from the context and a UIImage
     CGImageRef newImageRef = CGBitmapContextCreateImage(bitmap);
     UIImage *newImage = [UIImage imageWithCGImage:newImageRef scale:self.scale orientation:UIImageOrientationUp];
-    
+    NSData* data = UIImageJPEGRepresentation(newImage, 0.99f);
+    UIImage* resultImage = [UIImage imageWithData:data];
     // Clean up
     CGContextRelease(bitmap);
     CGImageRelease(newImageRef);
     
-    return newImage;
+    return resultImage;
 }
 
 #pragma mark low memory
@@ -535,6 +581,18 @@
     return  array;
 }
 
+static void bufferFree(void *info, const void *data, size_t size)
+{
+    free((void *)data);
+}
+static size_t align16(size_t size)
+{
+    if(size == 0)
+        return 0;
+    
+    return (((size - 1) >> 4) << 4) + 16;
+}
+
 + (UIImage *)mergeSplitImage9:(NSMutableArray*)array WithSize:(CGSize)size
 {
     
@@ -547,7 +605,98 @@
     float height1 = cropHeight;
     float height2 = cropHeight;
     float height3 = size.height - height1 - height2;
+    
+    size_t width = size.width;
+    size_t height = size.height;
+    size_t bitsPerComponent = 8;
+    size_t bytesPerRow = align16(4 * width);
+    size_t bufferSize = bytesPerRow * height;
+    uint8_t *bytes = malloc(bufferSize);
+    CGBitmapInfo bitmapInfo = kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrderDefault;
+    
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    
+    CGContextRef context = CGBitmapContextCreate(bytes, width, height, bitsPerComponent, bytesPerRow, colorSpace, bitmapInfo);
+    CGContextClearRect(context, CGRectMake(0, 0, width, height));
+    
+    //// 座標系に注意
+    //// 1
+    {
+        UIImage* image = [array objectAtIndex:0];
+        CGContextDrawImage(context, CGRectMake(0.0f, height - image.size.height, image.size.width, image.size.height), image.CGImage);
+    }
+    //// 2
+    {
+        UIImage* image = [array objectAtIndex:1];
+        CGContextDrawImage(context, CGRectMake(width1, height - image.size.height, image.size.width, image.size.height), image.CGImage);
+    }
+    //// 3
+    {
+        UIImage* image = [array objectAtIndex:2];
+        CGContextDrawImage(context, CGRectMake(width1 + width2, height - image.size.height, image.size.width, image.size.height), image.CGImage);
+    }
+    //// 4
+    {
+        UIImage* image = [array objectAtIndex:3];
+        CGContextDrawImage(context, CGRectMake(0.0f, height3, image.size.width, image.size.height), image.CGImage);
+    }
+    //// 5
+    {
+        UIImage* image = [array objectAtIndex:4];
+        CGContextDrawImage(context, CGRectMake(width1, height3, image.size.width, image.size.height), image.CGImage);
+    }
+    //// 6
+    {
+        UIImage* image = [array objectAtIndex:5];
+        CGContextDrawImage(context, CGRectMake(width1 + width2, height3, image.size.width, image.size.height), image.CGImage);
+    }
+    //// 7
+    {
+        UIImage* image = [array objectAtIndex:6];
+        CGContextDrawImage(context, CGRectMake(0.0f, 0.0f, image.size.width, image.size.height), image.CGImage);
+    }
+    //// 8
+    {
+        UIImage* image = [array objectAtIndex:7];
+        CGContextDrawImage(context, CGRectMake(width1, 0.0f, image.size.width, image.size.height), image.CGImage);
+    }
+    //// 9
+    {
+        UIImage* image = [array objectAtIndex:8];
+        CGContextDrawImage(context, CGRectMake(width1 + width2, 0.0f, image.size.width, image.size.height), image.CGImage);
+    }
+    
+    CGContextRelease(context);
+    context = NULL;
+    
+    CGDataProviderRef dataProvider = CGDataProviderCreateWithData(NULL, bytes, bufferSize, bufferFree);
+    size_t bitsPerPixel = 32;
+    CGImageRef image = CGImageCreate(width, height, bitsPerComponent, bitsPerPixel, bytesPerRow, colorSpace, bitmapInfo, dataProvider, NULL, NO, kCGRenderingIntentDefault);
+    CGDataProviderRelease(dataProvider);
+    dataProvider = NULL;
+    CGColorSpaceRelease(colorSpace);
+    colorSpace = NULL;
+    UIImage* mergedImage = [UIImage imageWithCGImage:image scale:1.0f orientation:UIImageOrientationUp];
+    NSData* data = UIImageJPEGRepresentation(mergedImage, 0.99);
+    UIImage* resultImage = [UIImage imageWithData:data];
+    CGImageRelease(image);
+    free(bytes);
+    return resultImage;
+}
 
++ (UIImage *)_mergeSplitImage9:(NSMutableArray*)array WithSize:(CGSize)size
+{
+    
+    float cropWidth = floor(size.width / 3.0f);
+    float cropHeight = floor(size.height / 3.0f);
+    
+    float width1 = cropWidth;
+    float width2 = cropWidth;
+    float width3 = size.width - width1 - width2;
+    float height1 = cropHeight;
+    float height2 = cropHeight;
+    float height3 = size.height - height1 - height2;
+    
     
     UIGraphicsBeginImageContext(size);
     
@@ -598,7 +747,10 @@
 
 - (void)dealloc
 {
-    LOG(@"UIImage dealloc: %fx%f", self.size.width, self.size.height);
+    LOG(@"UIimage dealloc.");
+
+        //LOG(@"UIImage dealloc: %fx%f", self.size.width, self.size.height);
+    
 }
 
 @end

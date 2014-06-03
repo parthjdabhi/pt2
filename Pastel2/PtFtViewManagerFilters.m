@@ -214,6 +214,10 @@
 
 #pragma mark delegate
 
+- (void)deallocArtisticButtonImages
+{
+    [_artisticBar deallocAllButtons];
+}
 
 
 @end

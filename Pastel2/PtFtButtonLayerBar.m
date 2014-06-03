@@ -60,6 +60,15 @@
     _imageView.image = previewImage;
 }
 
+- (void)deallocImage
+{
+    if (_imageView.image) {
+        CGImageRelease(_imageView.image.CGImage);
+        _imageView.image = nil;
+        [_imageView removeFromSuperview];
+    }
+}
+
 - (void)setLocked:(BOOL)locked
 {
     _locked = locked;

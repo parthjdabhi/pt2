@@ -65,6 +65,13 @@ static PtFtSharedFilterManager* sharedPtFtSharedFilterManager = nil;
     item.effectGroup = VnEffectGroupEffects;
     [_artisticFilters addObject:item];
     
+    //// Bellerina
+    item = [[PtFtObjectFilterItem alloc] init];
+    item.effectId = VnEffectIdBellerina;
+    item.name = NSLocalizedString(@"H1", nil);
+    item.effectGroup = VnEffectGroupEffects;
+    [_artisticFilters addObject:item];
+    
     //// Beach Vintage
     item = [[PtFtObjectFilterItem alloc] init];
     item.effectId = VnEffectIdBeachVintage;
@@ -421,6 +428,8 @@ static PtFtSharedFilterManager* sharedPtFtSharedFilterManager = nil;
             //// Artistic
         case VnEffectIdBeachVintage:
             return [VnEffectBeachVintage new];
+        case VnEffectIdBellerina:
+            return [VnEffectBellerina new];
         default:
             break;
     }

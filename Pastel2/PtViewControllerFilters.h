@@ -30,6 +30,7 @@
 @property (nonatomic, assign) BOOL faceDetected;
 @property (nonatomic, strong) NSMutableArray* originalImageParts;
 @property (nonatomic, weak) PtViewControllerEditor* editorController;
+@property (nonatomic, assign) BOOL releasePreviewImage;
 
 - (void)initPresetQueuePool;
 - (PtFtObjectProcessQueue*)shiftQueueFromPool;
@@ -38,5 +39,6 @@
 - (void)applyFiltersToOriginalImage;
 
 - (void)didFinishProcessingOriginalImage;
+- (void)deallocImages;
 
 @end

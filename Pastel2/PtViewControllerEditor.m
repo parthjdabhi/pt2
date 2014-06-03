@@ -136,6 +136,7 @@
 
 - (void)buttonCameraDidTouchUpInside:(PtEdViewBarButton *)button
 {
+    CGImageRelease([PtSharedApp instance].imageToProcess.CGImage);
     [PtSharedApp instance].imageToProcess = nil;
     [self.navigationController popViewControllerAnimated:NO];
 }

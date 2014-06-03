@@ -84,6 +84,15 @@
     
 }
 
+- (void)deallocAllButtons
+{
+    for (PtFtButtonLayerBar* button in [_view subviews]) {
+        if ([button isKindOfClass:[PtFtButtonLayerBar class]]) {
+            [button deallocImage];
+        }
+    }
+}
+
 - (void)setLocked:(BOOL)locked
 {
     _locked = locked;

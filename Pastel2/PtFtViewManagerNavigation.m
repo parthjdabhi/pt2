@@ -33,7 +33,9 @@
 
 - (void)navigationCancelDidTouchUpInside:(PtFtButtonNavigation *)button
 {
-    [self.delegate.navigationController popViewControllerAnimated:NO];
+    PtViewControllerFilters* con = self.delegate;
+    [con.filtersManager deallocArtisticButtonImages];
+    [con.navigationController popViewControllerAnimated:NO];
 }
 
 - (void)navigationDoneDidTouchUpInside:(PtFtButtonNavigation *)button
