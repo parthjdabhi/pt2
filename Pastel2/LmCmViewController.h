@@ -21,6 +21,7 @@
 #import "LmCmViewManagerTools.h"
 #import "LmCmViewCropBlackRect.h"
 #import "PtViewControllerEditor.h"
+#import <ImageIO/ImageIO.h>
 
 typedef NS_ENUM(NSInteger, LmCmViewControllerState){
     LmCmViewControllerStateDefault = 1,

@@ -514,8 +514,10 @@
         
         @autoreleasepool {
             CGImageRef cgImage = [LmCmCameraManager imageFromSampleBuffer:sampleBuffer];
-            asset.image = [UIImage imageWithCGImage:cgImage];
+            UIImage* image = [UIImage imageWithCGImage:cgImage];
+            NSData* data = UIImageJPEGRepresentation(image, 0.99f);
             CGImageRelease(cgImage);
+            asset.image = [UIImage imageWithData:data];
         }
         
         asset.zoom = camera.zoom;

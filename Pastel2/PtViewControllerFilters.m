@@ -71,7 +71,7 @@
             UIImage* image = [PtSharedApp instance].imageToProcess;
             CGSize size = CGSizeMake(_self.previewImageView.width * [[UIScreen mainScreen] scale], _self.previewImageView.height * [[UIScreen mainScreen] scale]);
             //image = [image resizedImage:size interpolationQuality:kCGInterpolationHigh];
-            image = [image resizeImageAndConvertJpeg:size];
+            image = [UIImage resizedImageUrl:[PtSharedApp originalImageUrl] ToSize:size];
             _self.previewImage = image;
         }
         dispatch_async(q_main, ^{

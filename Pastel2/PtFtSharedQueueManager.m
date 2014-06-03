@@ -151,6 +151,7 @@ static PtFtSharedQueueManager* sharedPtFtSharedQueueManager = nil;
         @autoreleasepool {
             UIImage* image = [parts objectAtIndex:i];
             if (image) {
+                //// 圧縮しない
                 image = [VnEffect processImage:image WithStartFilter:self.startFilter EndFilter:self.endFilter];
                 [parts replaceObjectAtIndex:i withObject:image];
             }
@@ -158,6 +159,7 @@ static PtFtSharedQueueManager* sharedPtFtSharedQueueManager = nil;
         dispatch_async(q_main, ^{
             [_con.progressView setProgress:0.10f + _con.progressView.progress];
         });
+        [NSThread sleepForTimeInterval:10.0f];
     }
     self.startFilter = nil;
     self.endFilter = nil;

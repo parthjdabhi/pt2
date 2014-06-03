@@ -31,5 +31,9 @@ typedef NS_ENUM(NSInteger, PtSharedAppThemeColor){
 + (PtSharedApp*)instance;
 + (float)bottomNavigationBarHeight;
 + (UIColor*)bottomNavigationBarBgColor;
++ (void)saveOriginalImageToFile:(UIImage*)image;
++ (void)saveOriginalImageDataToFile:(NSData*)data;
++ (UIImage*)loadOriginalImageFromFile;
++ (NSURL*)originalImageUrl;
 
 @end

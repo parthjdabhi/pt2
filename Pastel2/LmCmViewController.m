@@ -148,6 +148,7 @@
 - (void)shootingDidCancel
 {
     _shutterButton.shooting = NO;
+    self.view.userInteractionEnabled = YES;
 }
 
 - (void)didShutterButtonTouchUpInside:(id)sender
@@ -214,6 +215,7 @@
             _self.cameraManager.processingToConvert = NO;
             [_self lastAssetDidLoad:asset];
             _self.shutterButton.shooting = NO;
+            _self.view.userInteractionEnabled = YES;
             [_self imageDidSave:asset];
         } failureBlock:^(NSError *error) {
             
@@ -247,43 +249,44 @@
     }
     self.isPresenting = YES;
     [self.cameraPreview blackOut:YES];
+    _state = LmCmViewControllerStatePresentedEditorController;
     [PtSharedApp instance].assetToProcess = self.lastAsset;
     __block __weak LmCmViewController* _self = self;
+    __block UIImage* _image = image;
     
     if ([PtSharedApp instance].useFullResolutionImage) {
-        dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        dispatch_async(q_global, ^{
-            @autoreleasepool {
-                [_self disableCamera];
-            }
-        });
-        [PtSharedApp instance].imageToProcess = image;
-        PtViewControllerEditor* con = [[PtViewControllerEditor alloc] init];
-        [self.navigationController pushViewController:con animated:YES];
-        _state = LmCmViewControllerStatePresentedEditorController;
-    }else{
-        __block UIImage* _image = image;
         dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         dispatch_queue_t q_main = dispatch_get_main_queue();
         dispatch_async(q_global, ^{
             @autoreleasepool {
                 [_self disableCamera];
-                if ([PtSharedApp instance].useFullResolutionImage == NO) {
-                    float length = MAX(_image.size.width, _image.size.height);
-                    if (length > 1920.0f) {
-                        float scale = _image.size.width / 1920.0f;
-                        if (_image.size.height > _image.size.width) {
-                            scale = image.size.height / 1920.0f;
-                        }
-                        _image = [_image resizedImage:CGSizeMake(_image.size.width / scale, _image.size.height / scale) interpolationQuality:kCGInterpolationHigh];
+                [PtSharedApp instance].imageToProcess = _image;
+            }
+            dispatch_async(q_main, ^{
+                PtViewControllerEditor* con = [[PtViewControllerEditor alloc] init];
+                [_self.navigationController pushViewController:con animated:YES];                
+            });
+        });
+    }else{
+        dispatch_queue_t q_global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        dispatch_queue_t q_main = dispatch_get_main_queue();
+        dispatch_async(q_global, ^{
+            @autoreleasepool {
+                [_self disableCamera];
+                float length = MAX(_image.size.width, _image.size.height);
+                if (length > 1920.0f) {
+                    float scale = _image.size.width / 1920.0f;
+                    if (_image.size.height > _image.size.width) {
+                        scale = image.size.height / 1920.0f;
                     }
+                    _image = [_image resizedImage:CGSizeMake(_image.size.width / scale, _image.size.height / scale) interpolationQuality:kCGInterpolationHigh];
                 }
+                
                 [PtSharedApp instance].imageToProcess = _image;
             }
             dispatch_async(q_main, ^{
                 PtViewControllerEditor* con = [[PtViewControllerEditor alloc] init];
                 [_self.navigationController pushViewController:con animated:YES];
-                _self.state = LmCmViewControllerStatePresentedEditorController;
             });
             
         });
@@ -310,10 +313,14 @@
     dispatch_queue_t q_main = dispatch_get_main_queue();
     dispatch_async(q_global, ^{
         @autoreleasepool {
-            ALAssetRepresentation *representation = [self.lastAsset defaultRepresentation];
-            image = [UIImage imageWithCGImage:[representation fullResolutionImage]
-                                               scale:[representation scale]
-                                         orientation:[representation orientation]];
+            ALAssetRepresentation *rep = [_self.lastAsset defaultRepresentation];
+            
+            Byte *buffer = (Byte*)malloc(rep.size);
+            NSUInteger buffered = [rep getBytes:buffer fromOffset:0.0 length:rep.size error:nil];
+            NSData *data = [NSData dataWithBytesNoCopy:buffer length:buffered freeWhenDone:YES];//this is NSData may be what you want
+            [PtSharedApp saveOriginalImageDataToFile:data];
+            image = [UIImage imageWithData:data];
+            
         }
         dispatch_async(q_main, ^{
             [PtSharedApp instance].assetToProcess = _self.lastAsset;
@@ -342,6 +349,13 @@
         if(_self.loadedImageFromPickerController){
             //_self.lastAsset = asset;
             [PtSharedApp instance].assetToProcess = asset;
+            ALAssetRepresentation *rep = [asset defaultRepresentation];
+            
+            Byte *buffer = (Byte*)malloc(rep.size);
+            NSUInteger buffered = [rep getBytes:buffer fromOffset:0.0 length:rep.size error:nil];
+            NSData *data = [NSData dataWithBytesNoCopy:buffer length:buffered freeWhenDone:YES];//this is NSData may be what you want
+            [PtSharedApp saveOriginalImageDataToFile:data];
+            
             //// Do your stuff
             [_self presentEditorViewControllerWithImage:_self.loadedImageFromPickerController];
         }

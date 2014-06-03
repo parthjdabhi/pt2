@@ -228,5 +228,42 @@ static PtSharedApp* sharedPtSharedApp = nil;
     [ud synchronize];
 }
 
+#pragma mark IO
+
++ (void)saveOriginalImageToFile:(UIImage *)image
+{
+    NSData *imageData = UIImageJPEGRepresentation(image, 0.99);
+    [self saveOriginalImageDataToFile:imageData];
+}
+
++ (void)saveOriginalImageDataToFile:(NSData *)data
+{
+    NSString *filePath = [NSHomeDirectory() stringByAppendingPathComponent:@"tmp/original_image"];
+    BOOL success = [data writeToFile:filePath atomically:YES];
+}
+
++ (UIImage *)loadOriginalImageFromFile
+{
+    
+    NSString *filePath = [NSHomeDirectory() stringByAppendingPathComponent:@"tmp/original_image"];
+    NSURL *fileURL = [NSURL fileURLWithPath:filePath];
+    NSFileManager *filemgr = [NSFileManager defaultManager];
+    
+    if( [filemgr fileExistsAtPath:filePath] ){
+        UIImage *img = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:fileURL]];
+        return img;
+    }
+    
+    return nil;
+
+}
+
++ (NSURL *)originalImageUrl
+{
+    NSString *filePath = [NSHomeDirectory() stringByAppendingPathComponent:@"tmp/original_image"];
+    NSURL *fileURL = [NSURL fileURLWithPath:filePath];
+    return fileURL;
+}
+
 
 @end

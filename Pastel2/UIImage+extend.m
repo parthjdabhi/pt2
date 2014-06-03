@@ -75,9 +75,8 @@
 
 #pragma mark resizing
 
-- (UIImage *)resizeImageAndConvertJpeg:(CGSize)size
++ (UIImage *)resizeImage:(UIImage*)image AndConvertJpeg:(CGSize)size
 {
-    
     size_t width = size.width;
     size_t height = size.height;
     size_t bitsPerComponent = 8;
@@ -91,7 +90,7 @@
     CGContextRef context = CGBitmapContextCreate(bytes, width, height, bitsPerComponent, bytesPerRow, colorSpace, bitmapInfo);
     CGContextSetBlendMode(context, kCGBlendModeCopy);
     CGContextSetInterpolationQuality(context, kCGInterpolationNone);
-    CGContextDrawImage(context, CGRectMake(0, 0, width, height), self.CGImage);
+    CGContextDrawImage(context, CGRectMake(0, 0, width, height), image.CGImage);
     
     CGContextRelease(context);
     
@@ -103,17 +102,17 @@
                                            bitsPerPixel,
                                            bytesPerRow,
                                            colorSpace,
-                                           kCGBitmapAlphaInfoMask | kCGImageAlphaPremultipliedFirst,
+                                           bitmapInfo,
                                            dataProvider,
                                            NULL,
                                            NO,
                                            kCGRenderingIntentDefault);
     NSData* data = UIImageJPEGRepresentation([UIImage imageWithCGImage:rasterImage], 0.99);
-    UIImage* resultImage = [UIImage imageWithData:data];
     CGDataProviderRelease(dataProvider);
     CGColorSpaceRelease(colorSpace);
     CGImageRelease(rasterImage);
     free(bytes);
+    UIImage* resultImage = [UIImage imageWithData:data];
     return resultImage;
 }
 
@@ -171,9 +170,10 @@
 
 #pragma mark low memory
 
-+ (UIImage *)resizedImageUrl:(NSURL *)url ToScale:(float)scale
++ (UIImage *)resizedImageUrl:(NSURL *)url ToSize:(CGSize)size
 {
     NSLog(@"%@", url);
+    float maxPixel = (size.width > size.height) ? size.width : size.height;
     CGImageSourceRef imageSource = CGImageSourceCreateWithURL((__bridge CFURLRef)url, NULL);
     if (!imageSource)
         return nil;
@@ -181,7 +181,7 @@
     CFDictionaryRef options = (__bridge CFDictionaryRef)[NSDictionary dictionaryWithObjectsAndKeys:
                                                 (id)kCFBooleanTrue, (id)kCGImageSourceCreateThumbnailWithTransform,
                                                 (id)kCFBooleanTrue, (id)kCGImageSourceCreateThumbnailFromImageIfAbsent,
-                                                (id)[NSNumber numberWithFloat:scale], (id)kCGImageSourceThumbnailMaxPixelSize,
+                                                (id)[NSNumber numberWithInt:(int)maxPixel], (id)kCGImageSourceThumbnailMaxPixelSize,
                                                 nil];
     CGImageRef imgRef = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, options);
     
@@ -191,6 +191,31 @@
     CFRelease(imageSource);
     
     return scaled;
+}
+
++ (UIImage *)cropImageUrl:(NSURL *)url ToRect:(CGRect)rect
+{
+    NSLog(@"%@", url);
+    CGImageSourceRef imageSource = CGImageSourceCreateWithURL((__bridge CFURLRef)url, NULL);
+    if (!imageSource)
+        return nil;
+    
+    CFDictionaryRef options = (__bridge CFDictionaryRef)[NSDictionary dictionaryWithObjectsAndKeys:
+                                                         (id)kCFBooleanTrue, (id)kCGImageSourceCreateThumbnailWithTransform,
+                                                         (id)kCFBooleanTrue, (id)kCGImageSourceCreateThumbnailFromImageIfAbsent,
+                                                         nil];
+    CGImageRef imgRef = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, options);
+    CGImageRef cropedRef = CGImageCreateWithImageInRect(imgRef, rect);
+    CGImageRelease(imgRef);
+    
+    UIImage* scaled = [UIImage imageWithCGImage:cropedRef];
+    NSData* data = UIImageJPEGRepresentation(scaled, 0.99);
+    UIImage* resultImage = [UIImage imageWithData:data];
+    
+    CGImageRelease(cropedRef);
+    CFRelease(imageSource);
+    
+    return resultImage;
 }
 
 // Returns an affine transform that takes into account the image orientation when drawing a scaled image

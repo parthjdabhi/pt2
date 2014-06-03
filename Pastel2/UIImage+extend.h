@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <ImageIO/ImageIO.h>
 
 @interface UIImage (extend)
 
@@ -18,12 +19,14 @@
 + (UIImage*)animatedGIFWithData:(NSData *)data;
 
 - (UIImage*)animatedImageByScalingAndCroppingToSize:(CGSize)size;
-+ (UIImage*)resizedImageUrl:(NSURL*)url ToScale:(float)scale;
++ (UIImage*)resizedImageUrl:(NSURL*)url ToSize:(CGSize)size;
++ (UIImage*)cropImageUrl:(NSURL*)url ToRect:(CGRect)rect;
+
 
 - (UIImage *)croppedImage:(CGRect)bounds;
 - (UIImage *)resizedImage:(CGSize)newSize
      interpolationQuality:(CGInterpolationQuality)quality;
-- (UIImage*)resizeImageAndConvertJpeg:(CGSize)size;
++ (UIImage*)resizeImage:(UIImage*)image AndConvertJpeg:(CGSize)size;
 - (UIImage *)resizedImageWithContentMode:(UIViewContentMode)contentMode
                                   bounds:(CGSize)bounds
                     interpolationQuality:(CGInterpolationQuality)quality;
