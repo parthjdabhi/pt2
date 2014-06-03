@@ -70,6 +70,7 @@
         @autoreleasepool {
             UIImage* image = [PtSharedApp instance].imageToProcess;
             CGSize size = CGSizeMake(_self.previewImageView.width * [[UIScreen mainScreen] scale], _self.previewImageView.height * [[UIScreen mainScreen] scale]);
+            LOG_RECT(_self.previewImageView.frame);
             //image = [image resizedImage:size interpolationQuality:kCGInterpolationHigh];
             image = [UIImage resizedImageUrl:[PtSharedApp originalImageUrl] ToSize:size];
             _self.previewImage = image;

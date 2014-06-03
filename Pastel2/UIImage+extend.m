@@ -173,27 +173,53 @@
 + (UIImage *)resizedImageUrl:(NSURL *)url ToSize:(CGSize)size
 {
     NSLog(@"%@", url);
-    float maxPixel = (size.width > size.height) ? size.width : size.height;
+    int maxPixel = (size.width > size.height) ? size.width : size.height;
     CGImageSourceRef imageSource = CGImageSourceCreateWithURL((__bridge CFURLRef)url, NULL);
     if (!imageSource)
         return nil;
     
+    CFDictionaryRef   myOptions = NULL;
+    CFStringRef       myKeys[4];
+    CFTypeRef         myValues[4];
+    CFNumberRef       thumbnailSize;
+    
+    thumbnailSize = CFNumberCreate(NULL, kCFNumberIntType, &maxPixel);
+    
+    // Set up the thumbnail options.
+    myKeys[0] = kCGImageSourceCreateThumbnailWithTransform;
+    myValues[0] = (CFTypeRef)kCFBooleanTrue;
+    myKeys[1] = kCGImageSourceCreateThumbnailFromImageAlways;
+    myValues[1] = (CFTypeRef)kCFBooleanTrue;
+    myKeys[2] = kCGImageSourceThumbnailMaxPixelSize;
+    myValues[2] = (CFTypeRef)thumbnailSize;
+
+    
+    
     CFDictionaryRef options = (__bridge CFDictionaryRef)[NSDictionary dictionaryWithObjectsAndKeys:
                                                 (id)kCFBooleanTrue, (id)kCGImageSourceCreateThumbnailWithTransform,
                                                 (id)kCFBooleanTrue, (id)kCGImageSourceCreateThumbnailFromImageIfAbsent,
-                                                (id)[NSNumber numberWithInt:(int)maxPixel], (id)kCGImageSourceThumbnailMaxPixelSize,
+                                                (id)[NSNumber numberWithFloat:maxPixel], (id)kCGImageSourceThumbnailMaxPixelSize,
                                                 nil];
-    CGImageRef imgRef = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, options);
+    
+    myOptions = CFDictionaryCreate(NULL, (const void **) myKeys,
+                                   (const void **) myValues, 3,
+                                   &kCFTypeDictionaryKeyCallBacks,
+                                   & kCFTypeDictionaryValueCallBacks);
+    
+    CGImageRef imgRef = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, myOptions);
     
     UIImage* scaled = [UIImage imageWithCGImage:imgRef];
     
     CGImageRelease(imgRef);
     CFRelease(imageSource);
+    CFRelease(thumbnailSize);
+    CFRelease(myOptions);
+    
     
     return scaled;
 }
 
-+ (UIImage *)cropImageUrl:(NSURL *)url ToRect:(CGRect)rect
++ (UIImage *)cropImageUrl:(NSURL *)url ToRect:(CGRect)rect MaxPixel:(float)size
 {
     NSLog(@"%@", url);
     CGImageSourceRef imageSource = CGImageSourceCreateWithURL((__bridge CFURLRef)url, NULL);
@@ -204,7 +230,7 @@
                                                          (id)kCFBooleanTrue, (id)kCGImageSourceCreateThumbnailWithTransform,
                                                          (id)kCFBooleanTrue, (id)kCGImageSourceCreateThumbnailFromImageIfAbsent,
                                                          nil];
-    CGImageRef imgRef = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, options);
+    CGImageRef imgRef = CGImageSourceCreateImageAtIndex(imageSource, 0, options);
     CGImageRef cropedRef = CGImageCreateWithImageInRect(imgRef, rect);
     CGImageRelease(imgRef);
     
@@ -543,7 +569,92 @@
     return image;
 }
 
++ (NSMutableArray *)splitImageIn9Parts:(NSURL *)url ImageSize:(CGSize)size
+{
+    float cropWidth = floor(size.width / 3.0f);
+    float cropHeight = floor(size.height / 3.0f);
+    
+    float width1 = cropWidth;
+    float width2 = cropWidth;
+    float width3 = size.width - width1 - width2;
+    float height1 = cropHeight;
+    float height2 = cropHeight;
+    float height3 = size.height - height1 - height2;
+    
+    NSMutableArray* array = [NSMutableArray array];
+    
+    //// 1
+    @autoreleasepool {
+        UIImage* piece = [self cropImageUrl:url ToRect:CGRectMake(0.0f, 0.0f, width1, height1) MaxPixel:(size.width > size.height) ? size.width : size.height];
+        [array addObject:piece];
+    }
+    return array;
+}
+
 + (NSMutableArray*)splitImageIn9Parts:(UIImage *)image
+{
+    float cropWidth = floor(image.size.width / 3.0f);
+    float cropHeight = floor(image.size.height / 3.0f);
+    
+    float width1 = cropWidth;
+    float width2 = cropWidth;
+    float width3 = image.size.width - width1 - width2;
+    float height1 = cropHeight;
+    float height2 = cropHeight;
+    float height3 = image.size.height - height1 - height2;
+    
+    NSMutableArray* array = [NSMutableArray array];
+    
+    //// 1
+    @autoreleasepool {
+        UIImage* piece = [image croppedImage:CGRectMake(0.0f, 0.0f, width1, height1)];
+        [array addObject:piece];
+    }
+    //// 2
+    @autoreleasepool {
+        UIImage* piece = [image croppedImage:CGRectMake(width1, 0.0f, width2, height1)];
+        [array addObject:piece];
+    }
+    //// 3
+    @autoreleasepool {
+        UIImage* piece = [image croppedImage:CGRectMake(width1 + width2, 0.0f, width3, height1)];
+        [array addObject:piece];
+    }
+    //// 4
+    @autoreleasepool {
+        UIImage* piece = [image croppedImage:CGRectMake(0.0f, height1, width1, height2)];
+        [array addObject:piece];
+    }
+    //// 5
+    @autoreleasepool {
+        UIImage* piece = [image croppedImage:CGRectMake(width1, height1, width2, height2)];
+        [array addObject:piece];
+    }
+    //// 6
+    @autoreleasepool {
+        UIImage* piece = [image croppedImage:CGRectMake(width1 + width2, height1, width3, height2)];
+        [array addObject:piece];
+    }
+    //// 7
+    @autoreleasepool {
+        UIImage* piece = [image croppedImage:CGRectMake(0.0f, height1 + height2, width1, height3)];
+        [array addObject:piece];
+    }
+    //// 8
+    @autoreleasepool {
+        UIImage* piece = [image croppedImage:CGRectMake(width1, height1 + height2, width2, height3)];
+        [array addObject:piece];
+    }
+    //// 9
+    @autoreleasepool {
+        UIImage* piece = [image croppedImage:CGRectMake(width1 + width2, height1 + height2, width3, height3)];
+        [array addObject:piece];
+    }
+    
+    return  array;
+}
+
++ (NSMutableArray*)_splitImageIn9Parts:(UIImage *)image
 {
     float cropWidth = floor(image.size.width / 3.0f);
     float cropHeight = floor(image.size.height / 3.0f);
@@ -703,6 +814,7 @@ static size_t align16(size_t size)
     colorSpace = NULL;
     UIImage* mergedImage = [UIImage imageWithCGImage:image scale:1.0f orientation:UIImageOrientationUp];
     NSData* data = UIImageJPEGRepresentation(mergedImage, 0.99);
+    [PtSharedApp saveOriginalImageDataToFile:data];
     UIImage* resultImage = [UIImage imageWithData:data];
     CGImageRelease(image);
     free(bytes);

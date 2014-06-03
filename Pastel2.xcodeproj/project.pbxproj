@@ -1031,6 +1031,7 @@
 			children = (
 				5819FA6B1938AF1B001826DF /* PtViewControllerFilters.h */,
 				5819FA6C1938AF1B001826DF /* PtViewControllerFilters.m */,
+				58B4A902193E27A4007B5D0C /* ImageManager */,
 				58002F2B193AE5E4008C9291 /* ViewManager */,
 				58341132193A39010042729D /* Config */,
 				58F5769D1939B81C00B43095 /* Views */,
@@ -1234,6 +1235,13 @@
 				588EADF419376E41005C486E /* VnEffectOverlaySunhazeRight.m */,
 			);
 			name = Overlay;
+			sourceTree = "<group>";
+		};
+		58B4A902193E27A4007B5D0C /* ImageManager */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = ImageManager;
 			sourceTree = "<group>";
 		};
 		58F5767E1939862D00B43095 /* Preview */ = {

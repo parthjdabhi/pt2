@@ -144,8 +144,9 @@ static PtFtSharedQueueManager* sharedPtFtSharedQueueManager = nil;
     if (self.startFilter == nil) {
         return;
     }
-    __block __weak PtViewControllerFilters* _con = self.delegate;
     dispatch_queue_t q_main = dispatch_get_main_queue();
+
+    __block __weak PtViewControllerFilters* _con = self.delegate;
     NSMutableArray* parts = self.delegate.originalImageParts;
     for (int i = 0; i < 9; i++) {
         @autoreleasepool {
@@ -159,7 +160,6 @@ static PtFtSharedQueueManager* sharedPtFtSharedQueueManager = nil;
         dispatch_async(q_main, ^{
             [_con.progressView setProgress:0.10f + _con.progressView.progress];
         });
-        [NSThread sleepForTimeInterval:10.0f];
     }
     self.startFilter = nil;
     self.endFilter = nil;

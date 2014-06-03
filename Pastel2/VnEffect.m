@@ -22,13 +22,12 @@
 
 + (UIImage*)processImage:(UIImage *)image WithStartFilter:(VnImageFilter *)startFilter EndFilter:(VnImageFilter *)endFilter
 {
-    @autoreleasepool {
-        GPUImagePicture* pic = [[GPUImagePicture alloc] initWithImage:image];
-        [pic addTarget:startFilter];
-        [pic processImage];
-        image = [endFilter imageFromCurrentlyProcessedOutput];
-        [pic removeAllTargets];
-    }
+    
+    GPUImagePicture* pic = [[GPUImagePicture alloc] initWithCGImage:image.CGImage smoothlyScaleOutput:NO];
+    [pic addTarget:startFilter];
+    [pic processImage];
+    image = [endFilter imageFromCurrentlyProcessedOutput];
+    [pic removeAllTargets];
     return image;
 }
 

@@ -20,7 +20,7 @@
 
 - (UIImage*)animatedImageByScalingAndCroppingToSize:(CGSize)size;
 + (UIImage*)resizedImageUrl:(NSURL*)url ToSize:(CGSize)size;
-+ (UIImage*)cropImageUrl:(NSURL*)url ToRect:(CGRect)rect;
++ (UIImage*)cropImageUrl:(NSURL*)url ToRect:(CGRect)rect MaxPixel:(float)size;
 
 
 - (UIImage *)croppedImage:(CGRect)bounds;
@@ -38,7 +38,10 @@
 + (UIImage *)fixOrientationOfImage:(UIImage *)image;
 + (NSMutableArray*)splitImageIn4Parts:(UIImage *)image;
 + (UIImage *)mergeSplitImage4:(NSMutableArray*)array WithSize:(CGSize)size;
+
++ (NSMutableArray*)splitImageIn9Parts:(NSURL*)url ImageSize:(CGSize)size;
 + (NSMutableArray*)splitImageIn9Parts:(UIImage *)image;
+
 + (UIImage *)mergeSplitImage9:(NSMutableArray*)array WithSize:(CGSize)size;
 
 @end
