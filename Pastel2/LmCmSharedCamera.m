@@ -69,7 +69,8 @@ static LmCmSharedCamera* sharedLmCurrentCamera = nil;
         {
             height = width / 2.0f;
             y = (image.size.height - height) / 2.0f;
-            return [image croppedImage:CGRectMake(roundf(x), roundf(y), roundf(width), roundf(height))];
+            UIImage* newImage = [UIImage croppedImage:image ToSize:CGRectMake(roundf(x), roundf(y), roundf(width), roundf(height))];
+            return newImage;
         }
             break;
         case LmCmViewCropSize16x9:
@@ -106,6 +107,9 @@ static LmCmSharedCamera* sharedLmCurrentCamera = nil;
 + (LmCmImageAsset *)fixRotationWithNoSoundImageAsset:(LmCmImageAsset *)asset
 {
     UIImage* image = asset.image;
+    image = [UIImage imageWithCGImage:image.CGImage scale:image.scale orientation:UIImageOrientationUp];
+    asset.image = image;
+    return asset;
     if (asset.frontCamera) {
         switch (asset.orientation) {
             case UIDeviceOrientationUnknown:
@@ -190,7 +194,79 @@ static LmCmSharedCamera* sharedLmCurrentCamera = nil;
     return asset;
 }
 
+static void bufferFree(void *info, const void *data, size_t size)
+{
+    free((void *)data);
+}
+static size_t align16(size_t size)
+{
+    if(size == 0)
+        return 0;
+    
+    return (((size - 1) >> 4) << 4) + 16;
+}
+
 + (UIImage*)rotateImage:(UIImage*)img angle:(int)angle
+{
+    CGSize size = img.size;
+    size_t width = size.width;
+    size_t height = size.height;
+    size_t bitsPerComponent = 8;
+    size_t bytesPerRow = align16(4 * width);
+    size_t bufferSize = bytesPerRow * height;
+    uint8_t *bytes = malloc(bufferSize);
+    CGBitmapInfo bitmapInfo = kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrderDefault;
+    
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    
+    CGContextRef context = CGBitmapContextCreate(bytes, width, height, bitsPerComponent, bytesPerRow, colorSpace, bitmapInfo);
+    CGContextClearRect(context, CGRectMake(0, 0, width, height));
+
+    
+    CGImageRef      imgRef = [img CGImage];
+    
+    switch (angle) {
+        case 90:
+            CGContextTranslateCTM(context, img.size.height, img.size.width);
+            CGContextScaleCTM(context, 1, -1);
+            CGContextRotateCTM(context, M_PI_2);
+            break;
+        case 180:
+            CGContextTranslateCTM(context, img.size.width, 0);
+            CGContextScaleCTM(context, 1, -1);
+            CGContextRotateCTM(context, -M_PI);
+            break;
+        case 270:
+            CGContextScaleCTM(context, 1, -1);
+            CGContextRotateCTM(context, -M_PI_2);
+            break;
+        default:
+            return img;
+            break;
+    }
+    
+    CGContextDrawImage(context, CGRectMake(0, 0, img.size.width, img.size.height), imgRef);
+    
+    
+    CGContextRelease(context);
+    context = NULL;
+    
+    CGDataProviderRef dataProvider = CGDataProviderCreateWithData(NULL, bytes, bufferSize, bufferFree);
+    size_t bitsPerPixel = 32;
+    CGImageRef image = CGImageCreate(width, height, bitsPerComponent, bitsPerPixel, bytesPerRow, colorSpace, bitmapInfo, dataProvider, NULL, NO, kCGRenderingIntentDefault);
+    CGDataProviderRelease(dataProvider);
+    dataProvider = NULL;
+    CGColorSpaceRelease(colorSpace);
+    colorSpace = NULL;
+    UIImage* mergedImage = [UIImage imageWithCGImage:image scale:1.0f orientation:UIImageOrientationUp];
+    CGImageRelease(image);
+    free(bytes);
+    return mergedImage;
+
+}
+
+
++ (UIImage*)_rotateImage:(UIImage*)img angle:(int)angle
 {
     CGImageRef      imgRef = [img CGImage];
     CGContextRef    context;

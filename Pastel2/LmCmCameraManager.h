@@ -29,8 +29,11 @@
 -(void)videoFrameUpdate:(CGImageRef)cgImage from:(LmCmCameraManager*)manager;
 - (void)singleImageNoSoundDidTakeWithAsset:(LmCmImageAsset*)lmAsset;
 - (void)singleImageByNormalCameraDidTakeWithAsset:(LmCmImageAsset*)lmAsset;
+- (void)singleImageDidTakeWithAsset:(LmCmImageAsset*)lmAsset;
 - (void)shootingDidCancel;
 @end
+
+@class LmCmViewController;
 
 //////////////////////////////////////////////////
 //      カメラマネージャクラス
@@ -54,12 +57,13 @@ AVCaptureSessionPresetiFrame1280x720
 -(id)init;                                              //  640x480
 -(id)initWithPreset:(NSString*)preset;
 
-@property(nonatomic, weak) UIViewController<CameraManagerDelegate>* delegate;
+@property(nonatomic, weak) LmCmViewController<CameraManagerDelegate>* delegate;
 
 @property (nonatomic, assign) BOOL processingToConvert;
 @property (nonatomic, assign) int currentCapturedNumber;
 @property (nonatomic, assign) int allCaptureNumber;
 @property (nonatomic, assign) BOOL isRunning;
+@property (nonatomic, strong) UIImage* unkoImage;
 
 - (void)addAssetToCache:(LmCmImageAsset*)asset;
 - (void)popCacheAndConvert;

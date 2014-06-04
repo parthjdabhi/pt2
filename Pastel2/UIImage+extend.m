@@ -19,6 +19,14 @@
     CGImageRelease(imageRef);
     return croppedImage;
 }
++ (UIImage *)croppedImage:(UIImage*)image ToSize:(CGRect)bounds {
+    CGFloat scale = MAX(image.scale, 1.0f);
+    CGRect scaledBounds = CGRectMake(bounds.origin.x * scale, bounds.origin.y * scale, bounds.size.width * scale, bounds.size.height * scale);
+    CGImageRef imageRef = CGImageCreateWithImageInRect(image.CGImage, scaledBounds);
+    UIImage *croppedImage = [UIImage imageWithCGImage:imageRef scale:image.scale orientation:UIImageOrientationUp];
+    CGImageRelease(imageRef);
+    return croppedImage;
+}
 
 // Returns a copy of this image that is squared to the thumbnail size.
 // If transparentBorder is non-zero, a transparent border of the given size will be added around the edges of the thumbnail. (Adding a transparent border of at least one pixel in size has the side-effect of antialiasing the edges of the image when rotating it using Core Animation.)

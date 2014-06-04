@@ -177,10 +177,12 @@
 - (void)singleImageNoSoundDidTakeWithAsset:(LmCmImageAsset *)lmAsset
 {
     [self performSelectorOnMainThread:@selector(flashScreen) withObject:nil waitUntilDone:NO];
-    if (lmAsset.image) {
-        lmAsset = [LmCmSharedCamera applyZoomToAsset:lmAsset];
-        lmAsset = [LmCmSharedCamera fixRotationWithNoSoundImageAsset:lmAsset];
-        lmAsset = [LmCmSharedCamera cropAsset:lmAsset];
+    @autoreleasepool {
+        if (lmAsset.image) {
+            lmAsset = [LmCmSharedCamera applyZoomToAsset:lmAsset];
+            lmAsset = [LmCmSharedCamera fixRotationWithNoSoundImageAsset:lmAsset];
+            lmAsset = [LmCmSharedCamera cropAsset:lmAsset];
+        }
     }
     [self singleImageDidTakeWithAsset:lmAsset];
 }
@@ -196,7 +198,10 @@
 
 - (void)singleImageDidTakeWithAsset:(LmCmImageAsset *)asset
 {
-    __block LmCmViewController* _self = self;
+    __block __weak LmCmViewController* _self = self;
+    
+    
+    NSLog(@"<ADDR>: %p", [[asset image] CGImage]);
     
     [self.assetLibrary writeImageToSavedPhotosAlbum:asset.image.CGImage orientation:ALAssetOrientationUp completionBlock:^(NSURL *assetURL, NSError *error) {
         if (error) {

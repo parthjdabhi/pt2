@@ -21,7 +21,7 @@
 - (UIImage*)animatedImageByScalingAndCroppingToSize:(CGSize)size;
 + (UIImage*)resizedImageUrl:(NSURL*)url ToSize:(CGSize)size;
 + (UIImage*)cropImageUrl:(NSURL*)url ToRect:(CGRect)rect MaxPixel:(float)size;
-
++ (UIImage *)croppedImage:(UIImage*)image ToSize:(CGRect)bounds;
 
 - (UIImage *)croppedImage:(CGRect)bounds;
 - (UIImage *)resizedImage:(CGSize)newSize
