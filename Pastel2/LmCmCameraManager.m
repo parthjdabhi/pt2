@@ -515,42 +515,9 @@
             LmCmImageAsset* asset = [[LmCmImageAsset alloc] init];
             //UIImage* captureImage = [UIImage imageWithCGImage:cgImage];
             
-            // イメージバッファの取得
-            CVImageBufferRef    buffer;
-            buffer = CMSampleBufferGetImageBuffer(sampleBuffer);
-            
-            // イメージバッファのロック
-            CVPixelBufferLockBaseAddress(buffer, 0);
-            // イメージバッファ情報の取得
-            uint8_t*    base;
-            size_t      width, height, bytesPerRow;
-            base = CVPixelBufferGetBaseAddress(buffer);
-            width = CVPixelBufferGetWidth(buffer);
-            height = CVPixelBufferGetHeight(buffer);
-            bytesPerRow = CVPixelBufferGetBytesPerRow(buffer);
-            
-            // ビットマップコンテキストの作成
-            CGColorSpaceRef colorSpace;
-            CGContextRef    cgContext;
-            colorSpace = CGColorSpaceCreateDeviceRGB();
-            cgContext = CGBitmapContextCreate(
-                                              base, width, height, 8, bytesPerRow, colorSpace,
-                                              kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst);
-            CGColorSpaceRelease(colorSpace);
-            
-            // 画像の作成
-            CGImageRef  cgImage;
-            UIImage*    image;
-            cgImage = CGBitmapContextCreateImage(cgContext);
-            image = [UIImage imageWithCGImage:cgImage scale:1.0f orientation:UIImageOrientationUp];
-            CGImageRelease(cgImage);
-            CGContextRelease(cgContext);
-            
-            NSLog(@"<ADDR>: %p", cgImage);
-            
-            // イメージバッファのアンロック
-            CVPixelBufferUnlockBaseAddress(buffer, 0);
-            asset.image = image;
+            CGImageRef imageRef = [LmCmCameraManager imageFromSampleBuffer:sampleBuffer];
+            UIImage* captureImage = [UIImage imageWithCGImage:imageRef];
+            CGImageRelease(imageRef);
             
             
             asset.zoom = camera.zoom;
@@ -558,18 +525,9 @@
             asset.frontCamera = [self isUsingFrontCamera];
             asset.orientation = [MotionOrientation sharedInstance].deviceOrientation;
             asset.originalSize = asset.image.size;
-            //asset.image = captureImage;
+            asset.image = captureImage;
             
-            if (asset.image) {
-                asset = [LmCmSharedCamera applyZoomToAsset:asset];
-                asset = [LmCmSharedCamera fixRotationWithNoSoundImageAsset:asset];
-                asset = [LmCmSharedCamera cropAsset:asset];
-            }
-            [self.delegate.assetLibrary writeImageToSavedPhotosAlbum:asset.image.CGImage orientation:ALAssetOrientationUp completionBlock:^(NSURL *assetURL, NSError *error) {
-                if (error) {
-                    return;
-                }
-            }];
+            [self.delegate performSelectorOnMainThread:@selector(singleImageNoSoundDidTakeWithAsset:) withObject:asset waitUntilDone:NO];
             return;
             
             
@@ -742,38 +700,25 @@
 //////////////////////////////////////////////////////
 + (CGImageRef) imageFromSampleBuffer:(CMSampleBufferRef) sampleBuffer
 {
+    
     CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
     CVPixelBufferLockBaseAddress(imageBuffer,0);        //      バッファをロック
     
     uint8_t *baseAddress = (uint8_t *)CVPixelBufferGetBaseAddressOfPlane(imageBuffer, 0);
     size_t bytesPerRow = CVPixelBufferGetBytesPerRow(imageBuffer);
-    size_t bitsPerComponent = 8;
     size_t width = CVPixelBufferGetWidth(imageBuffer);
     size_t height = CVPixelBufferGetHeight(imageBuffer);
-    size_t bufferSize = bytesPerRow * height;
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGBitmapInfo bitmapInfo = kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrderDefault | kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst;
     
     CGContextRef newContext = CGBitmapContextCreate(baseAddress, width, height, 8, bytesPerRow, colorSpace, kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst);
-    
-    CGDataProviderRef dataProvider = CGDataProviderCreateWithData(NULL, baseAddress, bufferSize, NULL);
-    size_t bitsPerPixel = 32;
-    CGImageRef image = CGImageCreate(width, height, bitsPerComponent, bitsPerPixel, bytesPerRow, colorSpace, bitmapInfo, dataProvider, NULL, NO, kCGRenderingIntentDefault);
-    CGDataProviderRelease(dataProvider);
-    dataProvider = NULL;
-    CGColorSpaceRelease(colorSpace);
-    colorSpace = NULL;
-    CVPixelBufferUnlockBaseAddress(imageBuffer,0);      //      バッファをアンロック
-    return image;
-
-    /*
     CGImageRef newImage = CGBitmapContextCreateImage(newContext);
     CGContextRelease(newContext);
     
     CGColorSpaceRelease(colorSpace);
     CVPixelBufferUnlockBaseAddress(imageBuffer,0);      //      バッファをアンロック
+    
     return newImage;
-     */
+
 }
 
 static void bufferFree(void *info, const void *data, size_t size)
@@ -783,42 +728,97 @@ static void bufferFree(void *info, const void *data, size_t size)
 
 + (UIImage*) UIImageFromSampleBuffer:(CMSampleBufferRef) sampleBuffer
 {
-    // イメージバッファの取得
-    CVImageBufferRef    buffer;
-    buffer = CMSampleBufferGetImageBuffer(sampleBuffer);
-    
-    // イメージバッファのロック
-    CVPixelBufferLockBaseAddress(buffer, 0);
-    // イメージバッファ情報の取得
-    uint8_t*    base;
-    size_t      width, height, bytesPerRow;
-    base = CVPixelBufferGetBaseAddress(buffer);
-    width = CVPixelBufferGetWidth(buffer);
-    height = CVPixelBufferGetHeight(buffer);
-    bytesPerRow = CVPixelBufferGetBytesPerRow(buffer);
-    
-    // ビットマップコンテキストの作成
-    CGColorSpaceRef colorSpace;
-    CGContextRef    cgContext;
-    colorSpace = CGColorSpaceCreateDeviceRGB();
-    cgContext = CGBitmapContextCreate(
-                                      base, width, height, 8, bytesPerRow, colorSpace,
-                                      kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst);
-    CGColorSpaceRelease(colorSpace);
-    
-    // 画像の作成
-    CGImageRef  cgImage;
-    UIImage*    image;
-    cgImage = CGBitmapContextCreateImage(cgContext);
-    image = [UIImage imageWithCGImage:cgImage scale:1.0f orientation:UIImageOrientationUp];
-    CGImageRelease(cgImage);
-    CGContextRelease(cgContext);
-    
-    NSLog(@"<ADDR>: %p", cgImage);
-    
-    // イメージバッファのアンロック
-    CVPixelBufferUnlockBaseAddress(buffer, 0);
-    return image;
+    @autoreleasepool {
+        
+        
+        // イメージバッファの取得
+        CVImageBufferRef    buffer;
+        buffer = CMSampleBufferGetImageBuffer(sampleBuffer);
+        
+        // イメージバッファのロック
+        CVPixelBufferLockBaseAddress(buffer, 0);
+        // イメージバッファ情報の取得
+        uint8_t*    base;
+        size_t      width, height, bytesPerRow;
+        base = CVPixelBufferGetBaseAddress(buffer);
+        width = CVPixelBufferGetWidth(buffer);
+        height = CVPixelBufferGetHeight(buffer);
+        bytesPerRow = CVPixelBufferGetBytesPerRow(buffer);
+        size_t bufferSize = bytesPerRow * height;
+        CGBitmapInfo bitmapInfo = kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst;
+        
+
+        CGDataProviderRef dataProvider = CGDataProviderCreateWithData(NULL, base, bufferSize, nil);
+        
+        CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+        size_t bitsPerPixel = 32;
+        CGImageRef imageRef = CGImageCreate(width, height, 8, bitsPerPixel, bytesPerRow, colorSpace, bitmapInfo, dataProvider, NULL, NO, kCGRenderingIntentDefault);
+        CGDataProviderRelease(dataProvider);
+        UIImage* image = [UIImage imageWithCGImage:imageRef];
+        [PtSharedApp saveOriginalImageToFile:image];
+        
+        CGDataProviderRelease(dataProvider);
+        CGColorSpaceRelease(colorSpace);
+        
+        // イメージバッファのアンロック
+        CVPixelBufferUnlockBaseAddress(buffer, 0);
+        return nil;
+    }
 }
 
++ (UIImage*)rotateImage:(UIImage*)img angle:(int)angle
+{
+    switch (angle) {
+        case 90:
+            img = [UIImage imageWithCGImage:img.CGImage scale:img.scale orientation:UIImageOrientationUp];
+            break;
+        case 180:
+            img = [UIImage imageWithCGImage:img.CGImage scale:img.scale orientation:UIImageOrientationRight];
+            break;
+        case 270:
+            img = [UIImage imageWithCGImage:img.CGImage scale:img.scale orientation:UIImageOrientationDown];
+            break;
+            
+        default:
+            break;
+    }
+    
+    return img;
+    
+    
+    
+    CGImageRef      imgRef = [img CGImage];
+    CGContextRef    context;
+    
+    switch (angle) {
+        case 90:
+            UIGraphicsBeginImageContextWithOptions(CGSizeMake(img.size.height, img.size.width), YES, img.scale);
+            context = UIGraphicsGetCurrentContext();
+            CGContextTranslateCTM(context, img.size.height, img.size.width);
+            CGContextScaleCTM(context, 1, -1);
+            CGContextRotateCTM(context, M_PI_2);
+            break;
+        case 180:
+            UIGraphicsBeginImageContextWithOptions(CGSizeMake(img.size.width, img.size.height), YES, img.scale);
+            context = UIGraphicsGetCurrentContext();
+            CGContextTranslateCTM(context, img.size.width, 0);
+            CGContextScaleCTM(context, 1, -1);
+            CGContextRotateCTM(context, -M_PI);
+            break;
+        case 270:
+            UIGraphicsBeginImageContextWithOptions(CGSizeMake(img.size.height, img.size.width), YES, img.scale);
+            context = UIGraphicsGetCurrentContext();
+            CGContextScaleCTM(context, 1, -1);
+            CGContextRotateCTM(context, -M_PI_2);
+            break;
+        default:
+            return img;
+            break;
+    }
+    
+    CGContextDrawImage(context, CGRectMake(0, 0, img.size.width, img.size.height), imgRef);
+    UIImage*    result = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return result;
+}
 @end

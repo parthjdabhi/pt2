@@ -27,6 +27,7 @@
     self.cameraManager.delegate = self;
     [self.cameraManager setPreview:self.cameraPreview];
     self.isCameraInitializing = NO;
+    self.view.userInteractionEnabled = YES;
     return;
     
     __block __weak LmCmViewController* _self = self;
@@ -177,13 +178,77 @@
 - (void)singleImageNoSoundDidTakeWithAsset:(LmCmImageAsset *)lmAsset
 {
     [self performSelectorOnMainThread:@selector(flashScreen) withObject:nil waitUntilDone:NO];
+    UIImage* image = lmAsset.image;
     @autoreleasepool {
-        if (lmAsset.image) {
-            lmAsset = [LmCmSharedCamera applyZoomToAsset:lmAsset];
-            lmAsset = [LmCmSharedCamera fixRotationWithNoSoundImageAsset:lmAsset];
-            lmAsset = [LmCmSharedCamera cropAsset:lmAsset];
+        float zoom = [LmCmSharedCamera instance].zoom;
+        if (zoom != 1.0f) {
+            float width = roundf(image.size.width / zoom);
+            float height = roundf(image.size.height / zoom);
+            float afterWidth = image.size.width;
+            float afterHeight = image.size.height;
+            float length = MAX(width, height);
+            if (length < 1920.0f) {
+                afterWidth = roundf(afterWidth / 2.0f);
+                afterHeight = roundf(afterHeight / 2.0f);
+            }
+            float x = roundf((image.size.width - width) / 2.0f);
+            float y = roundf((image.size.height - height) / 2.0f);
+            @autoreleasepool {
+                image = [image croppedImage:CGRectMake(x, y, width, height)];
+                if (afterWidth < image.size.width) {
+                    image = [image resizedImage:CGSizeMake(afterWidth, afterHeight) interpolationQuality:kCGInterpolationHigh];
+                }
+            }
         }
     }
+    @autoreleasepool {
+        if (lmAsset.frontCamera) {
+            switch (lmAsset.orientation) {
+                case UIDeviceOrientationUnknown:
+                    break;
+                case UIDeviceOrientationPortraitUpsideDown:
+                    image = [LmCmCameraManager rotateImage:image angle:90];
+                    break;
+                case UIDeviceOrientationPortrait:
+                    image = [LmCmCameraManager rotateImage:image angle:270];
+                    break;
+                case UIDeviceOrientationLandscapeLeft:
+                    image = [LmCmCameraManager rotateImage:image angle:180];
+                    break;
+                case UIDeviceOrientationLandscapeRight:
+                    break;
+                case UIDeviceOrientationFaceUp:
+                    break;
+                case UIDeviceOrientationFaceDown:
+                    break;
+                default:
+                    break;
+            }
+        }else{
+            switch (lmAsset.orientation) {
+                case UIDeviceOrientationUnknown:
+                    break;
+                case UIDeviceOrientationPortraitUpsideDown:
+                    image = [LmCmCameraManager rotateImage:image angle:90];
+                    break;
+                case UIDeviceOrientationPortrait:
+                    image = [LmCmCameraManager rotateImage:image angle:270];
+                    break;
+                case UIDeviceOrientationLandscapeLeft:
+                    break;
+                case UIDeviceOrientationLandscapeRight:
+                    image = [LmCmCameraManager rotateImage:image angle:180];
+                    break;
+                case UIDeviceOrientationFaceUp:
+                    break;
+                case UIDeviceOrientationFaceDown:
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+    lmAsset.image = image;
     [self singleImageDidTakeWithAsset:lmAsset];
 }
 
@@ -198,34 +263,36 @@
 
 - (void)singleImageDidTakeWithAsset:(LmCmImageAsset *)asset
 {
-    __block __weak LmCmViewController* _self = self;
-    
-    
-    NSLog(@"<ADDR>: %p", [[asset image] CGImage]);
-    
-    [self.assetLibrary writeImageToSavedPhotosAlbum:asset.image.CGImage orientation:ALAssetOrientationUp completionBlock:^(NSURL *assetURL, NSError *error) {
-        if (error) {
-            LOG(@"%@", error);
-            switch (error.code) {
-                case -3311:
-                    [self showAlertViewWithTitle:NSLocalizedString(@"Error", nil) Message:NSLocalizedString(@"no_access_to_your_photos", nil)];
-                    break;
-                default:
-                    [self showAlertViewWithTitle:NSLocalizedString(@"Error", nil) Message:NSLocalizedString(@"Couldn't save your photo", nil)];
-                    break;
-            };
-            return;
-        }
-        [_self.assetLibrary assetForURL:assetURL resultBlock:^(ALAsset *asset) {
-            _self.cameraManager.processingToConvert = NO;
-            [_self lastAssetDidLoad:asset];
-            _self.shutterButton.shooting = NO;
-            _self.view.userInteractionEnabled = YES;
-            [_self imageDidSave:asset];
-        } failureBlock:^(NSError *error) {
-            
+    @autoreleasepool {
+        
+        __block __weak LmCmViewController* _self = self;
+        
+        //asset.image = nil;
+        
+        [self.assetLibrary writeImageToSavedPhotosAlbum:asset.image.CGImage orientation:ALAssetOrientationUp completionBlock:^(NSURL *assetURL, NSError *error) {
+            if (error) {
+                LOG(@"%@", error);
+                switch (error.code) {
+                    case -3311:
+                        [self showAlertViewWithTitle:NSLocalizedString(@"Error", nil) Message:NSLocalizedString(@"no_access_to_your_photos", nil)];
+                        break;
+                    default:
+                        [self showAlertViewWithTitle:NSLocalizedString(@"Error", nil) Message:NSLocalizedString(@"Couldn't save your photo", nil)];
+                        break;
+                };
+                return;
+            }
+            [_self.assetLibrary assetForURL:assetURL resultBlock:^(ALAsset *asset) {
+                _self.cameraManager.processingToConvert = NO;
+                [_self lastAssetDidLoad:asset];
+                _self.shutterButton.shooting = NO;
+                _self.view.userInteractionEnabled = YES;
+                [_self imageDidSave:asset];
+            } failureBlock:^(NSError *error) {
+                
+            }];
         }];
-    }];
+    }
 }
 
 - (void)imageDidSave:(ALAsset *)alAsset

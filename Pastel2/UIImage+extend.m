@@ -15,7 +15,7 @@
     CGFloat scale = MAX(self.scale, 1.0f);
     CGRect scaledBounds = CGRectMake(bounds.origin.x * scale, bounds.origin.y * scale, bounds.size.width * scale, bounds.size.height * scale);
     CGImageRef imageRef = CGImageCreateWithImageInRect([self CGImage], scaledBounds);
-    UIImage *croppedImage = [UIImage imageWithCGImage:imageRef scale:self.scale orientation:UIImageOrientationUp];
+    UIImage *croppedImage = [UIImage imageWithCGImage:imageRef scale:self.scale orientation:self.imageOrientation];
     CGImageRelease(imageRef);
     return croppedImage;
 }
@@ -167,13 +167,12 @@
     // Get the resized image from the context and a UIImage
     CGImageRef newImageRef = CGBitmapContextCreateImage(bitmap);
     UIImage *newImage = [UIImage imageWithCGImage:newImageRef scale:self.scale orientation:UIImageOrientationUp];
-    NSData* data = UIImageJPEGRepresentation(newImage, 0.99f);
-    UIImage* resultImage = [UIImage imageWithData:data];
+    
     // Clean up
     CGContextRelease(bitmap);
     CGImageRelease(newImageRef);
     
-    return resultImage;
+    return newImage;
 }
 
 #pragma mark low memory
@@ -887,15 +886,6 @@ static size_t align16(size_t size)
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return image;
-}
-
-
-- (void)dealloc
-{
-    LOG(@"UIimage dealloc.");
-
-        //LOG(@"UIImage dealloc: %fx%f", self.size.width, self.size.height);
-    
 }
 
 @end

@@ -131,7 +131,7 @@ static PtFtSharedQueueManager* sharedPtFtSharedQueueManager = nil;
     dispatch_async(q_main, ^{
         [_con.progressView setProgress:0.90f];
     });
-    if (self.startFilter&&self.endFilter) {
+    if (self.startFilter && self.endFilter) {
         queue.image = [VnEffect processImage:queue.image WithStartFilter:self.startFilter EndFilter:self.endFilter];
     }
     self.startFilter = nil;

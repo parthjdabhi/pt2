@@ -22,7 +22,6 @@
 
 + (UIImage*)processImage:(UIImage *)image WithStartFilter:(VnImageFilter *)startFilter EndFilter:(VnImageFilter *)endFilter
 {
-    
     GPUImagePicture* pic = [[GPUImagePicture alloc] initWithCGImage:image.CGImage smoothlyScaleOutput:NO];
     [pic addTarget:startFilter];
     [pic processImage];
